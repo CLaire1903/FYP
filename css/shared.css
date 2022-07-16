@@ -1,0 +1,56 @@
+html, body {
+    font-family: cursive;
+}
+
+nav, #footer {
+    background-color: #ffeaea;
+}
+
+.storeLogo img {
+    width: 250px;
+    height: 100px;
+} 
+
+.navContent {
+    background-color:#f7c2c2;
+}
+
+.navIcon img {
+    width: 25px;
+    height: 25px;
+}
+
+.word {
+    color: black;
+}
+
+.word:hover {
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.footerDetail {
+    color: black;
+    border-bottom-style: solid;
+    border-bottom-color: #ff7474;
+}
+
+.quickLink {
+    color: black;
+}
+
+.quickLink:hover {
+    color: #ff7474;
+}
+
+.iconLink img {
+    width: 50px;
+    height: 50px;
+}
+
+.actionBtn{
+    background-color: #f7A8AE;
+    width: 200px;
+    border: none;
+}

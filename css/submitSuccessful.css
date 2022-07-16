@@ -1,0 +1,17 @@
+#logo img {
+    width: 450px;
+    height: 150px;
+}
+.submitSuccessful {
+    height:100%;
+    width:100%;
+    position:fixed;
+    background-color: #ffeaea; 
+    background-size: contain; 
+}
+.backBtn{
+    background-color: white;
+}
+#update {
+    color: #ff7474;
+}

@@ -74,8 +74,8 @@ if (!isset($_SESSION["cus_username"])) {
                     echo "<th class='col-3 col-md-2 text-center'>Total Price</th>";
                     echo "</thead>";
 
-                    while ($orderDetail_row = $orderDetail_stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tbody>";
+                    echo "<tbody>";
+                        while ($orderDetail_row = $orderDetail_stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo "<tr>";
                             echo "<td>";
                             echo "<div class='d-flex'>";
@@ -95,8 +95,8 @@ if (!isset($_SESSION["cus_username"])) {
                             $productTotalAmount = sprintf('%.2f', $orderDetail_row['product_totalamount']);
                             echo "<td class='text-end'>RM $productTotalAmount</td>";
                             echo "</tr>";
-                        echo "</tbody>";
-                    }
+                        }
+                    echo "</tbody>";
                     echo "<tfoot>";
                         echo "<tr>";
                         echo "<td colspan='3' class='text-end'>The total amount is:</td>";

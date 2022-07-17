@@ -54,3 +54,8 @@ nav, #footer {
     width: 200px;
     border: none;
 }
+
+.actionBtn:hover {
+    background-color: #f7A8AE;
+    font-weight: bold;
+}

@@ -46,30 +46,32 @@ if (!isset($_SESSION["cus_username"])) {
 
         <div class="m-3">
             <table class='table table-hover table-responsive table-bordered'>
-                <tr>
-                    <td class="title col-4">Username</td>
-                    <td><?php echo htmlspecialchars($cus_username, ENT_QUOTES);  ?></td>
-                </tr>
-                <tr>
-                    <td>First Name</td>
-                    <td><?php echo htmlspecialchars($cus_fname, ENT_QUOTES);  ?></td>
-                </tr>
-                <tr>
-                    <td>Last Name</td>
-                    <td><?php echo htmlspecialchars($cus_lname, ENT_QUOTES);  ?></td>
-                </tr>
-                <tr>
-                    <td>Address</td>
-                    <td><?php echo htmlspecialchars($cus_address, ENT_QUOTES);  ?></td>
-                </tr>
-                <tr>
-                    <td>Gender</td>
-                    <td><?php echo htmlspecialchars($cus_gender, ENT_QUOTES);  ?></td>
-                </tr>
-                <tr>
-                    <td>Date Of Birth</td>
-                    <td><?php echo htmlspecialchars($cus_bday, ENT_QUOTES);  ?></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th class="title col-4">Username</th>
+                        <td><?php echo htmlspecialchars($cus_username, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>First Name</th>
+                        <td><?php echo htmlspecialchars($cus_fname, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td><?php echo htmlspecialchars($cus_lname, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td><?php echo htmlspecialchars($cus_address, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td><?php echo htmlspecialchars($cus_gender, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Date Of Birth</th>
+                        <td><?php echo htmlspecialchars($cus_bday, ENT_QUOTES);  ?></td>
+                    </tr>
+                </thead>
             </table>
         </div>
 
@@ -77,41 +79,45 @@ if (!isset($_SESSION["cus_username"])) {
             <h1 class="m-3">Order History</h1>
             <div class="m-3">
                 <table class='table table-hover table-responsive table-bordered text-center'>
-                    <tr class="tableHeader">
-                        <th>Order ID</th>
-                        <th>Order Date and Time</th>
-                        <th>Total Amount</th>
-                        <th>Paid Deposit</th>
-                        <th>Order Status</th>
-                    </tr>
-                    <?php
-                    $orderHistoryQuery = "SELECT * FROM orders WHERE cus_username = :cus_username ORDER BY order_id DESC ";
-                    $orderHistoryStmt = $con->prepare($orderHistoryQuery);
-                    $orderHistoryStmt->bindParam(":cus_username", $_SESSION['cus_username']);
-                    $orderHistoryStmt->execute();
-                    while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {
-                        $order_id = $orderHistoryRow['order_id'];
-                        $order_datentime = $orderHistoryRow['order_datentime'];
-                        $cus_username = $orderHistoryRow['cus_username'];
-                        $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
-                        $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
-                        $order_status = ucwords($orderHistoryRow['order_status']);
-                        echo "<tr>";
-                        echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
-                        echo "<td>{$order_datentime}</td>";
-                        echo "<td>RM {$order_totalamount}</td>";
-                        echo "<td>RM {$order_depositpaid}</td>";
-                        echo "<td>{$order_status}</td>";
-                        echo "</tr>";
-                    }
-                    ?>
+                    <thead>
+                        <tr class="tableHeader">
+                            <th>Order ID</th>
+                            <th>Order Date and Time</th>
+                            <th>Total Amount</th>
+                            <th>Paid Deposit</th>
+                            <th>Order Status</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <?php
+                            $orderHistoryQuery = "SELECT * FROM orders WHERE cus_username = :cus_username ORDER BY order_id DESC ";
+                            $orderHistoryStmt = $con->prepare($orderHistoryQuery);
+                            $orderHistoryStmt->bindParam(":cus_username", $_SESSION['cus_username']);
+                            $orderHistoryStmt->execute();
+                            while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {
+                                $order_id = $orderHistoryRow['order_id'];
+                                $order_datentime = $orderHistoryRow['order_datentime'];
+                                $cus_username = $orderHistoryRow['cus_username'];
+                                $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
+                                $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
+                                $order_status = ucwords($orderHistoryRow['order_status']);
+                                echo "<tr>";
+                                echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
+                                echo "<td>{$order_datentime}</td>";
+                                echo "<td>RM {$order_totalamount}</td>";
+                                echo "<td>RM {$order_depositpaid}</td>";
+                                echo "<td>{$order_status}</td>";
+                                echo "</tr>";
+                            }
+                        ?>
+                    </tfoot>
                 </table>
             </div>
         </div>
         
         <div class="d-flex justify-content-center">
             <?php
-            echo "<a href='customer_updateProfile.php?cus_username={$cus_username}' class='actionBtn updateBtn btn mx-2 mt-3'>Update Profile</a>";
+            echo "<a href='customer_updateProfile.php?cus_username={$cus_username}' class='actionBtn btn mx-2 mt-3'>Update Profile</a>";
             ?>
         </div>
         <div class="footer bg-dark">

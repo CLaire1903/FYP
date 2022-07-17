@@ -75,6 +75,37 @@ if (!isset($_SESSION["cus_username"])) {
 
         <div>
             <h1 class="m-3">Order History</h1>
+            <div class="m-3">
+                <table class='table table-hover table-responsive table-bordered text-center'>
+                    <tr class="tableHeader">
+                        <th>Order ID</th>
+                        <th>Order Date and Time</th>
+                        <th>Total Amount</th>
+                        <th>Paid Deposit</th>
+                        <th>Order Status</th>
+                    </tr>
+                    <?php
+                    $orderHistoryQuery = "SELECT * FROM orders WHERE cus_username = :cus_username ORDER BY order_id DESC ";
+                    $orderHistoryStmt = $con->prepare($orderHistoryQuery);
+                    $orderHistoryStmt->bindParam(":cus_username", $_SESSION['cus_username']);
+                    $orderHistoryStmt->execute();
+                    $orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC);
+                    $order_id = $orderHistoryRow['order_id'];
+                    $order_datentime = $orderHistoryRow['order_datentime'];
+                    $cus_username = $orderHistoryRow['cus_username'];
+                    $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
+                    $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
+                    $order_status = ucwords($orderHistoryRow['order_status']);
+                    echo "<tr>";
+                    echo "<td>{$order_id}</td>";
+                    echo "<td>{$order_datentime}</td>";
+                    echo "<td>RM {$order_totalamount}</td>";
+                    echo "<td>RM {$order_depositpaid}</td>";
+                    echo "<td>{$order_status}</td>";
+                    echo "</tr>";
+                    ?>
+                </table>
+            </div>
         </div>
         
         <div class="d-flex justify-content-center">

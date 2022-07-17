@@ -43,19 +43,28 @@
         </div>
         <div class="mostPopular">
             <h1 class="text-center mt-5">MOST POPULAR</h1>
-            <div class="newArrrivalItems d-flex flex-wrap justify-content-around">
+            <div class="mostPopularItems d-flex flex-wrap justify-content-around">
                 <?php
-                    /*while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        extract($row);
-                        echo "<div class='productDisplay card col-3 d-flex flex-column justify-content-center my-3 ms-3'>";
-                            $product_image = $row['product_image'];
+                    $mostPopularQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, SUM( od.order_quantity ) AS totalOrderedQuantity
+                    FROM orderdetail od
+                    INNER JOIN product p
+                    WHERE od.product_id = p.product_id
+                    GROUP BY od.product_id
+                    ORDER BY totalOrderedQuantity DESC
+                    LIMIT 6";
+                    $mostPopularStmt = $con->prepare($mostPopularQuery);
+                    $mostPopularStmt->execute();
+                    while ($mostPopularRow = $mostPopularStmt->fetch(PDO::FETCH_ASSOC)) {
+                        extract($mostPopularRow);
+                        echo "<div class='productDisplay card col-10 col-md-5 col-lg-3 d-flex flex-column justify-content-center my-3 ms-3'>";
+                            $product_image = $mostPopularRow['product_image'];
                             echo "<a href='product_detail.php?product_id={$product_id}'><img src='$product_image' class='productImage d-flex justify-content-center'></a>";
                             echo "<a href='#' class='productDetailName text-center text-decoration-none'>$product_name</a>";
-                            $product_price = sprintf('%.2f', $row['product_price']);
+                            $product_price = sprintf('%.2f', $mostPopularRow['product_price']);
                             echo "<a href='#' class='productDetailPrice text-center text-decoration-none pb-3'>RM $product_price</a>";
                         echo "</div>";
                     }
-                */?>
+                ?>
                 </div>
             </div>
         </div>

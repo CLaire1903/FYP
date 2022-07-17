@@ -1,0 +1,9 @@
+.orderDetail {
+    color: black;
+    text-decoration: none;
+}
+
+.orderDetail:hover {
+    color: #ff7474;
+    text-decoration: underline;
+}

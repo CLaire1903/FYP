@@ -44,23 +44,23 @@
             }
             if ($_POST) {
                 try {
-                    $cus_username = strtolower($_POST['cus_username']);
-                    $query = "SELECT * FROM customer WHERE cus_username= :cus_username";
+                    $cus_email = $_POST['cus_email'];
+                    $query = "SELECT * FROM customer WHERE cus_email= :cus_email";
                     $stmt = $con->prepare($query);
                     $cus_pword = $_POST['cus_pword'];
-                    $stmt->bindParam(':cus_username', $cus_username);
+                    $stmt->bindParam(':cus_email', $cus_email);
                     $stmt->execute();
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    if (empty($_POST['cus_username']) || empty($_POST['cus_pword'])) {
+                    if (empty($_POST['cus_email']) || empty($_POST['cus_pword'])) {
                         throw new Exception("Make sure all fields are not empty");
                     }
-                    if ($row['cus_username'] != $cus_username) {
-                        throw new Exception("Username does not exist!");
+                    if ($row['cus_email'] != $cus_email) {
+                        throw new Exception("Email does not exist!");
                     }
                     if ($row['cus_pword'] != $cus_pword) {
                         throw new exception("Password incorrect!");
                     }
-                    $_SESSION['cus_username'] = $row['cus_username'];
+                    $_SESSION['cus_email'] = $row['cus_email'];
                     header("Location: index.php");
                 } catch (PDOException $exception) {
                     //for database 'PDO'
@@ -80,8 +80,8 @@
                     if (isset($errorMessage)) { ?>
                         <div class='alert alert-danger m-2'><?php echo $errorMessage ?></div>
                     <?php } ?>
-                    <div class="username mt-3 input-group-lg">
-                        <input type="text" class="form-control" id="cus_username" name="cus_username" placeholder="Username" value="<?php echo (isset($_POST['cus_username'])) ? $_POST['cus_username'] : ''; ?>">
+                    <div class="email mt-3 input-group-lg">
+                        <input type="text" class="form-control" id="cus_email" name="cus_email" placeholder="Email" value="<?php echo (isset($_POST['cus_email'])) ? $_POST['cus_email'] : ''; ?>">
                     </div>
                     <div class="password mb-2 input-group-lg">
                         <input type="password" class="form-control" id="cus_pword" name="cus_pword" placeholder="Password" value="<?php echo (isset($_POST['cus_pword'])) ? $_POST['cus_pword'] : ''; ?>">

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["cus_username"])) {
+if (!isset($_SESSION["cus_email"])) {
     header("Location: customer_login.php?error=restrictedAccess");
 }
     include 'config/dbase.php';
@@ -16,11 +16,11 @@ if (!isset($_SESSION["cus_username"])) {
         $getProductNameRow = $getProductNameStmt->fetch(PDO::FETCH_ASSOC);
         $product_name = $getProductNameRow['product_name'];
 
-        $checkCartQuery = "SELECT product_id, cus_username FROM cart WHERE product_id=:product_id AND cus_username=:cus_username";
+        $checkCartQuery = "SELECT product_id, cus_email FROM cart WHERE product_id=:product_id AND cus_email=:cus_email";
         $checkCartStmt = $con->prepare($checkCartQuery);
-        $cus_username = $_SESSION['cus_username'];
+        $cus_email = $_SESSION['cus_email'];
         $checkCartStmt->bindParam(':product_id', $product_id);
-        $checkCartStmt->bindParam(":cus_username", $cus_username);
+        $checkCartStmt->bindParam(":cus_email", $cus_email);
         $checkCartStmt->execute();
         $productExist = $checkCartStmt->rowCount();
         
@@ -28,12 +28,12 @@ if (!isset($_SESSION["cus_username"])) {
             echo "<script>window.location.href='product_detail.php?product_id='+ $product_id + '&product_name=' + '$product_name' + '&action=productExist';</script>";
         }
         else {
-            $addToCartQuery = "INSERT INTO cart SET product_id=:product_id, cus_username=:cus_username, cart_quantity=:cart_quantity";
+            $addToCartQuery = "INSERT INTO cart SET product_id=:product_id, cus_email=:cus_email, cart_quantity=:cart_quantity";
             $addToCartStmt = $con->prepare($addToCartQuery);
-            $cus_username = $_SESSION["cus_username"];
+            $cus_email = $_SESSION["cus_email"];
             $cart_quantity = 1;
             $addToCartStmt->bindParam(':product_id', $product_id);
-            $addToCartStmt->bindParam(":cus_username", $cus_username);
+            $addToCartStmt->bindParam(":cus_email", $cus_email);
             $addToCartStmt->bindValue("cart_quantity", $cart_quantity);
             if ($addToCartStmt->execute()) {
                 echo "<script>window.location.href='product_detail.php?product_id='+ $product_id + '&product_name=' + '$product_name' + '&action=productAdded';</script>";

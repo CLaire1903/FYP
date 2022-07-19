@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["cus_username"])) {
+if (!isset($_SESSION["cus_email"])) {
     header("Location: customer_login.php?error=restrictedAccess");
 }
 ?>
@@ -27,13 +27,13 @@ if (!isset($_SESSION["cus_username"])) {
         include 'config/dbase.php';
 
         try {
-            $customerQuery = "SELECT * FROM customer WHERE cus_username = :cus_username";
+            $customerQuery = "SELECT * FROM customer WHERE cus_email = :cus_email";
             $customerStmt = $con->prepare($customerQuery);
-            $customerStmt->bindParam(":cus_username", $_SESSION['cus_username']);
+            $customerStmt->bindParam(":cus_email", $_SESSION['cus_email']);
             $customerStmt->execute();
             $customerRow = $customerStmt->fetch(PDO::FETCH_ASSOC);
 
-            $cus_username = $customerRow['cus_username'];
+            $cus_email = $customerRow['cus_email'];
             $cus_fname = ucfirst($customerRow['cus_fname']);
             $cus_lname = ucfirst($customerRow['cus_lname']);
             $cus_address = ucwords($customerRow['cus_address']);
@@ -48,8 +48,8 @@ if (!isset($_SESSION["cus_username"])) {
             <table class='table table-hover table-responsive table-bordered'>
                 <thead>
                     <tr>
-                        <th class="title col-4">Username</th>
-                        <td><?php echo htmlspecialchars($cus_username, ENT_QUOTES);  ?></td>
+                        <th class="title col-4">Email</th>
+                        <td><?php echo htmlspecialchars($cus_email, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>
                         <th>First Name</th>
@@ -90,14 +90,14 @@ if (!isset($_SESSION["cus_username"])) {
                     </thead>
                     <tfoot>
                         <?php
-                            $orderHistoryQuery = "SELECT * FROM orders WHERE cus_username = :cus_username ORDER BY order_id DESC ";
+                            $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
                             $orderHistoryStmt = $con->prepare($orderHistoryQuery);
-                            $orderHistoryStmt->bindParam(":cus_username", $_SESSION['cus_username']);
+                            $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
                             $orderHistoryStmt->execute();
                             while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {
                                 $order_id = $orderHistoryRow['order_id'];
                                 $order_datentime = $orderHistoryRow['order_datentime'];
-                                $cus_username = $orderHistoryRow['cus_username'];
+                                $cus_email = $orderHistoryRow['cus_email'];
                                 $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
                                 $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
                                 $order_status = ucwords($orderHistoryRow['order_status']);
@@ -117,7 +117,7 @@ if (!isset($_SESSION["cus_username"])) {
         
         <div class="d-flex justify-content-center">
             <?php
-            echo "<a href='customer_updateProfile.php?cus_username={$cus_username}' class='actionBtn btn mx-2 mt-3'>Update Profile</a>";
+            echo "<a href='customer_updateProfile.php?cus_email={$cus_email}' class='actionBtn btn mx-2 mt-3'>Update Profile</a>";
             ?>
         </div>
         <div class="footer bg-dark">

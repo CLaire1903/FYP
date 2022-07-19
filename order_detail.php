@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["cus_username"])) {
+if (!isset($_SESSION["cus_email"])) {
     header("Location: customer_login.php?error=restrictedAccess");
 }
 ?>
@@ -116,7 +116,7 @@ if (!isset($_SESSION["cus_username"])) {
             </table>
         </div>
         <div class="d-flex justify-content-center">
-            <a href='customer_profile.php?cus_username={$cus_username}'  class='actionBtn btn mx-2 mt-3'>Back</a>
+            <a href='customer_profile.php?cus_email={$cus_email}'  class='actionBtn btn mx-2 mt-3'>Back</a>
         </div>
         <?php
         include 'footer.php';

@@ -28,22 +28,18 @@
         if ($_POST) {
             include 'config/dbase.php';
             try {
-                if (empty($_POST['cus_username']) || empty($_POST['cus_pword']) || empty($_POST['cus_cpword']) || empty($_POST['cus_fname']) || empty($_POST['cus_lname']) || empty($_POST['cus_address']) || empty($_POST['cus_gender']) || empty($_POST['cus_bday'])) {
+                if (empty($_POST['cus_email']) || empty($_POST['cus_pword']) || empty($_POST['cus_cpword']) || empty($_POST['cus_fname']) || empty($_POST['cus_lname']) || empty($_POST['cus_address']) || empty($_POST['cus_gender']) || empty($_POST['cus_bday'])) {
                     throw new Exception("Make sure all fields are not empty");
                 }
                 
-                $checkQuery = "SELECT * FROM customer WHERE cus_username= :cus_username";
+                $checkQuery = "SELECT * FROM customer WHERE cus_email= :cus_email";
                 $checkStmt = $con->prepare($checkQuery);
-                $check_username = strtolower($_POST['cus_username']);
-                $checkStmt->bindParam(':cus_username', $check_username);
+                $check_email = strtolower($_POST['cus_email']);
+                $checkStmt->bindParam(':cus_email', $check_email);
                 $checkStmt->execute();
                 $num = $checkStmt->rowCount();
                 if($num == 1){
-                    throw new Exception("Username exist please try another username.");
-                }
-
-                if (15 < strlen($_POST['cus_username']) || strlen($_POST['cus_username']) < 6 || (strpos($_POST['cus_username'], ' ') !== false)) {
-                    throw new Exception("Please make sure all fields are not empty!");
+                    throw new Exception("Email exist please try another email.");
                 }
 
                 if ($_POST['cus_pword'] != $_POST['cus_cpword']) {
@@ -61,9 +57,9 @@
                     throw new Exception("User must be 18 years old and above.");
                 }*/
 
-                $query = "INSERT INTO customer SET cus_username=:cus_username, cus_pword=:cus_pword,cus_cpword=:cus_cpword, cus_fname=:cus_fname, cus_lname=:cus_lname, cus_gender=:cus_gender, cus_bday=:cus_bday";
+                $query = "INSERT INTO customer SET cus_email=:cus_email, cus_pword=:cus_pword,cus_cpword=:cus_cpword, cus_fname=:cus_fname, cus_lname=:cus_lname, cus_gender=:cus_gender, cus_bday=:cus_bday";
                 $stmt = $con->prepare($query);
-                $cus_username = strtolower($_POST['cus_username']);
+                $cus_email = strtolower($_POST['cus_email']);
                 $cus_pword = $_POST['cus_pword'];
                 $cus_cpword = $_POST['cus_cpword'];
                 $cus_fname = ucfirst($_POST['cus_fname']);
@@ -71,7 +67,7 @@
                 $cus_address = $_POST['cus_address'];
                 $cus_gender = $_POST['cus_gender'];
                 $cus_bday = $_POST['cus_bday'];
-                $stmt->bindParam(':cus_username', $cus_username);
+                $stmt->bindParam(':cus_email', $cus_email);
                 $stmt->bindParam(':cus_pword', $cus_pword);
                 $stmt->bindParam(':cus_cpword', $cus_cpword);
                 $stmt->bindParam(':cus_fname', $cus_fname);
@@ -95,8 +91,8 @@
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>
-                        <td>Username <span class="text-danger">*</span></td>
-                        <td><input type='text' name='cus_username' id="cus_username" value="<?php echo (isset($_POST['cus_username'])) ? $_POST['cus_username'] : ''; ?>" class='form-control' /></td>
+                        <td>Email <span class="text-danger">*</span></td>
+                        <td><input type='text' name='cus_email' id="cus_email" value="<?php echo (isset($_POST['cus_email'])) ? $_POST['cus_email'] : ''; ?>" class='form-control' /></td>
                     </tr>
                     <tr>
                         <td>Password <span class="text-danger">*</span></td>
@@ -157,11 +153,6 @@
                     <a href='customer_login.php' class='actionBtn btn mb-3 mx-2'>Back to Login</a>
                 </div>
             </form>
-        </div>
-        <div class="footer bg-dark">
-            <?php
-            //include 'footer.php';
-            ?>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

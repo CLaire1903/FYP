@@ -52,7 +52,7 @@
                 <div>
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a id="contactUs" class="word nav-link" aria-current="page" href="#">Contact Us</a>
+                            <a id="contactUs" class="word nav-link" aria-current="page" href="contactUs.php">Contact Us</a>
                         </li>
                     </ul>
                 </div>

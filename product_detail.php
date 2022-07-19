@@ -107,7 +107,7 @@
 <script type='text/javascript'>
     function addToCart(product_id) {
         if (confirm('Add this product into your shopping cart?')) {
-            window.location = "cart_process.php?product_id=" + product_id;
+            window.location = "process_addToCart.php?product_id=" + product_id;
         }
     }
 </script>

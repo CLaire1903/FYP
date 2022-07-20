@@ -12,7 +12,7 @@
             font-weight: bold;
         }
         .section:hover {
-            box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+            box-shadow: 0 0 10px 5px #ff000066
         }
         .answer {
             display: none;
@@ -42,7 +42,7 @@
                     $faq_question = ucfirst($getFAQ_Row['faq_question']);
                     $faq_answer = ucfirst($getFAQ_Row['faq_answer']);
                     echo "<div class='section border mb-5 mx-5'>";
-                        echo "<div class='question m-3 d-flex'>";
+                        echo "<div class='question p-3 d-flex'>";
                             echo "<div class='instruction mx-3 col-2'>";
                                 echo "<h6 class='text-center'>Question</h3>";
                             echo "</div>";
@@ -51,7 +51,7 @@
                             echo "</div>";
                         echo "</div>";
                         echo "<div class='answer'>";
-                            echo "<div class='m-3 d-flex'>";
+                            echo "<div class='p-3 d-flex'>";
                                 echo "<div class='instruction mx-3 col-2'>";
                                     echo "<h6 class='text-center'>Answer</h3>";
                                 echo "</div>";

@@ -11,6 +11,12 @@
         #FAQ {
             font-weight: bold;
         }
+        .answer {
+            display: none;
+        }
+        .question:hover + .answer {
+            display: block;
+        }
     </style>
 </head>
 
@@ -22,7 +28,37 @@
         ?>
         <div class="aboutUs d-flex flex-column justify-content-center">
             <h1 class="text-center my-5">Frequently Asked Question</h1>
-            
+            <div class="section m-3 mx-5 border">
+                <?php
+                $getFAQ_Query = "SELECT * FROM faq";
+                $getFAQ_Stmt = $con->prepare($getFAQ_Query); 
+                $getFAQ_Stmt->execute();
+                while ($getFAQ_Row = $getFAQ_Stmt->fetch(PDO::FETCH_ASSOC)) {
+                    extract($getFAQ_Row);
+                    $faq_id = $getFAQ_Row['faq_id'];
+                    $faq_question = ucfirst($getFAQ_Row['faq_question']);
+                    $faq_answer = ucfirst($getFAQ_Row['faq_answer']);
+                    echo "<div class='question m-3 d-flex'>";
+                        echo "<div class='instruction mx-3 col-2'>";
+                            echo "<h6 class='text-center'>Question</h3>";
+                        echo "</div>";
+                        echo "<div class='detail'>";
+                            echo "<h5 class='text-center'>$faq_question</h3>";
+                        echo "</div>";
+                    echo "</div>";
+                    echo "<div class='answer'>";
+                        echo "<div class='m-3 d-flex'>";
+                            echo "<div class='instruction mx-3 col-2'>";
+                                echo "<h6 class='text-center'>Answer</h3>";
+                            echo "</div>";
+                            echo "<div class='detail'>";
+                                echo "<h6 class='text-center'>$faq_answer</h6>";
+                            echo "</div>";
+                        echo "</div>";
+                    echo "</div>";
+                }
+                ?>
+            </div>
         </div>
         <?php
         include 'footer.php';

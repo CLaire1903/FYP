@@ -8,7 +8,6 @@ if (!isset($_SESSION["cus_email"])) {
     $product_id = isset($_GET['product_id']) ? $_GET['product_id'] :  die('ERROR: Product ID not found.');
 
     try{
-
         $getProductNameQuery = "SELECT product_name FROM product WHERE product_id=:product_id";
         $getProductNameStmt = $con->prepare($getProductNameQuery);
         $getProductNameStmt->bindParam(':product_id', $product_id);

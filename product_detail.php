@@ -52,9 +52,8 @@
                 $product_name = isset($_GET['product_name']) ? $_GET['product_name'] :  die('ERROR: Product name not found.');
                 echo "<div class='alert alert-success mx-5 mt-5'>$product_name added into cart successfully.</div>";
             }
-            
             try {
-                $productQuery = "SELECT product_image, product_name, product_price, p.category_id, p.designer_username, c.category_name 
+                $productQuery = "SELECT product_image, product_name, product_price, p.category_id, p.designer_email, c.category_name 
                                 FROM product p 
                                 INNER JOIN category c
                                 ON p.category_id = c.category_id
@@ -69,7 +68,7 @@
                 $product_price = sprintf('%.2f', $productRow['product_price']);
                 $category_id = $productRow['category_id'];
                 $category_name = $productRow['category_name'];
-                $designer_username = $productRow['designer_username'];
+                $designer_email = $productRow['designer_email'];
 
             } catch (PDOException $exception) {
                 die('ERROR: ' . $exception->getMessage());
@@ -87,7 +86,7 @@
                     <div>
                         <h1><?php echo $product_name ?></h1>
                         <p><?php echo $product_id ?></p>
-                        <h5 class="my-4 py-2">Designer - <a href='designer_detail.php?designer_username=<?php echo $designer_username ?>' class='detail'><?php echo $designer_username ?></a></h5>
+                        <h5 class="my-4 py-2">Designer - <a href='designer_detail.php?designer_email=<?php echo $designer_email ?>' class='detail'><?php echo $designer_email ?></a></h5>
                         <h3 class="my-4 py-2"><a href='category_detail.php?category_id=<?php echo $category_id ?>' class='detail text-center'><?php echo $category_name?></a></h3>
                         <h4 class="my-4 py-2">RM <?php echo $product_price?></h4>
                     </div>

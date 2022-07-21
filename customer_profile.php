@@ -19,7 +19,7 @@ if (!isset($_SESSION["cus_email"])) {
         <?php
         include 'navigationBar.php';
         ?>
-        <div class="page-header m-3">
+        <div class="page-header mx-5 mt-5">
             <h1>My Profile</h1>
         </div>
 
@@ -44,7 +44,7 @@ if (!isset($_SESSION["cus_email"])) {
         }
         ?>
 
-        <div class="m-3">
+        <div class="mx-5">
             <table class='table table-hover table-responsive table-bordered'>
                 <thead>
                     <tr>
@@ -76,8 +76,8 @@ if (!isset($_SESSION["cus_email"])) {
         </div>
 
         <div>
-            <h1 class="m-3">Order History</h1>
-            <div class="m-3">
+            <h1 class="mx-5 mt-5">Order History</h1>
+            <div class="mx-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <thead>
                         <tr class="tableHeader">
@@ -117,7 +117,7 @@ if (!isset($_SESSION["cus_email"])) {
         
         <div class="d-flex justify-content-center">
             <?php
-            echo "<a href='customer_updateProfile.php?cus_email={$cus_email}' class='actionBtn btn mx-2 mt-3'>Update Profile</a>";
+            echo "<a href='customer_updateProfile.php?cus_email={$cus_email}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
             ?>
         </div>
         <div class="footer bg-dark">

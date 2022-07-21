@@ -12,7 +12,7 @@
     <div class="submitSuccessful container-flex d-flex flex-column justify-content-center">
         <div class="d-flex flex-column justify-content-center">
             <div id="logo" class="d-flex justify-content-center mb-5">
-                <img src="image/logo/logoB.png">
+                <a href="index.php"><img src="image/logo/logoB.png">
             </div>
             <div class="d-flex flex-column justify-content-center">
                 <h1 class="instruction text-center my-2">Your account has been created successfully.</h1>

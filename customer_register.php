@@ -56,13 +56,6 @@
                 if (15 < strlen($_POST['cus_pword']) || strlen($_POST['cus_pword']) < 8 || !preg_match("@[0-9]@", $_POST['cus_pword']) || !preg_match("@[a-z]@", $_POST['cus_pword']) || !preg_match("@[A-Z]@", $_POST['cus_pword']) || !preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST["cus_pword"])) {
                     throw new Exception("Password should be 8 - 15 character, contain at least a number, a special character, a <strong>SMALL</strong> letter, a<strong> CAPITAL </strong>letter");
                 }
-                
-                $today = date('Y-m-d');
-                echo "$today";
-                echo "$_POST[cus_birthday]";
-                if ($today - $_POST['cus_birthday'] < 18) {
-                    throw new Exception("User must be 18 years old and above.");
-                }
 
                 $query = "INSERT INTO customer SET cus_email=:cus_email, cus_pword=:cus_pword,cus_cpword=:cus_cpword, cus_fname=:cus_fname, cus_lname=:cus_lname, cus_address=:cus_address, cus_phnumber=:cus_phnumber, cus_gender=:cus_gender, cus_bday=:cus_bday";
                 $stmt = $con->prepare($query);

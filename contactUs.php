@@ -73,13 +73,13 @@
                     ?>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
                         <div class="dropMessage">
-                            <div class="leftcolumn" id="message">
+                            <div class="message">
                                 <p>Email : </p>
                                 <td><input type='text' name='cus_email' id="cus_email" value="<?php echo (isset($_POST['cus_email'])) ? $_POST['cus_email'] : ''; ?>" class='form-control' /></td>
                             </div>
                         </div>
                         <div class="dropMessage">
-                            <div class="leftcolumn" id="message">
+                            <div class="message">
                                 <p class="mt-3">Feedback Message : </p>
                                 <td><textarea type='text' name='feedback_detail' id="feedback_detail" class='form-control' rows="3"><?php echo (isset($_POST['feedback_detail'])) ? $_POST['feedback_detail'] : ''; ?></textarea></td>
                             </div>

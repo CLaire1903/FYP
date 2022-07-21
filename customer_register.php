@@ -35,7 +35,7 @@
         if ($_POST) {
             include 'config/dbase.php';
             try {
-                if (empty($_POST['cus_email']) || empty($_POST['cus_pword']) || empty($_POST['cus_cpword']) || empty($_POST['cus_fname']) || empty($_POST['cus_lname']) || empty($_POST['cus_address']) || empty($_POST['cus_gender']) || empty($_POST['cus_bday'])) {
+                if (empty($_POST['cus_email']) || empty($_POST['cus_pword']) || empty($_POST['cus_cpword']) || empty($_POST['cus_fname']) || empty($_POST['cus_lname']) || empty($_POST['cus_address']) || empty($_POST['cus_phnumber']) || empty($_POST['cus_gender']) || empty($_POST['cus_bday'])) {
                     throw new Exception("Make sure all fields are not empty");
                 }
                 
@@ -57,21 +57,22 @@
                     throw new Exception("Password should be 8 - 15 character, contain at least a number, a special character, a <strong>SMALL</strong> letter, a<strong> CAPITAL </strong>letter");
                 }
                 
-                /*$today = date('Y-m-d');
+                $today = date('Y-m-d');
                 echo "$today";
                 echo "$_POST[cus_birthday]";
                 if ($today - $_POST['cus_birthday'] < 18) {
                     throw new Exception("User must be 18 years old and above.");
-                }*/
+                }
 
-                $query = "INSERT INTO customer SET cus_email=:cus_email, cus_pword=:cus_pword,cus_cpword=:cus_cpword, cus_fname=:cus_fname, cus_lname=:cus_lname, cus_gender=:cus_gender, cus_bday=:cus_bday";
+                $query = "INSERT INTO customer SET cus_email=:cus_email, cus_pword=:cus_pword,cus_cpword=:cus_cpword, cus_fname=:cus_fname, cus_lname=:cus_lname, cus_address=:cus_address, cus_phnumber=:cus_phnumber, cus_gender=:cus_gender, cus_bday=:cus_bday";
                 $stmt = $con->prepare($query);
                 $cus_email = strtolower($_POST['cus_email']);
                 $cus_pword = $_POST['cus_pword'];
                 $cus_cpword = $_POST['cus_cpword'];
                 $cus_fname = ucfirst($_POST['cus_fname']);
                 $cus_lname = ucfirst($_POST['cus_lname']);
-                $cus_address = $_POST['cus_address'];
+                $cus_address = strtolower($_POST['cus_address']);
+                $cus_phnumber = $_POST['cus_phnumber'];
                 $cus_gender = $_POST['cus_gender'];
                 $cus_bday = $_POST['cus_bday'];
                 $stmt->bindParam(':cus_email', $cus_email);
@@ -80,6 +81,7 @@
                 $stmt->bindParam(':cus_fname', $cus_fname);
                 $stmt->bindParam(':cus_lname', $cus_lname);
                 $stmt->bindParam(':cus_address', $cus_address);
+                $stmt->bindParam(':cus_phnumber', $cus_phnumber);
                 $stmt->bindParam(':cus_gender', $cus_gender);
                 $stmt->bindParam(':cus_bday', $cus_bday);
                 if ($stmt->execute()) {
@@ -111,7 +113,7 @@
                     </tr>
                     <tr>
                         <td>First Name <span class="text-danger">*</span></td>
-                        <td><input type='text' name='cus_fname' id="cus_fname" value="<?php echo (isset($_POST['cus_fname'])) ? $_POST['cus_fname'] : ''; ?>" class='form-control'></td>
+                        <td><input type='text' name='cus_fname' id="cus_fname" value="<?php echo (isset($_POST['cus_fname'])) ? $_POST['cus_fname'] : ''; ?>" class='form-control'/></td>
                     </tr>
                     <tr>
                         <td>Last Name <span class="text-danger">*</span></td>
@@ -120,7 +122,11 @@
                     <tr>
                         <td>Address <span class="text-danger">*</span></td>
                         <td><textarea type='text' name='cus_address' id="cus_address" class='form-control' rows="3"><?php echo (isset($_POST['cus_address'])) ? $_POST['cus_address'] : ''; ?></textarea></td>
-                </tr>
+                    </tr>
+                    <tr>
+                        <td>Phone Number <span class="text-danger">*</span></td>
+                        <td><input type="tel" name="cus_phnumber" id="cus_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" required value="<?php echo (isset($_POST['cus_phnumber'])) ? $_POST['cus_phnumber'] : ''; ?>" class='form-control' ></td>
+                    </tr>
                     <tr>
                         <td>Gender <span class="text-danger">*</span></td>
                         <td>

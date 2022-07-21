@@ -21,7 +21,14 @@
 <body class="register container-flex">
     <div class="container">
         <div class="page-header">
-            <h2 class="p-1">Register</h2>
+            <div class="d-flex flex-column">
+                <div class="storeLogo d-flex justify-content-center ">
+                    <a href="index.php"><img src="image/logo/logoB.png"></a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h2 class="p-1">Register new account.</h2>
+                </div>
+            </div>
             <h6 class="text-danger"> Please complete the form below with * completely. </h6>
         </div>
         <?php

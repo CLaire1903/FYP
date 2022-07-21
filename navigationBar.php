@@ -45,7 +45,7 @@
                 <div>
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a id="customMade" class="nav-link word" aria-current="page" href="#">Custom Made</a>
+                            <a id="customMade" class="nav-link word" aria-current="page" href="customMade.php">Custom Made</a>
                         </li>
                     </ul>
                 </div>

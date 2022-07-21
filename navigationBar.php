@@ -17,7 +17,7 @@
                             <a href="#"><img src="image/icon/cart.png" alt="cart"></a>
                         </div>
                         <div class="navIcon mx-2">
-                            <a href="#"><img src="image/icon/profile.png" alt="profile"></a>
+                            <a href="customer_profile.php?cus_username={$cus_username}"><img src="image/icon/profile.png" alt="profile"></a>
                         </div>
                         <div class="navIcon mx-2">
                             <a href="customer_logout.php"><img src="image/icon/logout.png" alt="Logout"></a>

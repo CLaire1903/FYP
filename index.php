@@ -34,9 +34,9 @@
                         $na_product_name = ucwords($newArrivalRow['product_name']);
                         $na_product_price = sprintf('%.2f', $newArrivalRow['product_price']);
                         echo "<div class='productDisplay card col-10 col-md-5 col-lg-3 d-flex flex-column justify-content-center my-3 ms-3'>";
-                            echo "<a href='product_detail.php?product_id={$na_product_id}'><img src='$na_product_image' class='productImage d-flex justify-content-center'></a>";
+                            echo "<a href='product_detail.php?product_id={$na_product_id}'><img src='$na_product_image' class='productImage d-flex justify-content-center rounded-top'></a>";
                             echo "<a href='#' class='productDetailName text-center text-decoration-none'>$na_product_name</a>";
-                            echo "<a href='#' class='productDetailPrice text-center text-decoration-none pb-3'>RM $na_product_price</a>";
+                            echo "<a href='#' class='productDetailPrice text-center text-decoration-none pb-3 rounded-bottom'>RM $na_product_price</a>";
                         echo "</div>";
                     }
                 ?>
@@ -63,9 +63,9 @@
                         $mp_product_name = ucwords($mostPopularRow['product_name']);
                         $mp_product_price = sprintf('%.2f', $mostPopularRow['product_price']);
                         echo "<div class='productDisplay card col-10 col-md-5 col-lg-3 d-flex flex-column justify-content-center my-3 ms-3'>";
-                            echo "<a href='product_detail.php?product_id={$mp_product_id}'><img src='$mp_product_image' class='productImage d-flex justify-content-center'></a>";
+                            echo "<a href='product_detail.php?product_id={$mp_product_id}'><img src='$mp_product_image' class='productImage d-flex justify-content-center rounded-top'></a>";
                             echo "<a href='#' class='productDetailName text-center text-decoration-none'>$mp_product_name</a>";
-                            echo "<a href='#' class='productDetailPrice text-center text-decoration-none pb-3'>RM $mp_product_price</a>";
+                            echo "<a href='#' class='productDetailPrice text-center text-decoration-none pb-3 rounded-bottom'>RM $mp_product_price</a>";
                         echo "</div>";
                     }
                 ?>

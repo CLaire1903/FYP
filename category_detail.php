@@ -50,9 +50,9 @@
                         $product_price = sprintf('%.2f', $categoryDetailRow['product_price']);
 
                         echo "<div class='productDisplay card col-10 col-md-5 col-lg-3 d-flex flex-column justify-content-center my-3 ms-3'>";
-                            echo "<a href='product_detail.php?product_id={$product_id}'><img src='$product_image' class='productImage d-flex justify-content-center'></a>";
+                            echo "<a href='product_detail.php?product_id={$product_id}'><img src='$product_image' class='productImage d-flex justify-content-center rounded-top'></a>";
                             echo "<a href='#' class='productDetailName text-center text-decoration-none'>$product_name</a>";
-                            echo "<a href='#' class='productDetailPrice text-center text-decoration-none pb-3'>RM $product_price</a>";
+                            echo "<a href='#' class='productDetailPrice text-center text-decoration-none pb-3 rounded-bottom'>RM $product_price</a>";
                         echo "</div>";
                     }
                 ?>

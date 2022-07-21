@@ -35,7 +35,7 @@
 
 <body>
     <div class="login container-fluid d-flex justify-content-center">
-        <div class="loginForm d-flex justify-content-center flex-column m-5 border-3 col-8 col-md-5 col-lg-4 rounded-3">
+        <div class="loginForm d-flex justify-content-center flex-column m-5 border-3 col-10 col-md-6 rounded-3">
             <?php
             session_start();
             include 'config/dbase.php';

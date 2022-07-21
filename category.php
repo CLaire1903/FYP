@@ -29,10 +29,10 @@
                 <?php
                     while ($categoryRow = $categoryStmt->fetch(PDO::FETCH_ASSOC)) {
                         extract($categoryRow);
-                        echo "<div class='categoryDisplay card col-10 col-md-5 col-lg-3 d-flex flex-column justify-content-center my-3 ms-3'>";
+                        echo "<div class='categoryDisplay card col-10 col-md-5 col-lg-3 d-flex flex-column justify-content-center my-3 ms-3 '>";
                             $category_image = $categoryRow['category_image'];
-                            echo "<a href='category_detail.php?category_id={$category_id}'><img src='$category_image' class='categoryImage d-flex justify-content-center'></a>";
-                            echo "<a href='category_detail.php?category_id={$category_id}' class='categoryName text-center text-decoration-none'>$category_name</a>";
+                            echo "<a href='category_detail.php?category_id={$category_id}'><img src='$category_image' class='categoryImage d-flex justify-content-center rounded-top'></a>";
+                            echo "<a href='category_detail.php?category_id={$category_id}' class='categoryName text-center text-decoration-none rounded-bottom'>$category_name</a>";
                         echo "</div>";
                     }
                 ?>

@@ -75,14 +75,14 @@
             }
         ?>
 
-            <div class="d-flex justify-content-around">
-                <div class="productImageSide mx-5 mt-5 col-5">
+            <div class="d-flex flex-column flex-md-row justify-content-around">
+                <div class="productImageSide mx-5 mt-5 col-10 col-md-5">
                     <?php
                         $product_image = $productRow['product_image'];
                         echo "<img src='$product_image' class='productImage'>";
                     ?>
                 </div>
-                <div class="productDetailSide text-center mx-5 mt-5 col-5 d-flex flex-column align-self-center">
+                <div class="productDetailSide text-center mx-5 mt-5 col-10 col-md-5 d-flex flex-column align-self-center">
                     <div>
                         <h1><?php echo $product_name ?></h1>
                         <p><?php echo $product_id ?></p>

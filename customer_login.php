@@ -39,6 +39,7 @@
             <?php
             session_start();
             include 'config/dbase.php';
+            include "alertIcon.php";
             if (isset($_GET['error']) && $_GET['error'] == "restrictedAccess") {
                 $errorMessage = "Please login for further proceed!";
             }
@@ -78,7 +79,12 @@
                     <h4 class="instruction mt-3 text-center">Please sign in</h4>
                     <?php
                     if (isset($errorMessage)) { ?>
-                        <div class='alert alert-danger m-2'><?php echo $errorMessage ?></div>
+                        <div class='alert alert-danger d-flex align-items-center' role='alert'>
+                            <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                                <?php echo $errorMessage ?>
+                            </div>
+                        </div>
                     <?php } ?>
                     <div class="email mt-3 input-group-lg">
                         <input type="text" class="form-control" id="cus_email" name="cus_email" placeholder="Email" value="<?php echo (isset($_POST['cus_email'])) ? $_POST['cus_email'] : ''; ?>">

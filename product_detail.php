@@ -38,6 +38,7 @@
     <div class="container-fluid p-0">
         <?php 
             include 'navigationBar.php';
+            include "alertIcon.php";
 
             $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : die('ERROR: Product record not found.');
 
@@ -46,11 +47,21 @@
             $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'productExist') {
                 $product_name = isset($_GET['product_name']) ? $_GET['product_name'] :  die('ERROR: Product name not found.');
-                echo "<div class='alert alert-danger mx-5 mt-5'>$product_name already exist in the cart.</div>";
+                echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        $product_name already exist in the cart.
+                    </div>
+                    </div>";
             }
             if ($action == 'productAdded') {
                 $product_name = isset($_GET['product_name']) ? $_GET['product_name'] :  die('ERROR: Product name not found.');
-                echo "<div class='alert alert-success mx-5 mt-5'>$product_name added into cart successfully.</div>";
+                echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                        <div>
+                            $product_name added into cart successfully.
+                        </div>
+                    </div>";
             }
             try {
                 $productQuery = "SELECT product_image, product_name, product_price, p.category_id, p.designer_email, c.category_name 

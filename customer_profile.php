@@ -87,8 +87,6 @@ if (!isset($_SESSION["cus_email"])) {
                         $orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC);
                         if ($orderHistoryRow == 0){
                             echo "<h2>No order has been made.</h2>";
-                        } else {
-
                         }
                         ?>
                         
@@ -103,7 +101,7 @@ if (!isset($_SESSION["cus_email"])) {
                     </thead>
                     <tfoot>
                         <?php
-                            while ($orderHistoryRow > 0) {
+                            if ($orderHistoryRow > 0) {
                                 $order_id = $orderHistoryRow['order_id'];
                                 $order_datentime = $orderHistoryRow['order_datentime'];
                                 $cus_email = $orderHistoryRow['cus_email'];

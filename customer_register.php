@@ -20,6 +20,9 @@
 
 <body class="register container-flex">
     <div class="container">
+        <?php
+        include "alertIcon.php";
+        ?>
         <div class="page-header">
             <div class="d-flex flex-column">
                 <div class="storeLogo d-flex justify-content-center ">
@@ -83,13 +86,23 @@
                         throw new Exception("Unable to save record.");
                     }
                 } catch (PDOException $exception) {
-                    echo "<div class='alert alert-danger'>" . $exception->getMessage() . "</div>";
+                    echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                            <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                        <div>
+                            " . $exception->getMessage() . "
+                        </div>
+                        </div>";
             } catch (Exception $exception) {
-                echo "<div class='alert alert-danger'>" . $exception->getMessage() . "</div>";
+                echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        " . $exception->getMessage() . "
+                    </div>
+                    </div>";
             }
         }
         ?>
-        <div class="contain my-2">
+        <div class="contain p-3 rounded">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>
@@ -118,7 +131,7 @@
                     </tr>
                     <tr>
                         <td>Phone Number <span class="text-danger">*</span></td>
-                        <td><input type="tel" name="cus_phnumber" id="cus_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" required value="<?php echo (isset($_POST['cus_phnumber'])) ? $_POST['cus_phnumber'] : ''; ?>" class='form-control' ></td>
+                        <td><input type="tel" name="cus_phnumber" id="cus_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo (isset($_POST['cus_phnumber'])) ? $_POST['cus_phnumber'] : ''; ?>" class='form-control' ></td>
                     </tr>
                     <tr>
                         <td>Gender <span class="text-danger">*</span></td>
@@ -155,7 +168,7 @@
                     </tr>
                 </table>
                 <div class="d-flex justify-content-center">
-                    <input type='submit' value='Register' class='actionBtn btn mb-3 mx-2' />
+                    <input type='submit' value='Register' class='actionBtn btn mb-2 mx-2' />
                     <a href='customer_login.php' class='actionBtn btn mb-3 mx-2'>Back to Login</a>
                 </div>
             </form>

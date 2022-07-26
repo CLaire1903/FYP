@@ -11,6 +11,9 @@
         #customMade{
             font-weight: bold;
         }
+        .customMadeForm {
+            background-color: #ffe1e1;
+        }
     </style>
 </head>
 
@@ -18,10 +21,11 @@
     <div class="container-fluid p-0">
         <?php 
         include 'navigationBar.php';
+        include "alertIcon.php";
         ?>
         <div class="aboutUs d-flex flex-column justify-content-center">
-            <h1 class="text-center my-5">Custom Made Form</h1>
-            <div class="customMade d-flex justify-content-center mx-5 border rounded-3">
+            <h1 class="text-center mt-5">Custom Made Form</h1>
+            <div class="customMadeForm d-flex justify-content-center mx-5 border rounded-3">
                 <div class="customizedForm col-10">
                     <div class="p-2 mx-auto">
                         <h4 class="instruction mt-3 text-center">Please fill in the details. </h4>
@@ -57,14 +61,29 @@
                                 $customizedStmt->bindParam(':customized_detail', $customized_detail);
                                 $customizedStmt->bindParam(':customized_collectdate', $customized_collectdate);
                                 if ($customizedStmt->execute()) {
-                                        echo "<div class='alert alert-success'>Custom made order sent successfully.</div>";
+                                        echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
+                                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                                        <div>
+                                            Custom made order sent successfully.
+                                        </div>
+                                        </div>";
                                     } else {
                                         throw new Exception("Unable to save record.");
                                     }
                                 } catch (PDOException $exception) {
-                                    echo "<div class='alert alert-danger'>" . $exception->getMessage() . "</div>";
+                                    echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                                    <div>
+                                        " . $exception->getMessage() . "
+                                    </div>
+                                    </div>";
                             } catch (Exception $exception) {
-                                echo "<div class='alert alert-danger'>" . $exception->getMessage() . "</div>";
+                                echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                                <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                                <div>
+                                    " . $exception->getMessage() . "
+                                </div>
+                                </div>";
                             }
                         }
                         ?>
@@ -90,7 +109,7 @@
                                 <td><input type='date' name='customized_collectdate' id="customized_collectdate"  value="<?php echo (isset($_POST['customized_collectdate'])) ? $_POST['customized_collectdate'] : ''; ?>" class='form-control' /></td>
                             </div>
                             <div class="button d-grid m-3 d-flex justify-content-center">
-                                <button type='submit' class='actionBtn btn btn-lg'>Submit</button>
+                                <button type='submit' class='actionBtn btn btn-lg m-3'>Submit</button>
                             </div>
                         </form>
                     </div>

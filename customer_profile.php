@@ -59,8 +59,8 @@ if (!isset($_SESSION["cus_email"])) {
                         <th>Last Name</th>
                         <td><?php echo htmlspecialchars($cus_lname, ENT_QUOTES);  ?></td>
                     </tr>
-                    <tr>
-                        <th>Address</th>
+                    <tr class="border">
+                        <th class="d-flex align-self-center border-0">Address</th>
                         <td><?php echo htmlspecialchars($cus_address, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>
@@ -79,7 +79,20 @@ if (!isset($_SESSION["cus_email"])) {
             <h1 class="mx-5 mt-5">Order History</h1>
             <div class="mx-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
-                    <thead>
+                        <?php
+                        $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
+                        $orderHistoryStmt = $con->prepare($orderHistoryQuery);
+                        $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                        $orderHistoryStmt->execute();
+                        $orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC);
+                        if ($orderHistoryRow == 0){
+                            echo "<h2>No order has been made.</h2>";
+                        } else {
+
+                        }
+                        ?>
+                        
+                    <thead>    
                         <tr class="tableHeader">
                             <th>Order ID</th>
                             <th>Order Date and Time</th>
@@ -90,11 +103,7 @@ if (!isset($_SESSION["cus_email"])) {
                     </thead>
                     <tfoot>
                         <?php
-                            $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
-                            $orderHistoryStmt = $con->prepare($orderHistoryQuery);
-                            $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
-                            $orderHistoryStmt->execute();
-                            while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {
+                            while ($orderHistoryRow > 0) {
                                 $order_id = $orderHistoryRow['order_id'];
                                 $order_datentime = $orderHistoryRow['order_datentime'];
                                 $cus_email = $orderHistoryRow['cus_email'];

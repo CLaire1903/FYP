@@ -19,6 +19,9 @@
             font-weight: bold;
             text-decoration: underline;
         }
+        .feedback, .phone, .email, .address {
+            background-color: #ffe1e1;
+        }
     </style>
 </head>
 
@@ -33,18 +36,18 @@
         </div>
         <div class="contact d-flex flex-column flex-md-row justify-content-evenly mt-5">
             <div class="phone col-11 col-md-3 p-3 mx-3 m-md-0 border rounded-3 d-flex flex-column">
-                <b>Phone Number :</b>
-                <a href="tel:+6011-23456789" class="contactDetail py-2">+6011 - 2345 6789</a>
-                <a href="tel:+6012-3456789" class="contactDetail">+6012 - 345 6789</a>
+                <b class="text-center">Phone Number</b>
+                <a href="tel:+6012-3456789" class="contactDetail pt-2 text-center">+6012 - 345 6789</a>
+                <a href="tel:+6011-23456789" class="contactDetail py-2 text-center">+6011 - 2345 6789</a>
             </div>
             <div class="email col-11 col-md-3 p-3 m-3 m-md-0 border rounded-3 d-flex flex-column">
-                <b>Email :</b>
-                <a href="mailto:example@hotmail.com" class="contactDetail py-2">example@hotmail.com</a>
-                <a href="mailto:example@gmail.com" class="contactDetail">example@gmail.com</a>
+                <b class="text-center">Email</b>
+                <a href="mailto:example@gmail.com" class="contactDetail pt-2 text-center">example@gmail.com</a>
+                <a href="mailto:example@hotmail.com" class="contactDetail py-2 text-center">example@hotmail.com</a>
             </div>
             <div class="address col-11 col-md-3 p-3 mx-3 m-md-0 border rounded-3 d-flex flex-column">
-                <b>Address :</b>
-                <p class="pt-2 mb-0">Blok B&C, Lot, 5, Seksyen 10, Jalan Bukit, Taman Bukit Mewah, 43000 Kajang, Selangor</p>
+                <b class="text-center">Address</b>
+                <p class="pt-2 mb-0 text-center">Blok B&C, Lot, 5, Seksyen 10, Jalan Bukit, Taman Bukit Mewah, 43000 Kajang, Selangor</p>
             </div>
         </div>
         <div class="feedback d-flex justify-content-center m-3 m-lg-5 border rounded-3">

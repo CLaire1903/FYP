@@ -20,7 +20,7 @@
         include 'navigationBar.php';
         include 'config/dbase.php';
         ?>
-        <div class="aboutUs d-flex flex-column justify-content-center">
+        <div class="privacyPolicy d-flex flex-column justify-content-center">
             <h1 class="text-center my-5">Privacy Policy</h1>
             
         </div>

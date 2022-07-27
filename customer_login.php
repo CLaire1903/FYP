@@ -71,12 +71,12 @@
                 }
             }
             ?>
-            <div class="p-2 mx-auto">
+            <div class="loginDetail p-2 mx-auto col-lg-7">
                 <div id="logo" class="d-flex justify-content-center ">
                     <a href="index.php"><img src="image/logo/logoB.png"></a>
                 </div>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
-                    <h4 class="instruction mt-3 text-center">Please sign in</h4>
+                    <h2 class="instruction mt-3 text-center">Please sign in</h2>
                     <?php
                     if (isset($errorMessage)) { ?>
                         <div class='alert alert-danger d-flex align-items-center' role='alert'>
@@ -93,7 +93,7 @@
                         <input type="password" class="form-control" id="cus_pword" name="cus_pword" placeholder="Password" value="<?php echo (isset($_POST['cus_pword'])) ? $_POST['cus_pword'] : ''; ?>">
                     </div>
                     <div class="button d-grid">
-                        <button type='submit' class='loginBtn btn btn-large'>Login</button>
+                        <button type='submit' class='loginBtn btn btn-large btn-block'>Login</button>
                     </div>
                     <p class="instruction registerIns mt-2 text-center">Do not have any account? <a href='customer_register.php' id='registerAcc' class='registerIns'>Click here</a></p>
                 </form>

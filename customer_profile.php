@@ -18,13 +18,42 @@ if (!isset($_SESSION["cus_email"])) {
     <div class="container-flex">
         <?php
         include 'navigationBar.php';
-        ?>
-        <div class="page-header mx-5 mt-5">
-            <h1>My Profile</h1>
-        </div>
-
-        <?php
         include 'config/dbase.php';
+        include "alertIcon.php";
+
+        $action = isset($_GET['action']) ? $_GET['action'] : "";
+            if ($action == 'passwordUpdateFail') {
+                echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        Password fail to update.
+                    </div>
+                    </div>";
+            }
+            if ($action == 'passwordUpdated') {
+                echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                        <div>
+                            Password updated successfully.
+                        </div>
+                    </div>";
+            }
+            if ($action == 'profileUpdateFail') {
+                echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        Profile fail to update.
+                    </div>
+                    </div>";
+            }
+            if ($action == 'profileUpdated') {
+                echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                        <div>
+                            Profile updated successfully.
+                        </div>
+                    </div>";
+            }
 
         try {
             $customerQuery = "SELECT * FROM customer WHERE cus_email = :cus_email";
@@ -37,6 +66,7 @@ if (!isset($_SESSION["cus_email"])) {
             $cus_fname = ucfirst($customerRow['cus_fname']);
             $cus_lname = ucfirst($customerRow['cus_lname']);
             $cus_address = ucwords($customerRow['cus_address']);
+            $cus_phnumber = $customerRow['cus_phnumber'];
             $cus_gender = $customerRow['cus_gender'];
             $cus_bday = $customerRow['cus_bday'];
         } catch (PDOException $exception) {
@@ -44,6 +74,9 @@ if (!isset($_SESSION["cus_email"])) {
         }
         ?>
 
+        <div class="page-header mx-5 mt-5">
+            <h1>My Profile</h1>
+        </div>
         <div class="mx-5">
             <table class='table table-hover table-responsive table-bordered'>
                 <thead>
@@ -59,9 +92,13 @@ if (!isset($_SESSION["cus_email"])) {
                         <th>Last Name</th>
                         <td><?php echo htmlspecialchars($cus_lname, ENT_QUOTES);  ?></td>
                     </tr>
-                    <tr class="border">
-                        <th class="d-flex align-self-center border-0">Address</th>
+                    <tr>
+                        <th>Address</th>
                         <td><?php echo htmlspecialchars($cus_address, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td><?php echo htmlspecialchars($cus_phnumber, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>
                         <th>Gender</th>
@@ -125,6 +162,7 @@ if (!isset($_SESSION["cus_email"])) {
         <div class="d-flex justify-content-center">
             <?php
             echo "<a href='customer_updateProfile.php?cus_email={$cus_email}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
+            echo "<a href='customer_updatePassword.php?cus_email={$cus_email}' class='actionBtn btn mx-2 mt-5'>Update Password</a>";
             ?>
         </div>
         <div class="footer bg-dark">

@@ -84,7 +84,7 @@
                         <div class="dropMessage">
                             <div class="message">
                                 <p class="mt-3">Feedback Message : </p>
-                                <td><textarea type='text' name='feedback_detail' id="feedback_detail" class='form-control' rows="3"><?php echo (isset($_POST['feedback_detail'])) ? $_POST['feedback_detail'] : ''; ?></textarea></td>
+                                <td><textarea type='text' name='feedback_detail' id="feedback_detail" class='form-control' rows="10"><?php echo (isset($_POST['feedback_detail'])) ? $_POST['feedback_detail'] : ''; ?></textarea></td>
                             </div>
                         </div>
                         <div class="button d-grid m-3 d-flex justify-content-center">

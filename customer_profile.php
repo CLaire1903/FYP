@@ -92,8 +92,8 @@ if (!isset($_SESSION["cus_email"])) {
                         <th>Last Name</th>
                         <td><?php echo htmlspecialchars($cus_lname, ENT_QUOTES);  ?></td>
                     </tr>
-                    <tr>
-                        <th>Address</th>
+                    <tr class="border">
+                        <th class="d-flex align-self-center border-0">Address</th>
                         <td><?php echo htmlspecialchars($cus_address, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>

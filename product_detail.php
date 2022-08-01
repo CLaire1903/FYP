@@ -97,7 +97,7 @@
                     <div>
                         <h1><?php echo $product_name ?></h1>
                         <p><?php echo $product_id ?></p>
-                        <h5 class="my-4 py-2">Designer - <a href='designer_detail.php?designer_email=<?php echo $designer_email ?>' class='detail'><?php echo $designer_email ?></a></h5>
+                        <h5 class="my-4 py-2">Designer - <a href='designer_profile.php?designer_email=<?php echo $designer_email ?>' class='detail'><?php echo $designer_email ?></a></h5>
                         <h3 class="my-4 py-2"><a href='category_detail.php?category_id=<?php echo $category_id ?>' class='detail text-center'><?php echo $category_name?></a></h3>
                         <h4 class="my-4 py-2">RM <?php echo $product_price?></h4>
                     </div>

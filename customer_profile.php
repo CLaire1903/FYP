@@ -114,49 +114,48 @@ if (!isset($_SESSION["cus_email"])) {
 
         <div>
             <h1 class="mx-5 mt-5">Order History</h1>
-            <div class="mx-5">
-                <table class='table table-hover table-responsive table-bordered text-center'>
-                        <?php
-                        $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
-                        $orderHistoryStmt = $con->prepare($orderHistoryQuery);
-                        $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
-                        $orderHistoryStmt->execute();
-                        $orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC);
-                        if ($orderHistoryRow == 0){
-                            echo "<h2>No order has been made.</h2>";
-                        }
-                        ?>
-                        
-                    <thead>    
-                        <tr class="tableHeader">
-                            <th>Order ID</th>
-                            <th>Order Date and Time</th>
-                            <th>Total Amount</th>
-                            <th>Paid Deposit</th>
-                            <th>Order Status</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <?php
-                            if ($orderHistoryRow > 0) {
-                                $order_id = $orderHistoryRow['order_id'];
-                                $order_datentime = $orderHistoryRow['order_datentime'];
-                                $cus_email = $orderHistoryRow['cus_email'];
-                                $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
-                                $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
-                                $order_status = ucwords($orderHistoryRow['order_status']);
-                                echo "<tr>";
-                                echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
-                                echo "<td>{$order_datentime}</td>";
-                                echo "<td>RM {$order_totalamount}</td>";
-                                echo "<td>RM {$order_depositpaid}</td>";
-                                echo "<td>{$order_status}</td>";
-                                echo "</tr>";
-                            }
-                        ?>
-                    </tfoot>
-                </table>
-            </div>
+            <?php 
+                $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
+                $orderHistoryStmt = $con->prepare($orderHistoryQuery);
+                $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                $orderHistoryStmt->execute();
+                $orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($orderHistoryRow == 0){
+                    echo "<h2 class='mx-5 mt-3'>No order has been made.</h2>";
+                }
+                
+                if ($orderHistoryRow > 0) {    
+                    $order_id = $orderHistoryRow['order_id'];
+                    $order_datentime = $orderHistoryRow['order_datentime'];
+                    $cus_email = $orderHistoryRow['cus_email'];
+                    $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
+                    $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
+                    $order_status = ucwords($orderHistoryRow['order_status']);
+                    echo "<div class='mx-5'>
+                        <table class='table table-hover table-responsive table-bordered text-center'>
+                            <thead>    
+                                <tr class='tableHeader'>
+                                    <th>Order ID</th>
+                                    <th>Order Date and Time</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Deposit</th>
+                                    <th>Order Status</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                <td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>
+                                <td>{$order_datentime}</td>
+                                <td>RM {$order_totalamount}</td>
+                                <td>RM {$order_depositpaid}</td>
+                                <td>{$order_status}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>";  
+                }
+            ?>
         </div>
         
         <div class="d-flex justify-content-center">

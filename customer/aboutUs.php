@@ -27,16 +27,19 @@
                         Memorable Memories is an online formal attire store. 
                     </p>
                     <p class="text-center">
-                        Started with passion and a dream to make everyone have the ability to own a wedding dress for their "big day". 
+                        Started with passion and a dream to make everyone have the ability to own a wedding dress for your "big day". 
+                    </p>
+                    <p class="text-center">
+                        Provide only single item for each design so that you will have the same gown with other on your "big day". 
                     </p>
                     <p class="text-center">
                         Focusing in how your style insted of the price of the wedding dress. 
                     </p>
                     <p class="text-center">
-                        With us, every bride is beautiful and everyone will have an unforgetable memories. 
+                        With us, every bride is beautiful and everyone will have an unforgetable and memorable memories. 
                     </p>
                     <p class="text-center pb-5">
-                        I am sure with Memorable Memories you will become the most beutiful bride in your "big day".
+                        I am sure with Memorable Memories you will become the most beautiful bride in your "big day".
                     </p>
                 </div>
             </div>

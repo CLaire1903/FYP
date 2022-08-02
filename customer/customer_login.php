@@ -4,7 +4,7 @@
 <head>
     <title>Customer - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href="css/shared.css" rel="stylesheet">
+    <link href="/fyp/css/shared.css" rel="stylesheet">
 </head>
 
 <style>
@@ -38,8 +38,8 @@
         <div class="loginForm d-flex justify-content-center flex-column m-5 border-3 col-10 col-md-6 rounded-3">
             <?php
             session_start();
-            include 'config/dbase.php';
-            include "alertIcon.php";
+            include 'C:\xampp\htdocs\fyp\config/dbase.php';
+            include 'C:\xampp\htdocs\fyp\alertIcon.php';
             if (isset($_GET['error']) && $_GET['error'] == "restrictedAccess") {
                 $errorMessage = "Please login for further proceed!";
             }

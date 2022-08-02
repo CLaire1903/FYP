@@ -2,26 +2,22 @@
 <html>
 
 <head>
-    <title>Prder - Successfully</title>
+    <title>Customer - Update Profile Successfully</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href="css/shared.css" rel="stylesheet">
-    <link href="css/submitSuccessful.css" rel="stylesheet">
+    <link href="/fyp/css/shared.css" rel="stylesheet">
+    <link href="/fyp/css/submitSuccessful.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="submitSuccessful container-flex d-flex flex-column justify-content-center">
         <div class="d-flex flex-column justify-content-center">
-            <div id="logo" class="d-flex justify-content-center mb-3">
+            <div id="logo" class="d-flex justify-content-center mb-5">
                 <img src="image/logo/logoB.png">
             </div>
             <div class="d-flex flex-column justify-content-center">
-                <h1 class="instruction text-center my-2">Your order has been submitted successfully. </h1>
-                <h3 class="instruction text-center my-2 text-danger">* Please complete the transaction in between <span class="fw-bold">7 days</span> *</h3>
-                <h3 class="instruction text-center my-2 text-danger">and send it to our customer service to avoid cancellation order.</h3>
-                <h1 class="instruction text-center my-2">Thanks for having us.</h1>
-                <div class="button d-grid d-flex justify-content-center mt-3">
+                <h1 class="instruction text-center my-2">Your profile has been updated successfully.</h1>
+                <div class="button d-grid d-flex justify-content-center mt-5">
                     <a href='home.php' class='backBtn btn m-1 m-lg-2 col-3'>Home</a>
-                    <a href='#' class='backBtn btn m-1 m-lg-2 col-3'>Customer Service</a>
                 </div>
         </div>
         

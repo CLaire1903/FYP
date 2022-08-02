@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION["cus_email"])) {
     header("Location: customer_login.php?error=restrictedAccess");
 }
-    include 'config/dbase.php';
+    include 'C:\xampp\htdocs\fyp\config/dbase.php';
 
     $product_id = isset($_GET['product_id']) ? $_GET['product_id'] :  die('ERROR: Product ID not found.');
 

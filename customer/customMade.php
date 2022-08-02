@@ -5,7 +5,7 @@
 <head>
     <title>Custom Made</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="css/shared.css" rel="stylesheet">
+    <link href="/fyp/css/shared.css" rel="stylesheet">
 
     <style>
         #customMade{
@@ -21,7 +21,7 @@
     <div class="container-fluid p-0">
         <?php 
         include 'navigationBar.php';
-        include "alertIcon.php";
+        include 'C:\xampp\htdocs\fyp\alertIcon.php';
         ?>
         <div class="aboutUs d-flex flex-column justify-content-center">
             <h1 class="text-center mt-5">Custom Made Form</h1>
@@ -31,7 +31,7 @@
                         <h4 class="instruction mt-3 text-center">Please fill in the details. </h4>
                         <?php
                         if ($_POST) {
-                            include 'config/dbase.php';
+                            include 'C:\xampp\htdocs\fyp\config/dbase.php';
                             try {
                                 if (empty($_POST['cus_email']) || empty($_POST['cus_name']) || empty($_POST['cus_phnumber']) || empty($_POST['customized_detail']) || empty($_POST['customized_collectdate'])) {
                                     throw new Exception("Make sure all fields are not empty");

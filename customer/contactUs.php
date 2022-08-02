@@ -4,7 +4,7 @@
 <head>
     <title>Contact Us</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="css/shared.css" rel="stylesheet">
+    <link href="/fyp/css/shared.css" rel="stylesheet">
 
     <style>
         #contactUs {
@@ -29,7 +29,7 @@
     <div class="container-fluid p-0">
         <?php 
         include 'navigationBar.php';
-        include 'config/dbase.php';
+        include 'C:\xampp\htdocs\fyp\config/dbase.php';
         ?>
         <div class="title text-center mt-5">
             <h1>Feel free to contact us.</h1>
@@ -55,7 +55,6 @@
                 <div class="p-2 mx-auto">
                 <h4 class="instruction mt-3 text-center">Kindly provide us your feedback.</h4>
                 <?php
-                    include 'config/dbase.php';
                     if ($_POST) {
                         try {
                             $sendFeedbackQuery = "INSERT INTO feedback SET cus_email=:cus_email, feedback_detail=:feedback_detail";

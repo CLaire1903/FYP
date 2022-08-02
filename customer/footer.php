@@ -13,19 +13,19 @@
         <h5 class="footerDetail p-3">Follow Us</h5>
         <div class="d-flex">
             <div class="iconLink m-2">
-                <a href="#"><img src="image/icon/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="/fyp/image/icon/facebook.png" alt="Facebook"></a>
             </div>
             <div class="iconLink m-2">
-                <a href="#"><img src="image/icon/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="/fyp/image/icon/instagram.png" alt="Instagram"></a>
             </div>
             <div class="iconLink m-2">
-                <a href="#"><img src="image/icon/twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="/fyp/image/icon/twitter.png" alt="Twitter"></a>
             </div>
             <div class="iconLink m-2">
-                <a href="#"><img src="image/icon/snapchat.png" alt="Snapchat"></a>
+                <a href="#"><img src="/fyp/image/icon/snapchat.png" alt="Snapchat"></a>
             </div>
             <div class="iconLink m-2">
-                <a href="#"><img src="image/icon/tiktok.png" alt="Tiktok"></a>
+                <a href="#"><img src="/fyp/image/icon/tiktok.png" alt="Tiktok"></a>
             </div>
         </div>
     </div>

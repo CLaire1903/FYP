@@ -73,7 +73,7 @@
             ?>
             <div class="loginDetail p-2 mx-auto col-lg-7">
                 <div id="logo" class="d-flex justify-content-center ">
-                    <a href="index.php"><img src="image/logo/logoB.png"></a>
+                    <a href="index.php"><img src="/fyp/image/logo/logoB.png"></a>
                 </div>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
                     <h2 class="instruction mt-3 text-center">Please sign in</h2>

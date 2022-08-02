@@ -19,6 +19,9 @@
         .question:hover + .answer {
             display: block;
         }
+        .answer:hover {
+            display: block;
+        }
     </style>
 </head>
 

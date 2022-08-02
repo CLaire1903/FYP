@@ -30,6 +30,7 @@
         <?php 
         include 'navigationBar.php';
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include 'C:\xampp\htdocs\fyp\alertIcon.php';
         ?>
         <div class="title text-center mt-5">
             <h1>Feel free to contact us.</h1>
@@ -69,7 +70,12 @@
                                     throw new Exception("Unable to save record.");
                                 }
                             } catch (PDOException $exception) {
-                                echo "<div class='alert alert-danger'>" . $exception->getMessage() . "</div>";
+                                echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                                    <div>
+                                    " . $exception->getMessage() . "
+                                    </div>
+                                </div>";
                             }
                     }
                     ?>

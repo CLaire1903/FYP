@@ -14,7 +14,7 @@
                 <li class="nav-item">
                 <div class="d-flex">
                         <div class="navIcon mx-2">
-                            <a href="#"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
+                            <a href="cart.php?cus_username={$cus_username}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
                         </div>
                         <div class="navIcon mx-2">
                             <a href="customer_profile.php?cus_username={$cus_username}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>
@@ -63,7 +63,7 @@
                 <li class="nav-item">
                     <div class="d-flex">
                         <div class="navIcon mx-2">
-                            <a href="#"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
+                            <a href="cart.php?cus_username={$cus_username}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
                         </div>
                         <div class="navIcon mx-2">
                             <a href="customer_profile.php?cus_username={$cus_username}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>

@@ -22,7 +22,7 @@ if (!isset($_SESSION["cus_email"])) {
         <?php 
         include 'navigationBar.php';
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
+        include "C:\xampp\htdocs\fyp\alertIcon.php";
         ?>
         <div class="page-header mx-5 mt-5">
             <h1>Update Customer</h1>

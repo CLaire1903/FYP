@@ -81,7 +81,7 @@
 
                 <h3 class="mt-5">Designer's Award:</h3>
                 <?php 
-                    $checkAwardQuery = "SELECT * FROM winaward WHERE designer_email = :designer_email";
+                    $checkAwardQuery = "SELECT * FROM award WHERE designer_email = :designer_email";
                     $checkAwardStmt = $con->prepare($checkAwardQuery);
                     $checkAwardStmt->bindParam(":designer_email", $designer_email);
                     $checkAwardStmt->execute();
@@ -100,11 +100,7 @@
                             echo"</thead>";
 
                             echo "<tfoot>";
-                            $awardQuery = "SELECT designer_email, a.award_id, award_name, award_year, award_country
-                                        FROM award a
-                                        INNER JOIN winaward wa
-                                        ON a.award_id = wa.award_id
-                                        WHERE designer_email = :designer_email";
+                            $awardQuery = "SELECT * FROM award WHERE designer_email = :designer_email";
                             $awardStmt = $con->prepare($awardQuery);
                             $awardStmt->bindParam(":designer_email", $designer_email);
                             $awardStmt->execute();

@@ -58,6 +58,10 @@
                 <?php
                     if ($_POST) {
                         try {
+                            if (empty($_POST['cus_email']) || empty($_POST['feedback_detail']) ) {
+                                throw new Exception("Make sure all fields are not empty");
+                            }
+
                             $sendFeedbackQuery = "INSERT INTO feedback SET cus_email=:cus_email, feedback_detail=:feedback_detail";
                             $sendFeedbackStmt = $con->prepare($sendFeedbackQuery);
                             $cus_email = $_POST['cus_email'];
@@ -76,7 +80,15 @@
                                     " . $exception->getMessage() . "
                                     </div>
                                 </div>";
-                            }
+                            
+                        } catch (Exception $exception) {
+                            echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                                <div>
+                                    " . $exception->getMessage() . "
+                                </div>
+                            </div>";
+                        }
                     }
                     ?>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
@@ -100,8 +112,8 @@
             </div>
         </div>
         <div class="map m-3 m-lg-5">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7968.796379339112!2d101.79257065449215!3d2.9868617846503436!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cdcb841d3762c7%3A0x4dc97330d731c530!2zTmV3IEVyYSBVbml2ZXJzaXR5IENvbGxlZ2Ug5paw57qq5YWD5a2m6Zmi!5e0!3m2!1sen!2smy!4v1575533854059!5m2!1sen!2smy" width="100%" height="450" frameborder="" class="rounded-3"  style="border:0;" allowfullscreen=""></iframe>
-            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.397258017919!2d101.79028701221108!3d2.9871185335820627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cdcb841d3762c7%3A0x4dc97330d731c530!2sNew%20Era%20University%20College!5e0!3m2!1sen!2smy!4v1659508363769!5m2!1sen!2smy" width="100%" height="450" frameborder="" class="rounded-3"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
         <?php
         include 'footer.php';
         ?>

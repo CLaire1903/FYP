@@ -15,7 +15,6 @@
                 <div class="d-flex">
                         <div class="navIcon mx-2">
                             <a href="cart.php?cus_username={$cus_username}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
-                            <span class="count cart-counter"></span>
                         </div>
                         <div class="navIcon mx-2">
                             <a href="customer_profile.php?cus_username={$cus_username}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>
@@ -65,7 +64,20 @@
                     <div class="d-flex">
                         <div class="navIcon mx-2">
                             <a href="cart.php?cus_username={$cus_username}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
-                            <span class="count cart-counter"></span>
+                            <?php
+
+                            if (isset($_SESSION['cus_email'])){
+                                $checkCartQuery = "SELECT * FROM cart WHERE cus_email = :cus_email";
+                                $checkCartStmt = $con->prepare($checkCartQuery);
+                                $checkCartStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                                $checkCartStmt->execute();
+                                $cart_count = $checkCartStmt->rowCount();
+                                echo "<span class='lblCartCount badge badge-warning bg-danger px-2'> $cart_count </span>";
+                            }else{
+                                echo "<span class='lblCartCount badge badge-warning bg-danger px-2'> 0 </span>";
+                            }
+
+                            ?>
                         </div>
                         <div class="navIcon mx-2">
                             <a href="customer_profile.php?cus_username={$cus_username}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>

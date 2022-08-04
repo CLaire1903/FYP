@@ -28,7 +28,7 @@ session_start();
         ?>
         <div class="aboutUs d-flex flex-column justify-content-center">
             <h1 class="text-center mt-5">Custom Made Form</h1>
-            <div class="customMadeForm d-flex justify-content-center mx-5 border rounded-3">
+            <div class="customMadeForm d-flex justify-content-center mt-5 mx-5 border rounded-3">
                 <div class="customizedForm col-10">
                     <div class="p-2 mx-auto">
                         <h4 class="instruction mt-3 text-center">Please fill in the details. </h4>

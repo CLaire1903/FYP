@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -14,8 +17,8 @@
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'navigationBar.php';
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include 'navigationBar.php';
 
         $designer_email = isset($_GET['designer_email']) ? $_GET['designer_email'] : die('ERROR: Designer record not found.');
 

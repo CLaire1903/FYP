@@ -20,8 +20,8 @@ if (!isset($_SESSION["cus_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'navigationBar.php';
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include 'navigationBar.php';
         include 'C:\xampp\htdocs\fyp\alertIcon.php';
         ?>
         <div class="page-header mx-5 mt-5">

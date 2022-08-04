@@ -72,9 +72,11 @@
                                 $checkCartStmt->bindParam(":cus_email", $_SESSION['cus_email']);
                                 $checkCartStmt->execute();
                                 $cart_count = $checkCartStmt->rowCount();
-                                echo "<span class='lblCartCount badge badge-warning bg-danger px-2'> $cart_count </span>";
-                            }else{
-                                echo "<span class='lblCartCount badge badge-warning bg-danger px-2'> 0 </span>";
+                                if ($cart_count >0 ){
+                                    echo "<span class='lblCartCount badge badge-warning px-2'> $cart_count </span>";
+                                } else {
+                                    echo "<span class='lblCartCount badge badge-warning px-2'> 0 </span>";
+                                }
                             }
 
                             ?>

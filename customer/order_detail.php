@@ -18,12 +18,11 @@ if (!isset($_SESSION["cus_email"])) {
 
 <body>
     <div class="container-fluid p-0">
-        <?php 
+        <?php
+            include 'C:\xampp\htdocs\fyp\config/dbase.php'; 
             include 'navigationBar.php';
 
             $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : die('ERROR: Order record not found.');
-            
-            include 'C:\xampp\htdocs\fyp\config/dbase.php';
 
             try {
                 $order_query = "SELECT * FROM orders WHERE order_id = :order_id";

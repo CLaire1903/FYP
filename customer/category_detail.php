@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -17,9 +20,9 @@
 <body>
     <div class="container-fluid p-0">
         <?php 
-        $category_id = isset($_GET['category_id']) ? $_GET['category_id'] : die('ERROR: Category record not found.');
-        include 'navigationBar.php';
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include 'navigationBar.php';
+        $category_id = isset($_GET['category_id']) ? $_GET['category_id'] : die('ERROR: Category record not found.');
         ?>
 
         <div class="category">

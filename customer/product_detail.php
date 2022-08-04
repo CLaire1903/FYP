@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -37,12 +40,11 @@
 <body>
     <div class="container-fluid p-0">
         <?php 
-            include 'navigationBar.php';
             include 'C:\xampp\htdocs\fyp\alertIcon.php';
+            include 'C:\xampp\htdocs\fyp\config/dbase.php';
+            include 'navigationBar.php';
 
             $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : die('ERROR: Product record not found.');
-
-            include 'C:\xampp\htdocs\fyp\config/dbase.php';
 
             $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'productExist') {
@@ -86,28 +88,28 @@
             }
         ?>
 
-            <div class="d-flex flex-column flex-md-row justify-content-around">
-                <div class="productImageSide mx-5 mt-5 col-10 col-md-5">
+        <div class="d-flex flex-column flex-md-row justify-content-around">
+            <div class="productImageSide mx-5 mt-5 col-10 col-md-5">
+                <?php
+                    $product_image = $productRow['product_image'];
+                    echo "<img src='$product_image' class='productImage'>";
+                ?>
+            </div>
+            <div class="productDetailSide text-center mx-5 mt-5 col-10 col-md-5 d-flex flex-column align-self-center">
+                <div>
+                    <h1><?php echo $product_name ?></h1>
+                    <p><?php echo $product_id ?></p>
+                    <h5 class="my-4 py-2">Designer - <a href='designer_profile.php?designer_email=<?php echo $designer_email ?>' class='detail'><?php echo $designer_email ?></a></h5>
+                    <h3 class="my-4 py-2"><a href='category_detail.php?category_id=<?php echo $category_id ?>' class='detail text-center'><?php echo $category_name?></a></h3>
+                    <h4 class="my-4 py-2">RM <?php echo $product_price?></h4>
+                </div>
+                <div class="d-flex justify-content-center">
                     <?php
-                        $product_image = $productRow['product_image'];
-                        echo "<img src='$product_image' class='productImage'>";
+                    echo "<a href='#' onclick='addToCart({$product_id});' class='addToCartBtn btn btn-lg mb-3 mx-2 d-flex justify-content-center'>Add To Cart</a>";
                     ?>
                 </div>
-                <div class="productDetailSide text-center mx-5 mt-5 col-10 col-md-5 d-flex flex-column align-self-center">
-                    <div>
-                        <h1><?php echo $product_name ?></h1>
-                        <p><?php echo $product_id ?></p>
-                        <h5 class="my-4 py-2">Designer - <a href='designer_profile.php?designer_email=<?php echo $designer_email ?>' class='detail'><?php echo $designer_email ?></a></h5>
-                        <h3 class="my-4 py-2"><a href='category_detail.php?category_id=<?php echo $category_id ?>' class='detail text-center'><?php echo $category_name?></a></h3>
-                        <h4 class="my-4 py-2">RM <?php echo $product_price?></h4>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <?php
-                        echo "<a href='#' onclick='addToCart({$product_id});' class='addToCartBtn btn btn-lg mb-3 mx-2 d-flex justify-content-center'>Add To Cart</a>";
-                        ?>
-                    </div>
-                </div>
             </div>
+        </div>
 
         <?php
         include 'footer.php';

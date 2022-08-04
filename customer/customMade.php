@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -20,8 +22,9 @@
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'navigationBar.php';
+        include 'C:\xampp\htdocs\fyp\config/dbase.php';
         include 'C:\xampp\htdocs\fyp\alertIcon.php';
+        include 'navigationBar.php';
         ?>
         <div class="aboutUs d-flex flex-column justify-content-center">
             <h1 class="text-center mt-5">Custom Made Form</h1>
@@ -31,7 +34,6 @@
                         <h4 class="instruction mt-3 text-center">Please fill in the details. </h4>
                         <?php
                         if ($_POST) {
-                            include 'C:\xampp\htdocs\fyp\config/dbase.php';
                             try {
                                 if (empty($_POST['cus_email']) || empty($_POST['cus_name']) || empty($_POST['cus_phnumber']) || empty($_POST['customized_detail']) || empty($_POST['customized_collectdate'])) {
                                     throw new Exception("Make sure all fields are not empty");

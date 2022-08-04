@@ -41,9 +41,9 @@ if (!isset($_SESSION["cus_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php 
-            include 'navigationBar.php';
             include 'C:\xampp\htdocs\fyp\config/dbase.php';
             include 'C:\xampp\htdocs\fyp\alertIcon.php';
+            include 'navigationBar.php';
 
             $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'productDeleted') {

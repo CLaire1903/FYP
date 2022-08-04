@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -16,8 +19,8 @@
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'navigationBar.php';
         include 'C:\xampp\htdocs\fyp\config\dbase.php';
+        include 'navigationBar.php';
         ?>
         <div class="aboutUs d-flex flex-column justify-content-center">
             <h1 class="text-center mt-5">About Us</h1>

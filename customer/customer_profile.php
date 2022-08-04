@@ -127,36 +127,39 @@ if (!isset($_SESSION["cus_email"])) {
                     $orderHistoryStmt = $con->prepare($orderHistoryQuery);
                     $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
                     $orderHistoryStmt->execute();
-                    while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {    
-                        $order_id = $orderHistoryRow['order_id'];
-                        $order_datentime = $orderHistoryRow['order_datentime'];
-                        $cus_email = $orderHistoryRow['cus_email'];
-                        $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
-                        $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
-                        $order_status = ucwords($orderHistoryRow['order_status']);
-                        echo "<div class='mx-5'>";
-                            echo "<table class='table table-hover table-responsive table-bordered text-center'>";
-                                echo "<thead>";
-                                    echo "<tr class='tableHeader'>";
-                                        echo "<th>Order ID</th>";
-                                        echo "<th>Order Date and Time</th>";
-                                        echo "<th>Total Amount</th>";
-                                        echo "<th>Paid Deposit</th>";
-                                        echo "<th>Order Status</th>";
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tfoot>";
-                                    echo "<tr>";
-                                        echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
-                                        echo "<td>{$order_datentime}</td>";
-                                        echo "<td>RM {$order_totalamount}</td>";
-                                        echo "<td>RM {$order_depositpaid}</td>";
-                                        echo "<td>{$order_status}</td>";
-                                    echo "</tr>";
-                                echo "</tfoot>";
-                            echo "</table>";
-                        echo "</div>";  
-                    }
+
+                    echo "<div class='mx-5'>";
+                        echo "<table class='table table-hover table-responsive table-bordered text-center'>";
+                            echo "<thead>";
+                                echo "<tr class='tableHeader'>";
+                                    echo "<th>Order ID</th>";
+                                    echo "<th>Order Date and Time</th>";
+                                    echo "<th>Total Amount</th>";
+                                    echo "<th>Paid Deposit</th>";
+                                    echo "<th>Order Status</th>";
+                                echo "</tr>";
+                            echo "</thead>";
+                        while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {  
+                            extract($orderHistoryRow);  
+                            $order_id = $orderHistoryRow['order_id'];
+                            $order_datentime = $orderHistoryRow['order_datentime'];
+                            $cus_email = $orderHistoryRow['cus_email'];
+                            $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
+                            $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
+                            $order_status = ucwords($orderHistoryRow['order_status']);
+                            echo "<tfoot>";
+                                echo "<tr>";
+                                    echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
+                                    echo "<td>{$order_datentime}</td>";
+                                    echo "<td>RM {$order_totalamount}</td>";
+                                    echo "<td>RM {$order_depositpaid}</td>";
+                                    echo "<td>{$order_status}</td>";
+                                echo "</tr>";
+                            echo "</tfoot>";
+                                
+                        }
+                        echo "</table>";
+                    echo "</div>";
                 }
             ?>
         </div>

@@ -34,6 +34,18 @@ if (!isset($_SESSION["cus_email"])) {
             background-color: #f7A8AE;
             font-weight: bold;
         }
+        .checkoutAlert {
+            background-color: #ffe1e1
+        }
+        .checkoutIns{
+            color: #ff7474;
+            text-decoration: none;
+        }
+        .checkoutIns:hover{
+            color: black;
+            text-decoration: underline;
+            text-transform: 0.3s;
+        }
     </style>
 
 </head>
@@ -88,6 +100,24 @@ if (!isset($_SESSION["cus_email"])) {
         ?>
         <div class="mt-5 mx-5">
             <h1 class="text-center">Shopping Cart</h1>
+            <div class="mt-5">
+                <?php 
+                    $checkCheckoutQuery = "SELECT * FROM checkout WHERE cus_email = :cus_email";
+                    $checkCheckoutStmt = $con->prepare($checkCheckoutQuery);
+                    $checkCheckoutStmt->bindParam(":cus_email", $_SESSION["cus_email"]);
+                    $checkCheckoutStmt->execute();
+                    $checkCheckoutRow = $checkCheckoutStmt->fetch(PDO::FETCH_ASSOC);
+                    if ($checkCheckoutRow > 0) {
+                        $cusEmail = $_SESSION["cus_email"];
+                        echo "<div class='checkoutAlert alert d-flex align-items-center' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                        <div>
+                        You still have order haven't checkout. Click <a href='checkout.php?cus_email=$cusEmail' id='registerAcc' class='checkoutIns fw-bold'>HERE</a> to proceed.
+                        </div>
+                    </div>";
+                    }
+                ?>
+            </div>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
                     <?php
                         $checkCartQuery = "SELECT * FROM cart WHERE cus_email = :cus_email";

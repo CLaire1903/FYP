@@ -27,7 +27,7 @@ session_start();
         $categoryStmt->execute();
         ?>
         <div class="category">
-            <h1 class="text-center mt-5">Product Category</h1>
+            <h1 class="text-center my-5">Product Category</h1>
             <div class="categoryItems d-flex flex-wrap justify-content-around">
                 <?php
                     while ($categoryRow = $categoryStmt->fetch(PDO::FETCH_ASSOC)) {

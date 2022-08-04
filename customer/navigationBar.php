@@ -73,9 +73,9 @@
                                 $checkCartStmt->execute();
                                 $cart_count = $checkCartStmt->rowCount();
                                 if ($cart_count >0 ){
-                                    echo "<span class='lblCartCount badge badge-warning px-2'> $cart_count </span>";
+                                    echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> $cart_count </span>";
                                 } else {
-                                    echo "<span class='lblCartCount badge badge-warning px-2'> 0 </span>";
+                                    echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> 0 </span>";
                                 }
                             }
 

@@ -14,10 +14,26 @@
                 <li class="nav-item">
                 <div class="d-flex">
                         <div class="navIcon mx-2">
-                            <a href="cart.php?cus_username={$cus_username}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
+                            <a href="cart.php?cus_email={$cus_email}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
+                            <?php
+
+                            if (isset($_SESSION['cus_email'])){
+                                $checkCartQuery = "SELECT * FROM cart WHERE cus_email = :cus_email";
+                                $checkCartStmt = $con->prepare($checkCartQuery);
+                                $checkCartStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                                $checkCartStmt->execute();
+                                $cart_count = $checkCartStmt->rowCount();
+                                if ($cart_count >0 ){
+                                    echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> $cart_count </span>";
+                                } else {
+                                    echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> 0 </span>";
+                                }
+                            }
+
+                            ?>
                         </div>
                         <div class="navIcon mx-2">
-                            <a href="customer_profile.php?cus_username={$cus_username}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>
+                            <a href="customer_profile.php?cus_email={$cus_email}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>
                         </div>
                         <div class="navIcon mx-2">
                             <a href="customer_logout.php"><img src="/fyp/image/icon/logout.png" alt="Logout"></a>
@@ -63,7 +79,7 @@
                 <li class="nav-item">
                     <div class="d-flex">
                         <div class="navIcon mx-2">
-                            <a href="cart.php?cus_username={$cus_username}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
+                            <a href="cart.php?cus_email={$cus_email}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
                             <?php
 
                             if (isset($_SESSION['cus_email'])){
@@ -82,7 +98,7 @@
                             ?>
                         </div>
                         <div class="navIcon mx-2">
-                            <a href="customer_profile.php?cus_username={$cus_username}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>
+                            <a href="customer_profile.php?cus_email={$cus_email}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>
                         </div> 
                         <div class="navIcon mx-2">
                             <a href="customer_logout.php"><img src="/fyp/image/icon/logout.png" alt="Logout"></a>

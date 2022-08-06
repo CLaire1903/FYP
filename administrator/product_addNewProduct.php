@@ -39,7 +39,7 @@ if (!isset($_SESSION["admin_email"])) {
                 $isUploadOK = 1;
 
                 try {
-                    if (empty($_POST['product_name']) || empty($_POST['product_price']) || empty($_POST['category_id']) ||  empty($_POST['designer_email'])) {
+                    if (empty($_POST['product_name']) || empty($_POST['product_price']) || empty($_POST['category_id']) ||  empty($_POST['designer_email']) ||  empty($_POST['product_condition'])) {
                         throw new Exception("Please make sure all fields are not empty!");
                     }
                     if (!is_numeric($_POST['product_price'])) {
@@ -83,16 +83,18 @@ if (!isset($_SESSION["admin_email"])) {
                     }
 
                     //prepare to insert new product into database
-                    $addProductQuery = "INSERT INTO product SET product_name=:product_name, product_price=:product_price, category_id=:category_id, designer_email=:designer_email";
+                    $addProductQuery = "INSERT INTO product SET product_name=:product_name, product_price=:product_price, category_id=:category_id, designer_email=:designer_email, product_condition=:product_condition";
                     $addProductStmt = $con->prepare($addProductQuery);
                     $product_name = ucfirst($_POST['product_name']);
                     $product_price = $_POST['product_price'];
                     $category_id = $_POST['category_id'];
                     $designer_email = $_POST['designer_email'];
+                    $product_condition = $_POST['product_condition'];
                     $addProductStmt->bindParam(':product_name', $product_name);
                     $addProductStmt->bindParam(':product_price', $product_price);
                     $addProductStmt->bindParam(':category_id', $category_id);
                     $addProductStmt->bindParam(':designer_email', $designer_email);
+                    $addProductStmt->bindParam(':product_condition', $product_condition);
                     if ($addProductStmt->execute()) {
                         //get last inserted productID
                         $A_incrementID = $con->lastInsertId();
@@ -180,7 +182,7 @@ if (!isset($_SESSION["admin_email"])) {
                         </td>
                     </tr>
                     <tr>
-                        <td>Expired Date <span class="text-danger">*</span></td>
+                        <td>Designer Email <span class="text-danger">*</span></td>
                         <td>
                             <select class="form-select" name="designer_email" id="designer_email">
                                 <option value='' disabled selected>-- Select Designer --</option>
@@ -194,6 +196,47 @@ if (!isset($_SESSION["admin_email"])) {
                                 }
                                 ?>
                             </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Product Condition <span class="text-danger">*</span></td>
+                        <td>
+                            <div class="form-check">
+                                <label>
+                                    <input type="radio" name="product_condition" value="available" 
+                                    <?php
+                                    if(isset($_POST['product_condition'])){
+                                        echo $_POST['product_condition'] == "available" ? 'checked' : '';
+                                    }
+                                    ?>>
+                                    Available
+                                    <span class="select"></span>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label>
+                                    <input type="radio" name="product_condition" value="rented" 
+                                    <?php
+                                    if(isset($_POST['product_condition'])){
+                                        echo $_POST['product_condition'] == "rented" ? 'checked' : '';
+                                    }
+                                    ?>>
+                                    Rented
+                                    <span class="select"></span>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label>
+                                    <input type="radio" name="product_condition" value="sold" 
+                                    <?php
+                                    if(isset($_POST['product_condition'])){
+                                        echo $_POST['product_condition'] == "sold" ? 'checked' : '';
+                                    }
+                                    ?>>
+                                    Sold
+                                    <span class="select"></span>
+                                </label>
+                            </div>
                         </td>
                     </tr>
                 </table>

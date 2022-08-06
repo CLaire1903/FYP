@@ -61,7 +61,7 @@
                     if ($adminRow['admin_pword'] != $admin_pword) {
                         throw new exception("Password incorrect!");
                     }
-                    $_SESSION['admin_email'] = $row['admin_email'];
+                    $_SESSION['admin_email'] = $adminRow['admin_email'];
                     header("Location: home.php");
                 } catch (PDOException $exception) {
                     //for database 'PDO'

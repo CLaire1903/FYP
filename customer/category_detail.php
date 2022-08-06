@@ -42,7 +42,7 @@ session_start();
             ?>
             <div class="categoryItems d-flex flex-wrap justify-content-around">
                 <?php
-                    $categoryDetailQuery = "SELECT product_id, product_image, product_name, product_price FROM product WHERE category_id = $category_id ORDER BY product_id DESC";
+                    $categoryDetailQuery = "SELECT product_id, product_image, product_name, product_price FROM product WHERE category_id = $category_id && product_condition = 'available' ORDER BY product_id DESC";
                     $categoryDetailStmt = $con->prepare($categoryDetailQuery); 
                     $categoryDetailStmt->execute();
                     while ($categoryDetailRow = $categoryDetailStmt->fetch(PDO::FETCH_ASSOC)) {

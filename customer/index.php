@@ -28,7 +28,7 @@ session_start();
             <h1 class="text-center mt-5">NEW ARRIVAL</h1>
             <div class="newArrrivalItems d-flex flex-wrap justify-content-around">
                 <?php
-                    $newArrivalQuery = "SELECT product_id, product_image, product_name, product_price FROM product ORDER BY product_id DESC LIMIT 6";
+                    $newArrivalQuery = "SELECT product_id, product_image, product_name, product_price FROM product WHERE product_condition = 'available' ORDER BY product_id DESC LIMIT 6";
                     $newArrivalStmt = $con->prepare($newArrivalQuery);
                     $newArrivalStmt->execute();
                     while ($newArrivalRow = $newArrivalStmt->fetch(PDO::FETCH_ASSOC)) {
@@ -54,7 +54,7 @@ session_start();
                     $mostPopularQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, SUM( od.order_quantity ) AS totalOrderedQuantity
                     FROM orderdetail od
                     INNER JOIN product p
-                    WHERE od.product_id = p.product_id
+                    WHERE od.product_id = p.product_id && product_condition = 'available'
                     GROUP BY od.product_id
                     ORDER BY totalOrderedQuantity DESC
                     LIMIT 6";

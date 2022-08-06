@@ -64,7 +64,7 @@ session_start();
         </div>
         <div class="d-flex justify-content-center mt-5">
             <?php
-                echo "<a href='product_addNewProduct.php?category_id={$category_id}' id='create' class='actionBtn btn mx-2'>Create New Product</a>";
+                echo "<a href='product_addNewProduct.php' id='create' class='actionBtn btn mx-2'>Create New Product</a>";
             ?>
         </div>
         <?php

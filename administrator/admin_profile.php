@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["admin_email"])) {
-    header("Location: customer_login.php?error=restrictedAccess");
+    header("Location: index.php?error=restrictedAccess");
 }
 ?>
 <!DOCTYPE HTML>
@@ -119,8 +119,7 @@ if (!isset($_SESSION["admin_email"])) {
 
         <div class="d-flex justify-content-center">
             <?php
-                echo "<a href='admin_updateProfile.php?cus_email={$admin_email}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
-                echo "<a href='admin_updatePassword.php?cus_email={$admin_email}' class='actionBtn btn mx-2 mt-5'>Update Password</a>";
+                echo "<a href='admin_updateProfile.php?admin_email={$admin_email}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
             ?>
         </div>
         <div class="footer bg-dark">

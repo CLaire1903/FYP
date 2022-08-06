@@ -70,15 +70,14 @@ if (!isset($_SESSION["cus_email"])) {
                 <thead>
                     <tr class='tableHeader'>
                         <th class='text-center'>Product</th>
-                        <th class='col-1 text-center'>Quantity</th>
                         <th class='col-3 col-md-2 text-center'>Price per piece</th>
                         <th class='col-3 col-md-2 text-center'>Total Price</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                        for ($i = 0; $i < count($_POST['product_id']); $i++){
-                            $checkoutQuery = "SELECT p.product_id, p.product_image, p.product_name, co.cart_quantity, p.product_price
+                        //for ($i = 0; $i < count($_POST['product_id']); $i++){
+                            $checkoutQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price
                                         FROM checkout co
                                         INNER JOIN product p 
                                         ON co.product_id = p.product_id
@@ -90,9 +89,8 @@ if (!isset($_SESSION["cus_email"])) {
                                 $product_image = $checkoutRow['product_image'];
                                 $product_id = $checkoutRow['product_id'][$i];
                                 $product_name = $checkoutRow['product_name'];
-                                $productPrice = sprintf('%.2f', $checkoutRow['product_price']);
-                                $cart_quantity = $checkoutRow['cart_quantity'][$i];
-                                $productTotalAmount = $productPrice * $cart_quantity;
+                                $product_price = sprintf('%.2f', $checkoutRow['product_price']);
+                                $productTotalAmount = $product_price;
                                 $order_totalamount = 0;
                                 $order_totalamount += $productTotalAmount; 
                                 echo "<tr>";
@@ -106,16 +104,15 @@ if (!isset($_SESSION["cus_email"])) {
                                     echo "</div>";
                                 echo "</div>";
                                 echo "</td>";
-                                echo "<td class='text-center'>$cart_quantity</td>";
-                                echo "<td class='text-end'>RM $productPrice</td>";
+                                echo "<td class='text-end'>RM $product_price</td>";
                                 echo "<td class='text-end'>RM $productTotalAmount</td>";
                                 echo "</tr>";
                             }
-                        }
+                        //}
                     echo "</tbody>";
                     echo "<tfoot>";
                         echo "<tr>";
-                        echo "<td colspan='3' class='text-end'>The total amount is:</td>";
+                        echo "<td colspan='2' class='text-end'>The total amount is:</td>";
                         echo "<td class='text-end'>RM $order_totalamount</td>";
                         echo "</tr>";
                         echo "<tr>";

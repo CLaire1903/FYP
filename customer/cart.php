@@ -134,12 +134,11 @@ if (!isset($_SESSION["cus_email"])) {
                                         echo "<th class=' border-end-0'>Product Image</th>";
                                         echo "<th class='border-start-0 border-end-0'>Product</th>";
                                         echo "<th class='border-start-0 border-end-0'>Price (RM)</th>";
-                                        echo "<th class='border-start-0 border-end-0'>Quantity</th>";
                                         echo "<th class='border-start-0'></th>";
                                     echo "</tr>";
                                 echo "</thead>";
 
-                            $cartQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, c.cart_quantity
+                            $cartQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price
                                     FROM cart c
                                     INNER JOIN product p 
                                     ON c.product_id = p.product_id
@@ -152,11 +151,9 @@ if (!isset($_SESSION["cus_email"])) {
                                 $product_id = $cartRow['product_id'];
                                 $product_name = ucwords($cartRow['product_name']);
                                 $product_price = sprintf('%.2f',$cartRow['product_price']);
-                                $cart_quantity = $cartRow['cart_quantity'];
                                 $product_id = htmlspecialchars($product_id, ENT_QUOTES);
                                 $product_name = htmlspecialchars($product_name, ENT_QUOTES);
-                                $product_price = htmlspecialchars($product_price, ENT_QUOTES);
-                                $cart_quantity = htmlspecialchars($cart_quantity, ENT_QUOTES);?>
+                                $product_price = htmlspecialchars($product_price, ENT_QUOTES);?>
 
                                 <tfoot>
                                     <tr>
@@ -168,7 +165,6 @@ if (!isset($_SESSION["cus_email"])) {
                                         <td class="col-4 border-start-0 border-end-0"><?php echo htmlspecialchars($product_name, ENT_QUOTES); ?> <br>
                                         <input name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES); ?>" class='cartProduct form-control text-center border border-0'/></td>
                                         <td class="col-2 border-start-0 border-end-0"> <input name='product_price' id='product_price' value="<?php echo htmlspecialchars($product_price, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0'/></td>
-                                        <td class="col-1 border-start-0 border-end-0"><input name='cart_quantity[]' id='cart_quantity' value="<?php echo htmlspecialchars($cart_quantity, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0'/></td>
                                         <td class="col-1 border-start-0">
                                             <?php 
                                             echo "<a href='#' onclick='deleteProduct({$product_id});' id='delete' class='deleteBtn btn '>Delete</a>";

@@ -12,7 +12,7 @@
         <div class="d-lg-none">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                <div class="d-flex">
+                    <div class="d-flex">
                         <div class="navIcon mx-2">
                             <a href="admin_profile.php?admin_email={$admin_email}"><img src="/fyp/image/icon/profile.png" alt="profile"></a>
                         </div>
@@ -34,8 +34,14 @@
                 </div>
                 <div>
                     <ul class="nav justify-content-center">
-                        <li class="nav-item">
-                            <a id="category" class="nav-link word" aria-current="page" href="category.php">Category</a>
+                        <li class="nav-item dropdown">
+                            <a id="product" class="nav-link dropdown-toggle navbarDropdownMenuLink word" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Product
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a id="category" class="dropdown-item word" href="category.php">Category</a></li>
+                                <li><a id="addProduct" class="dropdown-item word" href="product_addNewProduct.php">Add Product</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -61,6 +67,20 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a id="createOrder" class="dropdown-item word" href="order.php">Create Order</a></li>
                                 <li><a id="orderList" class="dropdown-item word" href="order_list.php">Order List</a></li>
+                                <li class="nav-item"><a id="customMadeOrder" class="nav-link word" aria-current="page" href="customMade.php">Custom Made Order</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item dropdown">
+                            <a id="staff" class="nav-link dropdown-toggle navbarDropdownMenuLink word" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Staff 
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a id="addStaff" class="dropdown-item word" href="order.php">Add new staff</a></li>
+                                <li><a id="staffList" class="dropdown-item word" href="order_list.php">Staff List</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -68,14 +88,7 @@
                 <div>
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a id="customMade" class="nav-link word" aria-current="page" href="customMade.php">Custom Made</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul class="nav justify-content-center">
-                        <li class="nav-item">
-                            <a id="contactUs" class="word nav-link" aria-current="page" href="contactUs.php">Contact Us</a>
+                            <a id="feedback" class="word nav-link" aria-current="page" href="feedback.php">Feedback Review</a>
                         </li>
                     </ul>
                 </div>

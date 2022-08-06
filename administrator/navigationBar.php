@@ -41,6 +41,32 @@
                 </div>
                 <div>
                     <ul class="nav justify-content-center">
+                        <li class="nav-item dropdown">
+                            <a id="customer" class="nav-link dropdown-toggle navbarDropdownMenuLink word" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Customer
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a id="createCus" class="dropdown-item word" href="customer.php">Create Customer</a></li>
+                                <li><a id="cusList" class="dropdown-item word" href="customer_list.php">Customer List</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item dropdown">
+                            <a id="order" class="nav-link dropdown-toggle navbarDropdownMenuLink word" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Order
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a id="createOrder" class="dropdown-item word" href="order.php">Create Order</a></li>
+                                <li><a id="orderList" class="dropdown-item word" href="order_list.php">Order List</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="nav justify-content-center">
                         <li class="nav-item">
                             <a id="customMade" class="nav-link word" aria-current="page" href="customMade.php">Custom Made</a>
                         </li>

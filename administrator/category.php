@@ -11,7 +11,7 @@ session_start();
     <link href="/fyp/css/category.css" rel="stylesheet">
 
     <style>
-        #category {
+        #product, #category {
             font-weight: bold;
         }
     </style>

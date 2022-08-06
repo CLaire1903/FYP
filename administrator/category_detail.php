@@ -11,7 +11,7 @@ session_start();
     <link href="/fyp/css/product.css" rel="stylesheet">
 
     <style>
-        #category {
+        #product, #category {
             font-weight: bold;
         }
     </style>
@@ -61,11 +61,6 @@ session_start();
                 ?>
                 </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-center mt-5">
-            <?php
-                echo "<a href='product_addNewProduct.php' id='create' class='actionBtn btn mx-2'>Create New Product</a>";
-            ?>
         </div>
         <?php
         include 'footer.php';

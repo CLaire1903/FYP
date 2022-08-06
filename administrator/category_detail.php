@@ -61,6 +61,10 @@ session_start();
                 ?>
                 </div>
             </div>
+            <div class="d-flex justify-content-center mt-5">
+                <a href='category.php' class='actionBtn btn mb-3 mx-2'>Back</a>
+            </div>
+                
         </div>
         <?php
         include 'footer.php';

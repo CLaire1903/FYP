@@ -11,7 +11,7 @@ nav, #footer {
     height: 100px;
 } 
 
-.navContent {
+.navContent, .dropdown-menu {
     background-color:#f7c2c2;
 }
 

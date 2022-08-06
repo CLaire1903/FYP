@@ -13,6 +13,9 @@ if (!isset($_SESSION["admin_email"])) {
     <link href="/fyp/css/shared.css" rel="stylesheet">
 
     <style>
+        #product, #addProduct {
+            font-weight: bold;
+        }
     </style>
     
 </head>

@@ -25,7 +25,7 @@ if (!isset($_SESSION["cus_email"])) {
         include 'C:\xampp\htdocs\fyp\alertIcon.php';
         ?>
         <div class="page-header mx-5 mt-5">
-            <h1>Update Customer</h1>
+            <h1>Update Profile</h1>
             <h6 class="text-danger"> NOTE! Please refresh if you do not see any changes. </h6>
         </div>
         <?php

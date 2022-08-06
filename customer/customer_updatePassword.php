@@ -103,7 +103,7 @@ if (!isset($_SESSION["cus_email"])) {
             </table>
             <div class="d-flex justify-content-center">
                 <input type='submit' value='Save Changes' class='actionBtn btn mb-3 mx-2' />
-                <a href='customer_profile.php?cus_username={$cus_username}' class='actionBtn btn mb-3 mx-2'>Back</a>
+                <a href='customer_profile.php?cus_email={$cus_email}' class='actionBtn btn mb-3 mx-2'>Back</a>
             </div>
         </form>
     </div>

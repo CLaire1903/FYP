@@ -27,13 +27,11 @@ if (!isset($_SESSION["cus_email"])) {
             echo "<script>window.location.href='product_detail.php?product_id='+ $product_id + '&product_name=' + '$product_name' + '&action=productExist';</script>";
         }
         else {
-            $addToCartQuery = "INSERT INTO cart SET product_id=:product_id, cus_email=:cus_email, cart_quantity=:cart_quantity";
+            $addToCartQuery = "INSERT INTO cart SET product_id=:product_id, cus_email=:cus_email";
             $addToCartStmt = $con->prepare($addToCartQuery);
             $cus_email = $_SESSION["cus_email"];
-            $cart_quantity = 1;
             $addToCartStmt->bindParam(':product_id', $product_id);
             $addToCartStmt->bindParam(":cus_email", $cus_email);
-            $addToCartStmt->bindValue("cart_quantity", $cart_quantity);
             if ($addToCartStmt->execute()) {
                 echo "<script>window.location.href='product_detail.php?product_id='+ $product_id + '&product_name=' + '$product_name' + '&action=productAdded';</script>";
                 } else {

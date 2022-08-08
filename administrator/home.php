@@ -134,8 +134,8 @@ if (!isset($_SESSION["admin_email"])) {
                         <th>Product Price</th>
                     </tr>
                     <?php
-                        $mostPopularQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, SUM( od.order_quantity ) AS totalOrderedQuantity
-                        FROM orderdetail od
+                        $mostPopularQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, SUM( od.product_selected ) AS totalOrderedQuantity
+                        FROM order_detail od
                         INNER JOIN product p
                         WHERE od.product_id = p.product_id
                         GROUP BY od.product_id

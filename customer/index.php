@@ -21,7 +21,26 @@ session_start();
     <div class="container-fluid p-0">
         <?php 
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include 'C:\xampp\htdocs\fyp\alertIcon.php';
         include 'navigationBar.php';
+
+        $action = isset($_GET['action']) ? $_GET['action'] : "";
+        if ($action == 'noOrdered') {
+            echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                <div>
+                    Order fail. Please contact customer service for assistance.
+                </div>
+                </div>";
+        }
+        if ($action == 'ordered') {
+            echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                    <div>
+                        Ordered successful. Please make payment in between 3 days to avoid order cancellation.
+                    </div>
+                </div>";
+        }
         ?>
 
         <div class="newArrival">

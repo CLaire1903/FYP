@@ -39,9 +39,8 @@
                                 Product
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a id="category" class="dropdown-item word" href="category.php">Category</a></li>
+                                <li><a id="addProduct" class="dropdown-item word" href="product_addNewProduct.php">Create Product</a></li>
                                 <li><a id="productList" class="dropdown-item word" href="product_list.php">Product List</a></li>
-                                <li><a id="addProduct" class="dropdown-item word" href="product_addNewProduct.php">Add Product</a></li>
                             </ul>
                         </li>
                     </ul>

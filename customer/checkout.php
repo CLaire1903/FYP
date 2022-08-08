@@ -42,9 +42,7 @@ if (!isset($_SESSION["cus_email"])) {
                             throw new Exception("Deposit must be at least 30% from the total amount!");
                         }
 
-
                         $con->beginTransaction();
-
                         $getCheckoutIdQuery = "SELECT checkout_id FROM checkout WHERE cus_email=:cus_email";
                         $getCheckoutIdStmt = $con->prepare($getCheckoutIdQuery);
                         $getCheckoutIdStmt->bindParam(":cus_email", $_SESSION['cus_email']);

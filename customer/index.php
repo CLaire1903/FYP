@@ -52,7 +52,7 @@ session_start();
             <div class="mostPopularItems d-flex flex-wrap justify-content-around">
                 <?php
                     $mostPopularQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, SUM( od.order_quantity ) AS totalOrderedQuantity
-                    FROM orderdetail od
+                    FROM order_detail od
                     INNER JOIN product p
                     WHERE od.product_id = p.product_id && product_condition = 'available'
                     GROUP BY od.product_id

@@ -13,6 +13,11 @@ if (!isset($_SESSION["cus_email"])) {
     <link href="/fyp/css/shared.css" rel="stylesheet">
     <link href="/fyp/css/order.css" rel="stylesheet">
 
+    <style>
+        .form-control[readonly]{
+            background-color: white;
+        }
+    </style>
     
 </head>
 
@@ -23,114 +28,224 @@ if (!isset($_SESSION["cus_email"])) {
             include 'C:\xampp\htdocs\fyp\config/dbase.php'; 
             include 'navigationBar.php';
 
-            /*try {
-                $checkoutQuery = "SELECT * FROM checkout WHERE cus_email = :cus_email";
-                $checkoutStmt = $con->prepare($checkoutQuery);
-                $checkoutStmt->bindParam(":cus_email", $_SESSION["cus_email"]);
-                $checkoutStmt->execute();
-                $checkoutRow = $checkoutStmt->fetch(PDO::FETCH_ASSOC);
-                $order_id = $order_row['order_id'];
-                $order_datentime = $order_row['order_datentime'];
-                $order_totalamount = sprintf('%.2f', $order_row['order_totalamount']);
-                $order_depositpaid = sprintf('%.2f', $order_row['order_depositpaid']);
-                $order_status = ucwords($order_row['order_status']);
-            } catch (PDOException $exception) {
-                die('ERROR: ' . $exception->getMessage());
-            }*/
+            if($_POST){
+                try {
+                    $con->beginTransaction();
+
+                    $getCheckoutIdQuery = "SELECT checkout_id FROM checkout WHERE cus_email=:cus_email";
+                    $getCheckoutIdStmt = $con->prepare($getCheckoutIdQuery);
+                    $getCheckoutIdStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                    $getCheckoutIdStmt->execute();
+                    $getCheckoutIdRow = $getCheckoutIdStmt->fetch(PDO::FETCH_ASSOC);
+                    $checkout_id = $getCheckoutIdRow['checkout_id'];
+                    echo $checkout_id;
+
+                    $createOrderQuery = "INSERT INTO orders SET order_datentime=:order_datentime, cus_email=:cus_email, order_totalamount=:order_totalamount, order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod";
+
+                    $createOrderStmt = $con->prepare($createOrderQuery);
+
+                    $order_datentime = date('Y-m-d H:i:s');
+                    $cus_email = $_SESSION["cus_email"];
+                    $order_totalamount = htmlspecialchars(strip_tags($_POST['checkout_totalamount']));
+                    $order_depositpaid = $_POST['order_depositpaid'];
+                    $shipping_name = $_POST['shipping_name'];
+                    $shipping_phnumber = $_POST['shipping_phnumber'];
+                    $shipping_address = $_POST['shipping_address'];
+                    $shipping_postcode = $_POST['shipping_postcode'];
+                    $order_status = "new order";
+                    $order_paymethod = $_POST['order_paymethod'];
+
+                    $createOrderStmt->bindParam(':order_datentime', $order_datentime);
+                    $createOrderStmt->bindParam(':cus_email', $cus_email);
+                    $createOrderStmt->bindParam(':order_totalamount', $order_totalamount);
+                    $createOrderStmt->bindParam(':order_depositpaid', $order_depositpaid);
+                    $createOrderStmt->bindParam(':shipping_name', $shipping_name);
+                    $createOrderStmt->bindParam(':shipping_phnumber', $shipping_phnumber);
+                    $createOrderStmt->bindParam(':shipping_address', $shipping_address);
+                    $createOrderStmt->bindParam(':shipping_postcode', $shipping_postcode);
+                    $createOrderStmt->bindParam(':order_status', $order_status);
+                    $createOrderStmt->bindParam(':order_paymethod', $order_paymethod);
+
+                    if ($createOrderStmt->execute()) {
+                        $lastID = $con->lastInsertId();
+                        for ($i = 0; $i < count($_POST['product_id']); $i++) {
+                            $product_id = htmlspecialchars(strip_tags($_POST['product_id'][$i]));
+                            $getPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
+                            $getPriceStmt = $con->prepare($getPriceQuery);
+                            $getPriceStmt->bindParam(':product_id', $product_id);
+                            $getPriceStmt->execute();
+                            while ($getPriceRow = $getPriceStmt->fetch(PDO::FETCH_ASSOC)) {
+                                $product_price = $getPriceRow['product_price'];
+                                $product_totalamount = $product_price;
+                            }
+
+                            $orderDetailQuery = "INSERT INTO order_detail SET order_id=:order_id, product_id=:product_id, product_totalamount=:product_totalamount, product_selected=:product_selected";
+                            $orderDetailStmt = $con->prepare($orderDetailQuery);
+                            $product_selected = 1;
+                            $orderDetailStmt->bindParam(':order_id', $lastID);
+                            $orderDetailStmt->bindParam(':product_id', $product_id);
+                            $orderDetailStmt->bindParam(':product_totalamount', $product_totalamount);
+                            $orderDetailStmt->bindParam(':product_selected', $product_selected);
+                            if ($orderDetailStmt->execute()) {
+                                $deleteCheckoutDetailQuery = "DELETE FROM checkout_detail  WHERE checkout_id = :checkout_id";
+                                $deleteCheckoutDetailStmt = $con->prepare($deleteCheckoutDetailQuery);
+                                $deleteCheckoutDetailStmt->bindParam(':checkout_id', $checkout_id);
+                                if ($deleteCheckoutDetailStmt->execute()){
+                                    $deleteCheckoutQuery = "DELETE FROM checkout WHERE checkout_id = :checkout_id";
+                                    $deleteCheckoutStmt = $con->prepare($deleteCheckoutQuery);
+                                    $deleteCheckoutStmt->bindParam(':checkout_id', $checkout_id);
+                                    if($deleteCheckoutStmt->execute()){
+                                        echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=ordered';</script>";
+                                    }
+                                    else{
+                                        echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=noOrdered';</script>";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    $con->commit();
+                } catch (PDOException $exception) {
+                    echo "<div class='alert alert-danger d-flex align-items-center mt-5 mx-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                        <div>
+                        " . $exception->getMessage() . "
+                        </div>
+                    </div>";
+                }
+            }
+            
         ?>
         <h1 class="text-center mt-5">Checkout</h1>
         <div class="mx-5 mt-5">
-            <table class='table table-hover table-responsive table-bordered'>
-                <thead>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
+                <table class='table table-hover table-responsive table-bordered'>
+                    <thead>
+                        <tr>
+                            <h2>Billing Details</h2>
+                        </tr>
+                        <tr class="border-start border-end border-top border-0"> 
+                            <th class="col-4 d-flex align-self-center border-0 px-3">Name</th>
+                            <td class="border-0"><input type='text' name='shipping_name' id="shipping_name" value="<?php echo (isset($_POST['shipping_name'])) ? $_POST['shipping_name'] : ''; ?>" class='form-control'/></td>
+                        </tr>
+                        <tr class="border-start border-end border-0">
+                            <th class="d-flex align-self-center border-0 px-3">Phone Number</th>
+                            <td class="border-0"><input type="tel" name="shipping_phnumber" id="shipping_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo (isset($_POST['shipping_phnumber'])) ? $_POST['shipping_phnumber'] : ''; ?>" class='form-control' ></td>
+                        </tr>
+                        <tr class="border-start border-end border-0">
+                            <th class="d-flex align-self-center border-0 px-3">Address</th>
+                            <td class="border-0"><textarea type='text' name='shipping_address' id="shipping_address" class='form-control' rows="3"><?php echo (isset($_POST['shipping_address'])) ? $_POST['shipping_address'] : ''; ?></textarea></td>
+                        </tr>
+                        <tr class="border-start border-end border-bottom border-0">
+                            <th class="d-flex align-self-center border-0 px-3">Postcode</th>
+                            <td class="border-0"><input type="tel" name="shipping_postcode" id="shipping_postcode" placeholder="12345" pattern="[0-9]{5}" value="<?php echo (isset($_POST['shipping_postcode'])) ? $_POST['shipping_postcode'] : ''; ?>" class='form-control' ></td>
+                        </tr>
+                    </thead>
+                </table>
+                <table class='table table-hover table-responsive table-bordered'>
                     <tr>
-                        <h2>Billing Details</h2>
+                        <h2 class="mt-4">Your Orders</h2>
                     </tr>
-                    <tr class="border-start border-end border-top border-0"> 
-                        <th class="col-4 d-flex align-self-center border-0 px-3">Name</td>
-                        <td class="border-0"><input type='text' name='shipping_name' id="shipping_name" value="<?php echo (isset($_POST['shipping_name'])) ? $_POST['shipping_name'] : ''; ?>" class='form-control'/></td>
-                    </tr>
-                    <tr class="border-start border-end border-0">
-                        <th class="d-flex align-self-center border-0 px-3">Phone Number</td>
-                        <td class="border-0"><input type="tel" name="shipping_phnumber" id="shipping_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo (isset($_POST['shipping_phnumber'])) ? $_POST['shipping_phnumber'] : ''; ?>" class='form-control' ></td>
-                    </tr>
-                    <tr class="border-start border-end border-0">
-                        <th class="d-flex align-self-center border-0 px-3">Address</td>
-                        <td class="border-0"><textarea type='text' name='shipping_address' id="shipping_address" class='form-control' rows="3"><?php echo (isset($_POST['shipping_address'])) ? $_POST['shipping_address'] : ''; ?></textarea></td>
-                    </tr>
-                    <tr class="border-start border-end border-bottom border-0">
-                        <th class="d-flex align-self-center border-0 px-3">Postcode</td>
-                        <td class="border-0"><input type="tel" name="shipping_postcode" id="shipping_postcode" placeholder="12345" pattern="[0-9]{5}" value="<?php echo (isset($_POST['shipping_postcode'])) ? $_POST['shipping_postcode'] : ''; ?>" class='form-control' ></td>
-                    </tr>
-                </thead>
-            </table>
-            <table class='table table-hover table-responsive table-bordered'>
-                <tr>
-                    <h2 class="mt-4">Your Orders</h2>
-                </tr>
-                <thead>
-                    <tr class='tableHeader'>
-                        <th class='text-center'>Product</th>
-                        <th class='col-3 col-md-2 text-center'>Price per piece</th>
-                        <th class='col-3 col-md-2 text-center'>Total Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        //for ($i = 0; $i < count($_POST['product_id']); $i++){
-                            $checkoutQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price
-                                        FROM checkout co
+                    <thead>
+                        <tr class='tableHeader'>
+                            <th class='text-center'>Product</th>
+                            <th class='col-3 col-md-2 text-center'>Price per piece (RM)</th>
+                            <th class='col-3 col-md-2 text-center'>Total Price (RM)</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <?php
+                            $getCheckoutQuery = "SELECT * FROM checkout WHERE cus_email=:cus_email";
+                            $getCheckoutStmt = $con->prepare($getCheckoutQuery);
+                            $getCheckoutStmt->bindParam(":cus_email", $_SESSION["cus_email"]);
+                            $getCheckoutStmt->execute();
+                            $getCheckoutRow = $getCheckoutStmt->fetch(PDO::FETCH_ASSOC);
+                            $checkout_id = $getCheckoutRow['checkout_id'];
+                            $checkout_totalamount = sprintf('%.2f', $getCheckoutRow['checkout_totalamount']);
+
+                            $getProductQuery = "SELECT cd.product_id, p.product_image, p.product_name, p.product_price, cd.product_totalamount
+                                        FROM checkout_detail cd
                                         INNER JOIN product p 
-                                        ON co.product_id = p.product_id
-                                        WHERE cus_email = :cus_email";
-                            $checkoutStmt = $con->prepare($checkoutQuery);
-                            $checkoutStmt->bindParam(":cus_email", $_SESSION["cus_email"]);
-                            $checkoutStmt->execute();
-                            while ($checkoutRow = $checkoutStmt->fetch(PDO::FETCH_ASSOC)) {
-                                $product_image = $checkoutRow['product_image'];
-                                $product_id = $checkoutRow['product_id'][$i];
-                                $product_name = $checkoutRow['product_name'];
-                                $product_price = sprintf('%.2f', $checkoutRow['product_price']);
-                                $productTotalAmount = $product_price;
-                                $order_totalamount = 0;
-                                $order_totalamount += $productTotalAmount; 
-                                echo "<tr>";
-                                echo "<td>";
-                                echo "<div class='d-flex'>";
-                                    echo "<div>";
-                                        echo "<a href='product_detail.php?product_id={$product_id}'><img src='$product_image' class='productImage d-flex justify-content-center'></a>";
-                                    echo "</div>";
-                                    echo "<div class='mx-3'>";
-                                        echo "<a href='#' class='word text-center text-decoration-none'>$product_name</a>";
-                                    echo "</div>";
-                                echo "</div>";
-                                echo "</td>";
-                                echo "<td class='text-end'>RM $product_price</td>";
-                                echo "<td class='text-end'>RM $productTotalAmount</td>";
-                                echo "</tr>";
-                            }
-                        //}
-                    echo "</tbody>";
-                    echo "<tfoot>";
-                        echo "<tr>";
-                        echo "<td colspan='2' class='text-end'>The total amount is:</td>";
-                        echo "<td class='text-end'>RM $order_totalamount</td>";
-                        echo "</tr>";
-                        echo "<tr>";
-                        echo "<td colspan='3' class='text-end'>Deposit:</td>";
-                        //echo "<td class='text-end'>RM $order_depositpaid</td>";
-                        echo "</tr>";
-                        echo "<tr>";
-                        //$balance = sprintf('%.2f', $order_totalamount - $order_depositpaid);
-                        echo "<td colspan='3' class='balance text-end'>Balance you need to pay:</td>";
-                        //echo "<td class='balance text-end'>RM $balance</td>";
-                        echo "</tr>";
-                    echo "</tfoot>";
-                ?>   
-            </table>
+                                        ON cd.product_id = p.product_id
+                                        WHERE checkout_id = :checkout_id";
+                            $getProductStmt = $con->prepare($getProductQuery);
+                            $getProductStmt->bindParam(":checkout_id", $checkout_id);
+                            $getProductStmt->execute();
+                            while ($getProductRow = $getProductStmt->fetch(PDO::FETCH_ASSOC)) {
+                                $product_image = $getProductRow['product_image'];
+                                $product_id = $getProductRow['product_id'];
+                                $product_name = $getProductRow['product_name'];
+                                $product_price = sprintf('%.2f', $getProductRow['product_price']);
+                                $product_totalamount = sprintf('%.2f', $getProductRow['product_totalamount']);
+                                ?>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div class="d-flex justify-content-center col-4">
+                                                <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> ><img src="<?php echo htmlspecialchars($product_image, ENT_QUOTES); ?>" class='productImage d-flex justify-content-center rounded'></a>
+                                            </div>
+                                            <div class='mx-3 d-flex flex-column justify-content-center col-7'>
+                                                <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> class='word text-center text-decoration-none'><?php echo htmlspecialchars($product_name, ENT_QUOTES); ?></a>
+                                                <input name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES);?>" class='cartProduct form-control text-center border border-0' readonly/>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class='text-end'><input name='product_price' id='product_price' value="<?php echo htmlspecialchars($product_price, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' readonly/></td>
+                                    <td class='text-end'><input name='product_totalamount' id='product_totalamount' value="<?php echo htmlspecialchars($product_totalamount, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' aria-readonly="true" readonly/></td>
+                                </tr>
+                            <?php }?>
+                            <tr>
+                            <td colspan='2' class='text-end'>The total amount is: RM</td>
+                            <td class='text-end'><input name='checkout_totalamount' id='checkout_totalamount' value="<?php echo htmlspecialchars($checkout_totalamount, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' readonly/></td>
+                            </tr>
+                        </tfoot>
+                </table>
+                <table class='table table-hover table-responsive table-bordered'>
+                    <tr>
+                        <h2 class="mt-4">Deposit and Payment Method:</h2>
+                    </tr>
+                    <thead>
+                        <tr class="border-start border-end border-top border-0"> 
+                            <th class="d-flex align-self-center border-0 px-3">Deposit you pay now: RM</th>
+                            <td class="border-0"><input type='text' name='order_depositpaid' id="order_depositpaid" value="<?php echo (isset($_POST['order_depositpaid'])) ? $_POST['order_depositpaid'] : ''; ?>" class='form-control'/></td>
+                        </tr>
+                        <tr class="border-start border-end border-bottom border-0">
+                            <th class="d-flex align-self-center border-0 px-3">Payment method</th>
+                            <td class="border-0">
+                                <div class="form-check">
+                                    <label>
+                                        <input type="radio" name="order_paymethod" value="online" 
+                                        <?php
+                                        if(isset($_POST['order_paymethod'])){
+                                            echo $_POST['order_paymethod'] == "online" ? 'checked' : '';
+                                        }
+                                        ?>>
+                                        Online Transfer
+                                        <span class="select"></span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label>
+                                        <input type="radio" name="order_paymethod" value="ewallet" 
+                                        <?php
+                                        if(isset($_POST['order_paymethod'])){
+                                            echo $_POST['order_paymethod'] == "ewallet" ? 'checked' : '';
+                                        }
+                                        ?>>
+                                        E-wallet (Touch n Go e-wallet, Boost, Grabpay, ShopeePay)
+                                        <span class="select"></span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+                <div class='button d-grid m-3 d-flex justify-content-center'>
+                    <button type='submit' class='actionBtn btn btn-lg mt-5'>Checkout</button>
+                </div>
+        </form>
         </div>
-        <div class="d-flex justify-content-center">
-            <a href='customer_profile.php?cus_email={$cus_email}'  class='actionBtn btn mx-2 mt-3'>Back</a>
-        </div>
+        
         <?php
         include 'footer.php';
         ?>

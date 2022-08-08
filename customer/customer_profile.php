@@ -22,38 +22,38 @@ if (!isset($_SESSION["cus_email"])) {
         include 'navigationBar.php';
 
         $action = isset($_GET['action']) ? $_GET['action'] : "";
-            if ($action == 'passwordUpdateFail') {
-                echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+        if ($action == 'passwordUpdateFail') {
+            echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                <div>
+                    Password fail to update.
+                </div>
+                </div>";
+        }
+        if ($action == 'passwordUpdated') {
+            echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
                     <div>
-                        Password fail to update.
+                        Password updated successfully.
                     </div>
-                    </div>";
-            }
-            if ($action == 'passwordUpdated') {
-                echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
-                        <div>
-                            Password updated successfully.
-                        </div>
-                    </div>";
-            }
-            if ($action == 'profileUpdateFail') {
-                echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                </div>";
+        }
+        if ($action == 'profileUpdateFail') {
+            echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                <div>
+                    Profile fail to update.
+                </div>
+                </div>";
+        }
+        if ($action == 'profileUpdated') {
+            echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
                     <div>
-                        Profile fail to update.
+                        Profile updated successfully.
                     </div>
-                    </div>";
-            }
-            if ($action == 'profileUpdated') {
-                echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
-                        <div>
-                            Profile updated successfully.
-                        </div>
-                    </div>";
-            }
+                </div>";
+        }
 
         try {
             $customerQuery = "SELECT * FROM customer WHERE cus_email = :cus_email";

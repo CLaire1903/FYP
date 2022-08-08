@@ -51,7 +51,7 @@ session_start();
             <h1 class="text-center mt-5">MOST POPULAR</h1>
             <div class="mostPopularItems d-flex flex-wrap justify-content-around">
                 <?php
-                    $mostPopularQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, SUM( od.order_quantity ) AS totalOrderedQuantity
+                    $mostPopularQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, SUM( od.product_selected ) AS totalOrderedQuantity
                     FROM order_detail od
                     INNER JOIN product p
                     WHERE od.product_id = p.product_id && product_condition = 'available'

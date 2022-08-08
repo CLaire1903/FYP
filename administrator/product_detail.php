@@ -14,8 +14,8 @@ if (!isset($_SESSION["admin_email"])) {
 
     <style>
         .product_image {
-            width: 50%;
-            height: 50%;
+            width: 30%;
+            height: 30%;
         }
     </style>
 </head>

@@ -106,7 +106,7 @@ if (!isset($_SESSION["cus_email"])) {
                                         $deleteCheckoutStmt = $con->prepare($deleteCheckoutQuery);
                                         $deleteCheckoutStmt->bindParam(':checkout_id', $checkout_id);
                                         if($deleteCheckoutStmt->execute()){
-                                            //echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=ordered';</script>";
+                                            echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=ordered';</script>";
                                         }
                                         else{
                                             echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=noOrdered';</script>";
@@ -201,7 +201,7 @@ if (!isset($_SESSION["cus_email"])) {
                                             <div class="d-flex justify-content-center col-2">
                                                 <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> ><img src="<?php echo htmlspecialchars($product_image, ENT_QUOTES); ?>" class='productImage d-flex justify-content-center rounded'></a>
                                             </div>
-                                            <div class='mx-3 col-7'>
+                                            <div class='mx-3'>
                                                 <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> class='word text-center text-decoration-none'><?php echo htmlspecialchars($product_name, ENT_QUOTES); ?></a>
                                                 <input type='hidden' name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES);?>" class='cartProduct form-control text-center border border-0' readonly/>
                                             </div>

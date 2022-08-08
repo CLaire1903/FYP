@@ -14,18 +14,19 @@
                 <li class="nav-item">
                 <div class="d-flex">
                         <div class="navIcon mx-2">
-                            <a href="cart.php?cus_email={$cus_email}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
                             <?php
-
                             if (isset($_SESSION['cus_email'])){
                                 $checkCartQuery = "SELECT * FROM cart WHERE cus_email = :cus_email";
                                 $checkCartStmt = $con->prepare($checkCartQuery);
-                                $checkCartStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                                $cus_email = $_SESSION['cus_email'];
+                                $checkCartStmt->bindParam(":cus_email", $cus_email);
                                 $checkCartStmt->execute();
                                 $cart_count = $checkCartStmt->rowCount();
                                 if ($cart_count >0 ){
+                                    echo "<a href='cart.php?cus_email={$cus_email}'><img src='/fyp/image/icon/cart.png' alt='cart' class='d.none'></a>";
                                     echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> $cart_count </span>";
                                 } else {
+                                    echo "<a href='cart.php?cus_email={$cus_email}'><img src='/fyp/image/icon/cart.png' alt='cart' class='d.block'></a>";
                                     echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> 0 </span>";
                                 }
                             }
@@ -79,18 +80,19 @@
                 <li class="nav-item">
                     <div class="d-flex">
                         <div class="navIcon mx-2">
-                            <a href="cart.php?cus_email={$cus_email}"><img src="/fyp/image/icon/cart.png" alt="cart"></a>
                             <?php
-
                             if (isset($_SESSION['cus_email'])){
                                 $checkCartQuery = "SELECT * FROM cart WHERE cus_email = :cus_email";
                                 $checkCartStmt = $con->prepare($checkCartQuery);
-                                $checkCartStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                                $cus_email = $_SESSION['cus_email'];
+                                $checkCartStmt->bindParam(":cus_email", $cus_email);
                                 $checkCartStmt->execute();
                                 $cart_count = $checkCartStmt->rowCount();
                                 if ($cart_count >0 ){
+                                    echo "<a href='cart.php?cus_email={$cus_email}'><img src='/fyp/image/icon/cart.png' alt='cart' class='d.none'></a>";
                                     echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> $cart_count </span>";
                                 } else {
+                                    echo "<a href='cart.php?cus_email={$cus_email}'><img src='/fyp/image/icon/cart.png' alt='cart' class='d.block'></a>";
                                     echo "<span class='lblCartCount badge badge-warning px-2 rounded-pill'> 0 </span>";
                                 }
                             }

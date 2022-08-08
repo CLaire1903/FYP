@@ -17,9 +17,6 @@ if (!isset($_SESSION["cus_email"])) {
             width: 250px;
             height: 250px;
         }
-        .form-control:disabled {
-            background-color: white;
-        }
         .deleteBtn {
             background-color: #f7A8AE;
             width: 90px;
@@ -46,6 +43,9 @@ if (!isset($_SESSION["cus_email"])) {
             text-decoration: underline;
             text-transform: 0.3s;
         }
+        .form-control[readonly]{
+            background-color: white;
+        }
     </style>
 
 </head>
@@ -71,23 +71,56 @@ if (!isset($_SESSION["cus_email"])) {
         <?php
             if ($_POST) {
                 try {
+                    $con->beginTransaction();
+                    $checkoutQuery = "INSERT INTO checkout SET cus_email=:cus_email, checkout_totalamount=:checkout_totalamount";
+                    $checkoutStmt = $con->prepare($checkoutQuery);
+                    $cus_email = $_SESSION["cus_email"];
+                    $checkout_totalamount = 0;
+
                     for ($i = 0; $i < count($_POST['product_id']); $i++) {
-                        $checkOutQuery = "INSERT INTO checkout SET cus_email=:cus_email, product_id=:product_id, cart_quantity=:cart_quantity";
-                        $checkOutStmt = $con->prepare($checkOutQuery);
-                        $cus_email = $_SESSION["cus_email"];
-                        $product_id = htmlspecialchars(strip_tags($_POST['product_id'][$i]));
-                        $cart_quantity = htmlspecialchars(strip_tags($_POST['cart_quantity'][$i]));
-                        $checkOutStmt->bindParam(':cus_email', $cus_email);
-                        $checkOutStmt->bindParam(':product_id', $product_id);
-                        $checkOutStmt->bindParam(':cart_quantity', $cart_quantity);
-                        if ($checkOutStmt->execute()) {
-                            $deleteCartQuery = "DELETE FROM cart WHERE cus_email = :cus_email";
-                            $deleteCartStmt = $con->prepare($deleteCartQuery);
-                            $deleteCartStmt->bindParam(':cus_email', $_SESSION["cus_email"]);
-                            $deleteCartStmt->execute();
-                            echo "<script>window.location.href='checkout.php?cus_email='+ '$cus_email';</script>";
+                        $product_id = $_POST['product_id'][$i];
+                        $selectPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
+                        $selectPriceStmt = $con->prepare($selectPriceQuery);
+                        $selectPriceStmt->bindParam(':product_id', $product_id);
+                        $selectPriceStmt->execute();
+                        while ($selectPriceRow = $selectPriceStmt->fetch(PDO::FETCH_ASSOC)) {
+                            $product_price = $selectPriceRow['product_price'];
+                            $product_totalamount = $product_price;
+                            $checkout_totalamount += $product_totalamount;
                         }
                     }
+                    $checkoutStmt->bindParam(':cus_email', $cus_email);
+                    $checkoutStmt->bindParam(':checkout_totalamount', $checkout_totalamount);
+
+                    if ($checkoutStmt->execute()) {
+                        $lastID = $con->lastInsertId();
+                        for ($i = 0; $i < count($_POST['product_id']); $i++) {
+                            $product_id = $_POST['product_id'][$i];
+                            $getPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
+                            $getPriceStmt = $con->prepare($getPriceQuery);
+                            $getPriceStmt->bindParam(':product_id', $product_id);
+                            $getPriceStmt->execute();
+                            while ($getPriceRow = $getPriceStmt->fetch(PDO::FETCH_ASSOC)) {
+                                $product_price = $getPriceRow['product_price'];
+                                $product_totalamount = $product_price;
+                            }
+                            $checkOutQuery = "INSERT INTO checkout_detail SET checkout_id=:checkout_id, product_id=:product_id, product_totalamount=:product_totalamount";
+                            $checkOutStmt = $con->prepare($checkOutQuery);
+                            $product_id = htmlspecialchars(strip_tags($_POST['product_id'][$i]));
+                            $checkOutStmt->bindParam(':checkout_id', $lastID);
+                            $checkOutStmt->bindParam(':product_id', $product_id);
+                            $checkOutStmt->bindParam(':product_totalamount', $product_totalamount);
+                            if ($checkOutStmt->execute()) {
+                                $deleteCartQuery = "DELETE FROM cart WHERE cus_email = :cus_email";
+                                $deleteCartStmt = $con->prepare($deleteCartQuery);
+                                $cus_email = $_SESSION["cus_email"];
+                                $deleteCartStmt->bindParam(':cus_email', $cus_email);
+                                $deleteCartStmt->execute();
+                                echo "<script>window.location.href='checkout.php?cus_email='+ '$cus_email';</script>";
+                            }
+                        }
+                    }
+                    $con->commit();
                 } catch (PDOException $exception) {
                     echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
                         <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
@@ -151,20 +184,18 @@ if (!isset($_SESSION["cus_email"])) {
                                 $product_id = $cartRow['product_id'];
                                 $product_name = ucwords($cartRow['product_name']);
                                 $product_price = sprintf('%.2f',$cartRow['product_price']);
-                                $product_id = htmlspecialchars($product_id, ENT_QUOTES);
-                                $product_name = htmlspecialchars($product_name, ENT_QUOTES);
-                                $product_price = htmlspecialchars($product_price, ENT_QUOTES);?>
+                                ?>
 
                                 <tfoot>
                                     <tr>
                                         <td class="col-3 border-end-0">
                                             <div class="d-flex justify-content-center">
-                                                <a href='product_detail.php?product_id={$product_id}'><img src="<?php echo htmlspecialchars($product_image, ENT_QUOTES); ?>" class='productImage d-flex justify-content-center rounded'></a>
+                                                <a <?php echo"href='product_detail.php?product_id={$product_id}'";?>><img src="<?php echo htmlspecialchars($product_image, ENT_QUOTES); ?>" class='productImage d-flex justify-content-center rounded'></a>
                                             </div>
                                         </td>
                                         <td class="col-4 border-start-0 border-end-0"><?php echo htmlspecialchars($product_name, ENT_QUOTES); ?> <br>
-                                        <input name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES); ?>" class='cartProduct form-control text-center border border-0'/></td>
-                                        <td class="col-2 border-start-0 border-end-0"> <input name='product_price' id='product_price' value="<?php echo htmlspecialchars($product_price, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0'/></td>
+                                        <input name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES); ?>"  class='cartProduct form-control text-center border border-0 bg.white' readonly /></td>
+                                        <td class="col-2 border-start-0 border-end-0"> <input name='product_price' id='product_price' value="<?php echo htmlspecialchars($product_price, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' readonly/></td>
                                         <td class="col-1 border-start-0">
                                             <?php 
                                             echo "<a href='#' onclick='deleteProduct({$product_id});' id='delete' class='deleteBtn btn '>Delete</a>";

@@ -39,8 +39,9 @@ if (!isset($_SESSION["cus_email"])) {
                 die('ERROR: ' . $exception->getMessage());
             }
         ?>
-        <div class="m-3">
-            <table class='table table-hover table-responsive table-bordered'>
+        <div class="mx-5">
+            <h1 class="text-center mt-5">Order Detail</h1>
+            <table class='table table-hover table-responsive table-bordered mt-5'>
                 <thead>
                     <tr>
                         <th class="col-4">Order ID</td>
@@ -58,7 +59,7 @@ if (!isset($_SESSION["cus_email"])) {
             </table>
             <table class='table table-hover table-responsive table-bordered'>
                 <?php
-                    $orderDetail_query = "SELECT p.product_id, p.product_image, p.product_name, od.order_quantity, p.product_price, od.product_totalamount
+                    $orderDetail_query = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, od.product_totalamount
                                 FROM order_detail od
                                 INNER JOIN product p ON od.product_id = p.product_id
                                 WHERE order_id = :order_id";
@@ -68,7 +69,6 @@ if (!isset($_SESSION["cus_email"])) {
 
                     echo "<thead>";
                     echo "<th class='text-center'>Product</th>";
-                    echo "<th class='col-1 text-center'>Quantity</th>";
                     echo "<th class='col-3 col-md-2 text-center'>Price per piece</th>";
                     echo "<th class='col-3 col-md-2 text-center'>Total Price</th>";
                     echo "</thead>";
@@ -88,7 +88,6 @@ if (!isset($_SESSION["cus_email"])) {
                                 echo "</div>";
                             echo "</div>";
                             echo "</td>";
-                            echo "<td class='text-center'>$orderDetail_row[order_quantity]</td>";
                             $productPrice = sprintf('%.2f', $orderDetail_row['product_price']);
                             echo "<td class='text-end'>RM $productPrice</td>";
                             $productTotalAmount = sprintf('%.2f', $orderDetail_row['product_totalamount']);
@@ -98,16 +97,16 @@ if (!isset($_SESSION["cus_email"])) {
                     echo "</tbody>";
                     echo "<tfoot>";
                         echo "<tr>";
-                        echo "<td colspan='3' class='text-end'>The total amount is:</td>";
+                        echo "<td colspan='2' class='text-end'>The total amount is:</td>";
                         echo "<td class='text-end'>RM $order_totalamount</td>";
                         echo "</tr>";
                         echo "<tr>";
-                        echo "<td colspan='3' class='text-end'>Deposit:</td>";
+                        echo "<td colspan='2' class='text-end'>Deposit:</td>";
                         echo "<td class='text-end'>RM $order_depositpaid</td>";
                         echo "</tr>";
                         echo "<tr>";
                         $balance = sprintf('%.2f', $order_totalamount - $order_depositpaid);
-                        echo "<td colspan='3' class='balance text-end'>Balance you need to pay:</td>";
+                        echo "<td colspan='2' class='balance text-end'>Balance you need to pay:</td>";
                         echo "<td class='balance text-end'>RM $balance</td>";
                         echo "</tr>";
                     echo "</tfoot>";

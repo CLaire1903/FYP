@@ -8,13 +8,13 @@ if (!isset($_SESSION["admin_email"])) {
 <html>
 
 <head>
-    <title>Home</title>
+    <title>Summary</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/fyp/css/shared.css" rel="stylesheet">
     <link href="/fyp/css/product.css" rel="stylesheet">
 
     <style>
-        #home {
+        #summary {
             font-weight: bold;
         }
         .header{
@@ -47,7 +47,7 @@ if (!isset($_SESSION["admin_email"])) {
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
         include 'navigationBar.php';
         ?>
-        <div class="p-3 text-center mt-5 mx-5">
+        <div class="p-3 text-center my-5 mx-5">
             <h1 class="header p-2 fw-bold rounded-pill">SUMMARY</h1>
         </div>
         <div class="d-flex justify-content-center">

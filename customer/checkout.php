@@ -23,101 +23,120 @@ if (!isset($_SESSION["cus_email"])) {
 
 <body>
     <div class="container-fluid p-0">
-        
         <?php
             include 'C:\xampp\htdocs\fyp\config/dbase.php'; 
+            include 'C:\xampp\htdocs\fyp\alertIcon.php';
             include 'navigationBar.php';
+        ?>
+        <div class="mx-5 mt-5">
+            <h1 class="text-center mt-5">Checkout</h1>
+            <?php
+                if($_POST){
+                    try {
+                        if (empty($_POST['order_depositpaid']) || empty($_POST['shipping_name']) || empty($_POST['shipping_phnumber']) || empty($_POST['shipping_address']) || empty($_POST['shipping_postcode']) || empty($_POST['order_paymethod'])) {
+                            throw new Exception("Please make sure all fields are not empty !");
+                        }
 
-            if($_POST){
-                try {
-                    $con->beginTransaction();
+                        $depositPercent = ($_POST['order_depositpaid'] * 100) / $_POST['checkout_totalamount'];
+                        if ($depositPercent < 30){
+                            throw new Exception("Deposit must be at least 30% from the total amount!");
+                        }
 
-                    $getCheckoutIdQuery = "SELECT checkout_id FROM checkout WHERE cus_email=:cus_email";
-                    $getCheckoutIdStmt = $con->prepare($getCheckoutIdQuery);
-                    $getCheckoutIdStmt->bindParam(":cus_email", $_SESSION['cus_email']);
-                    $getCheckoutIdStmt->execute();
-                    $getCheckoutIdRow = $getCheckoutIdStmt->fetch(PDO::FETCH_ASSOC);
-                    $checkout_id = $getCheckoutIdRow['checkout_id'];
-                    echo $checkout_id;
 
-                    $createOrderQuery = "INSERT INTO orders SET order_datentime=:order_datentime, cus_email=:cus_email, order_totalamount=:order_totalamount, order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod";
+                        $con->beginTransaction();
 
-                    $createOrderStmt = $con->prepare($createOrderQuery);
+                        $getCheckoutIdQuery = "SELECT checkout_id FROM checkout WHERE cus_email=:cus_email";
+                        $getCheckoutIdStmt = $con->prepare($getCheckoutIdQuery);
+                        $getCheckoutIdStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                        $getCheckoutIdStmt->execute();
+                        $getCheckoutIdRow = $getCheckoutIdStmt->fetch(PDO::FETCH_ASSOC);
+                        $checkout_id = $getCheckoutIdRow['checkout_id'];
+                        echo $checkout_id;
 
-                    $order_datentime = date('Y-m-d H:i:s');
-                    $cus_email = $_SESSION["cus_email"];
-                    $order_totalamount = htmlspecialchars(strip_tags($_POST['checkout_totalamount']));
-                    $order_depositpaid = $_POST['order_depositpaid'];
-                    $shipping_name = $_POST['shipping_name'];
-                    $shipping_phnumber = $_POST['shipping_phnumber'];
-                    $shipping_address = $_POST['shipping_address'];
-                    $shipping_postcode = $_POST['shipping_postcode'];
-                    $order_status = "new order";
-                    $order_paymethod = $_POST['order_paymethod'];
+                        $createOrderQuery = "INSERT INTO orders SET order_datentime=:order_datentime, cus_email=:cus_email, order_totalamount=:order_totalamount, order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod";
 
-                    $createOrderStmt->bindParam(':order_datentime', $order_datentime);
-                    $createOrderStmt->bindParam(':cus_email', $cus_email);
-                    $createOrderStmt->bindParam(':order_totalamount', $order_totalamount);
-                    $createOrderStmt->bindParam(':order_depositpaid', $order_depositpaid);
-                    $createOrderStmt->bindParam(':shipping_name', $shipping_name);
-                    $createOrderStmt->bindParam(':shipping_phnumber', $shipping_phnumber);
-                    $createOrderStmt->bindParam(':shipping_address', $shipping_address);
-                    $createOrderStmt->bindParam(':shipping_postcode', $shipping_postcode);
-                    $createOrderStmt->bindParam(':order_status', $order_status);
-                    $createOrderStmt->bindParam(':order_paymethod', $order_paymethod);
+                        $createOrderStmt = $con->prepare($createOrderQuery);
 
-                    if ($createOrderStmt->execute()) {
-                        $lastID = $con->lastInsertId();
-                        for ($i = 0; $i < count($_POST['product_id']); $i++) {
-                            $product_id = htmlspecialchars(strip_tags($_POST['product_id'][$i]));
-                            $getPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
-                            $getPriceStmt = $con->prepare($getPriceQuery);
-                            $getPriceStmt->bindParam(':product_id', $product_id);
-                            $getPriceStmt->execute();
-                            while ($getPriceRow = $getPriceStmt->fetch(PDO::FETCH_ASSOC)) {
-                                $product_price = $getPriceRow['product_price'];
-                                $product_totalamount = $product_price;
-                            }
+                        $order_datentime = date('Y-m-d H:i:s');
+                        $cus_email = $_SESSION["cus_email"];
+                        $order_totalamount = htmlspecialchars(strip_tags($_POST['checkout_totalamount']));
+                        $order_depositpaid = $_POST['order_depositpaid'];
+                        $shipping_name = $_POST['shipping_name'];
+                        $shipping_phnumber = $_POST['shipping_phnumber'];
+                        $shipping_address = $_POST['shipping_address'];
+                        $shipping_postcode = $_POST['shipping_postcode'];
+                        $order_status = "new order";
+                        $order_paymethod = $_POST['order_paymethod'];
 
-                            $orderDetailQuery = "INSERT INTO order_detail SET order_id=:order_id, product_id=:product_id, product_totalamount=:product_totalamount, product_selected=:product_selected";
-                            $orderDetailStmt = $con->prepare($orderDetailQuery);
-                            $product_selected = 1;
-                            $orderDetailStmt->bindParam(':order_id', $lastID);
-                            $orderDetailStmt->bindParam(':product_id', $product_id);
-                            $orderDetailStmt->bindParam(':product_totalamount', $product_totalamount);
-                            $orderDetailStmt->bindParam(':product_selected', $product_selected);
-                            if ($orderDetailStmt->execute()) {
-                                $deleteCheckoutDetailQuery = "DELETE FROM checkout_detail  WHERE checkout_id = :checkout_id";
-                                $deleteCheckoutDetailStmt = $con->prepare($deleteCheckoutDetailQuery);
-                                $deleteCheckoutDetailStmt->bindParam(':checkout_id', $checkout_id);
-                                if ($deleteCheckoutDetailStmt->execute()){
-                                    $deleteCheckoutQuery = "DELETE FROM checkout WHERE checkout_id = :checkout_id";
-                                    $deleteCheckoutStmt = $con->prepare($deleteCheckoutQuery);
-                                    $deleteCheckoutStmt->bindParam(':checkout_id', $checkout_id);
-                                    if($deleteCheckoutStmt->execute()){
-                                        echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=ordered';</script>";
-                                    }
-                                    else{
-                                        echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=noOrdered';</script>";
+                        $createOrderStmt->bindParam(':order_datentime', $order_datentime);
+                        $createOrderStmt->bindParam(':cus_email', $cus_email);
+                        $createOrderStmt->bindParam(':order_totalamount', $order_totalamount);
+                        $createOrderStmt->bindParam(':order_depositpaid', $order_depositpaid);
+                        $createOrderStmt->bindParam(':shipping_name', $shipping_name);
+                        $createOrderStmt->bindParam(':shipping_phnumber', $shipping_phnumber);
+                        $createOrderStmt->bindParam(':shipping_address', $shipping_address);
+                        $createOrderStmt->bindParam(':shipping_postcode', $shipping_postcode);
+                        $createOrderStmt->bindParam(':order_status', $order_status);
+                        $createOrderStmt->bindParam(':order_paymethod', $order_paymethod);
+
+                        if ($createOrderStmt->execute()) {
+                            $lastID = $con->lastInsertId();
+                            for ($i = 0; $i < count($_POST['product_id']); $i++) {
+                                $product_id = htmlspecialchars(strip_tags($_POST['product_id'][$i]));
+                                $getPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
+                                $getPriceStmt = $con->prepare($getPriceQuery);
+                                $getPriceStmt->bindParam(':product_id', $product_id);
+                                $getPriceStmt->execute();
+                                while ($getPriceRow = $getPriceStmt->fetch(PDO::FETCH_ASSOC)) {
+                                    $product_price = $getPriceRow['product_price'];
+                                    $product_totalamount = $product_price;
+                                }
+
+                                $orderDetailQuery = "INSERT INTO order_detail SET order_id=:order_id, product_id=:product_id, product_totalamount=:product_totalamount, product_selected=:product_selected";
+                                $orderDetailStmt = $con->prepare($orderDetailQuery);
+                                $product_selected = 1;
+                                $orderDetailStmt->bindParam(':order_id', $lastID);
+                                $orderDetailStmt->bindParam(':product_id', $product_id);
+                                $orderDetailStmt->bindParam(':product_totalamount', $product_totalamount);
+                                $orderDetailStmt->bindParam(':product_selected', $product_selected);
+                                if ($orderDetailStmt->execute()) {
+                                    $deleteCheckoutDetailQuery = "DELETE FROM checkout_detail  WHERE checkout_id = :checkout_id";
+                                    $deleteCheckoutDetailStmt = $con->prepare($deleteCheckoutDetailQuery);
+                                    $deleteCheckoutDetailStmt->bindParam(':checkout_id', $checkout_id);
+                                    if ($deleteCheckoutDetailStmt->execute()){
+                                        $deleteCheckoutQuery = "DELETE FROM checkout WHERE checkout_id = :checkout_id";
+                                        $deleteCheckoutStmt = $con->prepare($deleteCheckoutQuery);
+                                        $deleteCheckoutStmt->bindParam(':checkout_id', $checkout_id);
+                                        if($deleteCheckoutStmt->execute()){
+                                            //echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=ordered';</script>";
+                                        }
+                                        else{
+                                            echo "<script>window.location.href='index.php?cus_email='+ '$cus_email' + '&action=noOrdered';</script>";
+                                        }
                                     }
                                 }
                             }
                         }
+                        $con->commit();
+                    } catch (PDOException $exception) {
+                        echo "<div class='alert alert-danger d-flex align-items-center m-5' role='alert'>
+                            <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                            " . $exception->getMessage() . "
+                            </div>
+                        </div>";
+                    } catch (Exception $exception) {
+                        echo "<div class='alert alert-danger d-flex align-items-center m-5' role='alert'>
+                            <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                            " . $exception->getMessage() . "
+                            </div>
+                        </div>";
                     }
-                    $con->commit();
-                } catch (PDOException $exception) {
-                    echo "<div class='alert alert-danger d-flex align-items-center mt-5 mx-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                        <div>
-                        " . $exception->getMessage() . "
-                        </div>
-                    </div>";
+                    
                 }
-            }
-            
-        ?>
-        <h1 class="text-center mt-5">Checkout</h1>
-        <div class="mx-5 mt-5">
+                
+            ?>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
                 <table class='table table-hover table-responsive table-bordered'>
                     <thead>
@@ -181,17 +200,17 @@ if (!isset($_SESSION["cus_email"])) {
                                 <tr>
                                     <td>
                                         <div class="d-flex">
-                                            <div class="d-flex justify-content-center col-4">
+                                            <div class="d-flex justify-content-center col-2">
                                                 <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> ><img src="<?php echo htmlspecialchars($product_image, ENT_QUOTES); ?>" class='productImage d-flex justify-content-center rounded'></a>
                                             </div>
-                                            <div class='mx-3 d-flex flex-column justify-content-center col-7'>
+                                            <div class='mx-3 col-7'>
                                                 <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> class='word text-center text-decoration-none'><?php echo htmlspecialchars($product_name, ENT_QUOTES); ?></a>
-                                                <input name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES);?>" class='cartProduct form-control text-center border border-0' readonly/>
+                                                <input type='hidden' name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES);?>" class='cartProduct form-control text-center border border-0' readonly/>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class='text-end'><input name='product_price' id='product_price' value="<?php echo htmlspecialchars($product_price, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' readonly/></td>
-                                    <td class='text-end'><input name='product_totalamount' id='product_totalamount' value="<?php echo htmlspecialchars($product_totalamount, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' aria-readonly="true" readonly/></td>
+                                    <td><input name='product_price' id='product_price' value="<?php echo htmlspecialchars($product_price, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' readonly/></td>
+                                    <td><input name='product_totalamount' id='product_totalamount' value="<?php echo htmlspecialchars($product_totalamount, ENT_QUOTES); ?>" class='col-1 form-control text-center border border-0' aria-readonly="true" readonly/></td>
                                 </tr>
                             <?php }?>
                             <tr>

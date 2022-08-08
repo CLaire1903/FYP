@@ -123,11 +123,6 @@ if (!isset($_SESSION["cus_email"])) {
                 if ($checkOrderRow == 0){
                     echo "<h2 class='mx-5 mt-3'>No order has been made.</h2>";
                 }else {
-                    $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
-                    $orderHistoryStmt = $con->prepare($orderHistoryQuery);
-                    $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
-                    $orderHistoryStmt->execute();
-
                     echo "<div class='mx-5'>";
                         echo "<table class='table table-hover table-responsive table-bordered text-center'>";
                             echo "<thead>";
@@ -138,7 +133,11 @@ if (!isset($_SESSION["cus_email"])) {
                                     echo "<th>Paid Deposit</th>";
                                     echo "<th>Order Status</th>";
                                 echo "</tr>";
-                            echo "</thead>";
+
+                        $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
+                        $orderHistoryStmt = $con->prepare($orderHistoryQuery);
+                        $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                        $orderHistoryStmt->execute();
                         while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {  
                             extract($orderHistoryRow);  
                             $order_id = $orderHistoryRow['order_id'];
@@ -147,7 +146,6 @@ if (!isset($_SESSION["cus_email"])) {
                             $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
                             $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
                             $order_status = ucwords($orderHistoryRow['order_status']);
-                            echo "<tfoot>";
                                 echo "<tr>";
                                     echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
                                     echo "<td>{$order_datentime}</td>";
@@ -155,8 +153,7 @@ if (!isset($_SESSION["cus_email"])) {
                                     echo "<td>RM {$order_depositpaid}</td>";
                                     echo "<td>{$order_status}</td>";
                                 echo "</tr>";
-                            echo "</tfoot>";
-                                
+                            echo "</thead>";
                         }
                         echo "</table>";
                     echo "</div>";

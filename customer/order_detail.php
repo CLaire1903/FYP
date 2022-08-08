@@ -59,7 +59,7 @@ if (!isset($_SESSION["cus_email"])) {
             <table class='table table-hover table-responsive table-bordered'>
                 <?php
                     $orderDetail_query = "SELECT p.product_id, p.product_image, p.product_name, od.order_quantity, p.product_price, od.product_totalamount
-                                FROM orderdetail od
+                                FROM order_detail od
                                 INNER JOIN product p ON od.product_id = p.product_id
                                 WHERE order_id = :order_id";
                     $orderDetail_stmt = $con->prepare($orderDetail_query);

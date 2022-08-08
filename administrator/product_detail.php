@@ -61,7 +61,7 @@ if (!isset($_SESSION["admin_email"])) {
         <div class="mx-5">
             <table class='table table-hover table-responsive table-bordered'>
                 <tr>
-                    <td>Product ID</td>
+                    <td class="col-3">Product ID</td>
                     <td><?php echo htmlspecialchars($product_id, ENT_QUOTES);  ?></td>
                 </tr>
                 <tr>
@@ -102,7 +102,7 @@ if (!isset($_SESSION["admin_email"])) {
                 <?php
                 echo "<a href='product_update.php?product_id=$product_id' class='actionBtn updateBtn btn mb-3 mx-2'>Update Product</a>";
                 
-                echo "<a href='category_detail.php?category_id={$category_id}' class='actionBtn btn mb-3 mx-2'>Back</a>";
+                echo "<a href='product_list.php' class='actionBtn btn mb-3 mx-2'>Back</a>";
                 ?>
             </div>
         </div>

@@ -1,0 +1,23 @@
+.listActionBtn {
+    width: 100px;
+    height: 50px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#detail {
+    background-color: rgb(127, 212, 250);
+    border: none;
+}
+
+#update {
+    background-color: rgb(187, 143, 251);
+    border: none;
+}
+
+#delete {
+    background-color: rgb(252, 184, 192);
+    border: none;
+}

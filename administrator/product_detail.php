@@ -34,6 +34,24 @@ if (!isset($_SESSION["admin_email"])) {
         <?php
         $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : die('ERROR: Product record not found.');
 
+        $action = isset($_GET['action']) ? $_GET['action'] : "";
+        if ($action == 'productUpdateFail') {
+            echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                <div>
+                    Product fail to update.
+                </div>
+                </div>";
+        }
+        if ($action == 'productUpdated') {
+            echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                    <div>
+                        Product updated successfully.
+                    </div>
+                </div>";
+        }
+
         try {
             $getProductQuery = "SELECT product_image, product_id, product_name, product_price, p.category_id, c.category_name, designer_email, product_condition
                                 FROM product p

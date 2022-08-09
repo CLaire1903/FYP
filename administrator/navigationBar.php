@@ -72,19 +72,46 @@
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <ul class="nav justify-content-center">
-                        <li class="nav-item dropdown">
-                            <a id="staff" class="nav-link dropdown-toggle navbarDropdownMenuLink word" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Staff 
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a id="addStaff" class="dropdown-item word" href="order.php">Add new staff</a></li>
-                                <li><a id="staffList" class="dropdown-item word" href="order_list.php">Staff List</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                <?php 
+                if (isset($_SESSION['admin_email'])){
+                    $checkPositionQuery = "SELECT * FROM admin WHERE admin_email=:admin_email";
+                    $checkPositionStmt = $con->prepare($checkPositionQuery);
+                    $admin_email = $_SESSION['admin_email'];
+                    $checkPositionStmt->bindParam(":admin_email", $admin_email);
+                    $checkPositionStmt->execute();
+                    $checkPositionRow = $checkPositionStmt->fetch(PDO::FETCH_ASSOC);
+                    $admin_position = $checkPositionRow['admin_position'];
+                    if ($admin_position == "director" || $admin_position == "manager") {
+                        echo "<div>";
+                            echo "<ul class='nav justify-content-center'>";
+                                echo "<li class='nav-item dropdown'>";
+                                    echo "<a id='staff' class='nav-link dropdown-toggle navbarDropdownMenuLink word' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                    Staff
+                                    </a>";
+                                    echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
+                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_addNewStaff.php'>Add new staff</a></li>";
+                                        echo "<li><a id='staffList' class='dropdown-item word' href='staff_list.php'>Staff List</a></li>";
+                                    echo "</ul>";
+                                echo "</li>";
+                            echo "</ul>";
+                        echo "</div>";
+                    } else {
+                        echo "<div class='d-none'>";
+                            echo "<ul class='nav justify-content-center'>";
+                                echo "<li class='nav-item dropdown'>";
+                                    echo "<a id='staff' class='nav-link dropdown-toggle navbarDropdownMenuLink word' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                    Staff
+                                    </a>";
+                                    echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
+                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_addNewStaff.php'>Add new staff</a></li>";
+                                        echo "<li><a id='staffList' class='dropdown-item word' href='staff_list.php'>Staff List</a></li>";
+                                    echo "</ul>";
+                                echo "</li>";
+                            echo "</ul>";
+                        echo "</div>";
+                    }
+                }
+                ?>
                 <div>
                     <ul class="nav justify-content-center">
                         <li class="nav-item">

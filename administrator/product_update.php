@@ -152,19 +152,9 @@ if (!isset($_SESSION["cus_username"])) {
                                 move_uploaded_file($temp, '../image/product/' . $newfilename);
                             }
                         }
-                        echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
-                            <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
-                            <div>
-                                Product $product_id was updated.
-                            </div>
-                        </div>";
+                        echo "<script>window.location.href='product_detail.php?product_id='+ $product_id + '&action=productUpdated';</script>";
                     } else {
-                        echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
-                            <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                            <div>
-                                Unable to update product $product_id. Please try again.
-                            </div>
-                        </div>";
+                        echo "<script>window.location.href='product_detail.php?product_id='+ $product_id + '&action=productUpdateFail';</script>";
                     }
                 } catch (PDOException $exception) {
                     die('ERROR: ' . $exception->getMessage());

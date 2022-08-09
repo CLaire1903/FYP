@@ -62,7 +62,7 @@
                         throw new exception("Password incorrect!");
                     }
                     $_SESSION['admin_email'] = $adminRow['admin_email'];
-                    header("Location: home.php");
+                    header("Location: summary.php");
                 } catch (PDOException $exception) {
                     //for database 'PDO'
                     $errorMessage = $exception->getMessage();

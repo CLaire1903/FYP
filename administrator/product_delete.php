@@ -25,13 +25,15 @@ try {
     $deleteProductQuery = "DELETE FROM product WHERE product_id = ?";
     $deleteProductStmt = $con->prepare($deleteProductQuery);
     $deleteProductStmt->bindParam(1, $product_id);
-    unlink($product_image);
-    if($deleteProductStmt->execute()){
-        //selected product is deleted
-        header('Location: product_list.php?action=deleted');
-    }else{
-        die('Unable to delete record.');
+    if (unlink($product_image)){
+        if($deleteProductStmt->execute()){
+            //selected product is deleted
+            header('Location: product_list.php?action=deleted');
+        }else{
+            die('Unable to delete record.');
+        }
     }
+    
 }
 } catch(PDOException $exception){
     die('ERROR: ' . $exception->getMessage());

@@ -22,19 +22,6 @@ if (!isset($_SESSION["admin_email"])) {
             width: 75%;
             border: none;
         }
-        .quickInfo {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        .quickInfo:hover {
-            box-shadow: 0 4px 8px 0 rgb(255, 255, 255), 0 6px 20px 0 rgb(255, 255, 255);
-        }
-        .count{
-            text-decoration: none;
-        }
-        .count:hover{
-            font-weight: bold;
-            text-decoration: underline;
-        }
     </style>
 </head>
 

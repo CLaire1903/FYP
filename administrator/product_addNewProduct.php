@@ -34,8 +34,7 @@ if (!isset($_SESSION["admin_email"])) {
             if ($_POST) {
                 $filename = $_FILES["product_image"]["name"];
                 $tempname = $_FILES["product_image"]["tmp_name"];
-                $folder = "/fyp/image/product/" . $filename;
-                $default_image = 'C:\xampp\htdocs\fyp\image\product\default.jpg';
+                $folder = "../image/product/" . $filename;
                 $isUploadOK = 1;
 
                 try {
@@ -100,7 +99,7 @@ if (!isset($_SESSION["admin_email"])) {
                         $A_incrementID = $con->lastInsertId();
                         $changePhotoName = explode(".", $_FILES["product_image"]["name"]);
                         $newfilename = 'ID' . $A_incrementID . '_' . round(microtime(true)) . '.' . end($changePhotoName);
-                        $latest_file = "/fyp/image/product/" . $newfilename;
+                        $latest_file = "../image/product/" . $newfilename;
                         if ($folder != "") {
                             //insert photo with latest name into database
                             $insertPicQuery = "UPDATE product SET product_image=:product_image WHERE product_id = :product_id";
@@ -108,8 +107,6 @@ if (!isset($_SESSION["admin_email"])) {
                             $insertPicStmt->bindParam(':product_id', $A_incrementID);
                             if ($filename != "") {
                                 $insertPicStmt->bindParam(':product_image', $latest_file);
-                            } else {
-                                $insertPicStmt->bindParam(':product_image', $default_image);
                             }
                             if ($insertPicStmt->execute()) {
                                 if ($isUploadOK == 0) {
@@ -119,7 +116,7 @@ if (!isset($_SESSION["admin_email"])) {
                                         <?php echo Sorry, your file was not uploaded.?>
                                     </div>";
                                 } else {
-                                    move_uploaded_file($tempname, 'C:\xampp\htdocs\fyp\image\product/' . $newfilename);
+                                    (move_uploaded_file($tempname, '../image/product/' . $newfilename));
                                 }
                             }
                         }

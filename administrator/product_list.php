@@ -97,7 +97,7 @@ if (!isset($_SESSION["admin_email"])) {
                                 echo "<td>";
                                     echo "<div class='d-lg-flex justify-content-sm-center flex-column'>";
                                     echo "<a href='product_detail.php?product_id={$product_id}' id='detail' class='listActionBtn btn m-1 m-lg-2'>Detail</a>";
-                                    echo "<a href='product_update.php?productID={$product_id}' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
+                                    echo "<a href='product_update.php?product_id={$product_id}' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
                                     echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
                                     echo "</div>";
                                 echo "</td>";

@@ -118,7 +118,7 @@ if (!isset($_SESSION["admin_email"])) {
             </table>
             <div class="d-flex justify-content-center">
                 <?php
-                echo "<a href='product_update.php?product_id=$product_id' class='actionBtn updateBtn btn mb-3 mx-2'>Update Product</a>";
+                echo "<a href='product_update.php?product_id=$product_id' class='actionBtn updateBtn btn mb-3 mx-2'>Update</a>";
                 
                 echo "<a href='product_list.php' class='actionBtn btn mb-3 mx-2'>Back</a>";
                 ?>

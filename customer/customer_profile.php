@@ -133,6 +133,7 @@ if (!isset($_SESSION["cus_email"])) {
                                     echo "<th>Paid Deposit</th>";
                                     echo "<th>Order Status</th>";
                                 echo "</tr>";
+                            echo "</thead>";
 
                         $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
                         $orderHistoryStmt = $con->prepare($orderHistoryQuery);
@@ -146,6 +147,7 @@ if (!isset($_SESSION["cus_email"])) {
                             $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
                             $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
                             $order_status = ucwords($orderHistoryRow['order_status']);
+                            echo "<tbody>";
                                 echo "<tr>";
                                     echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
                                     echo "<td>{$order_datentime}</td>";
@@ -153,7 +155,7 @@ if (!isset($_SESSION["cus_email"])) {
                                     echo "<td>RM {$order_depositpaid}</td>";
                                     echo "<td>{$order_status}</td>";
                                 echo "</tr>";
-                            echo "</thead>";
+                            echo "</tbody>";
                         }
                         echo "</table>";
                     echo "</div>";

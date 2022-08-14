@@ -30,25 +30,6 @@ if (!isset($_SESSION["admin_email"])) {
 
         <div class="productList mx-5">
             <h1 class="header p-2 text-center mt-5">Customer List</h1>
-            <?php 
-                $action = isset($_GET['action']) ? $_GET['action'] : "";
-                if ($action == 'involveOrder') {
-                    echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                        <div>
-                            Customer could not be deleted as it involved in order.
-                        </div>
-                    </div>";
-                }
-                if ($action == 'deleted') {
-                    echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
-                        <div>
-                            Customer record deleted successfully.
-                        </div>
-                    </div>";
-                }
-            ?>
             <div class="customerItems d-flex flex-wrap justify-content-around mx-5 mt-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <thead>
@@ -81,7 +62,6 @@ if (!isset($_SESSION["admin_email"])) {
                                         echo "<div class='d-lg-flex justify-content-sm-center flex-column'>";
                                         echo "<a href='customer_detail.php?cus_email={$cus_email}' id='detail' class='listActionBtn btn m-1 m-lg-2'>Detail</a>";
                                         echo "<a href='customer_update.php?cus_email={$cus_email}' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
-                                        echo "<a href='#' onclick='delete_customer(&#39;$cus_email&#39;);' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
                                         echo "</div>";
                                     echo "</td>";
                                 echo "</tr>";
@@ -98,13 +78,7 @@ if (!isset($_SESSION["admin_email"])) {
         ?>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script type='text/javascript'>
-    function delete_customer(cus_email) {
-        if (confirm('Do you want to delete this customer record?')) {
-            window.location = 'customer_delete.php?cus_email=' + cus_email;
-        }
-    }
-</script>
+
 </body>
 
 </html>

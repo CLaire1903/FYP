@@ -52,7 +52,6 @@
                                 Customer
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a id="createCus" class="dropdown-item word" href="customer.php">Create Customer</a></li>
                                 <li><a id="cusList" class="dropdown-item word" href="customer_list.php">Customer List</a></li>
                             </ul>
                         </li>

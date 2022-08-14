@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["cus_username"])) {
+if (!isset($_SESSION["admin_email"])) {
     header("Location: index.php?error=restrictedAccess");
 }
 ?>
@@ -268,7 +268,7 @@ if (!isset($_SESSION["cus_username"])) {
                 </table>
                 <div class="d-flex justify-content-center">
                     <input type='submit' value='Update'class='actionBtn btn mb-3 mx-2' />
-                    <a href='product_list.php' class='actionBtn btn mb-3 mx-2'>Back to Product List</a>
+                    <?php echo "<a href='product_detail.php?product_id={$product_id}' class='actionBtn btn mb-3 mx-2'>Back</a>"; ?>
                 </div>
             </form>
         </div>

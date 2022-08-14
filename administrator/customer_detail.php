@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION["cus_email"])) {
-    header("Location: customer_login.php?error=restrictedAccess");
+if (!isset($_SESSION["admin_email"])) {
+    header("Location: index.php?error=restrictedAccess");
 }
 ?>
 <!DOCTYPE HTML>
@@ -20,6 +20,8 @@ if (!isset($_SESSION["cus_email"])) {
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
         include 'C:\xampp\htdocs\fyp\alertIcon.php';
         include 'navigationBar.php';
+
+        $cus_email = isset($_GET['cus_email']) ? $_GET['cus_email'] : die('ERROR: Customer record not found.');
 
         $action = isset($_GET['action']) ? $_GET['action'] : "";
         if ($action == 'profileUpdateFail') {
@@ -42,7 +44,7 @@ if (!isset($_SESSION["cus_email"])) {
         try {
             $customerQuery = "SELECT * FROM customer WHERE cus_email = :cus_email";
             $customerStmt = $con->prepare($customerQuery);
-            $customerStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+            $customerStmt->bindParam(":cus_email", $cus_email);
             $customerStmt->execute();
             $customerRow = $customerStmt->fetch(PDO::FETCH_ASSOC);
 
@@ -101,7 +103,7 @@ if (!isset($_SESSION["cus_email"])) {
             <?php 
                 $checkOrderQuery = "SELECT * FROM orders WHERE cus_email = :cus_email";
                 $checkOrderStmt = $con->prepare($checkOrderQuery);
-                $checkOrderStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                $checkOrderStmt->bindParam(":cus_email", $cus_email);
                 $checkOrderStmt->execute();
                 $checkOrderRow = $checkOrderStmt->fetch(PDO::FETCH_ASSOC);
                 if ($checkOrderRow == 0){
@@ -121,7 +123,7 @@ if (!isset($_SESSION["cus_email"])) {
 
                         $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
                         $orderHistoryStmt = $con->prepare($orderHistoryQuery);
-                        $orderHistoryStmt->bindParam(":cus_email", $_SESSION['cus_email']);
+                        $orderHistoryStmt->bindParam(":cus_email", $cus_email);
                         $orderHistoryStmt->execute();
                         while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {  
                             extract($orderHistoryRow);  
@@ -149,7 +151,7 @@ if (!isset($_SESSION["cus_email"])) {
         
         <div class="d-flex justify-content-center">
             <?php
-            echo "<a href='customer_updateProfile.php?cus_email={$cus_email}' class='actionBtn btn mx-2 mt-5'>Update</a>";
+            echo "<a href='customer_update.php?cus_email={$cus_email}' class='actionBtn btn mx-2 mt-5'>Update</a>";
             echo "<a href='customer_list.php' class='actionBtn btn mx-2 mt-5'>Back</a>";
             ?>
         </div>

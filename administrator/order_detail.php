@@ -171,7 +171,7 @@ if (!isset($_SESSION["admin_email"])) {
                 </tr>
                 <thead>
                     <tr>
-                        <th>Payment method</th>
+                        <th class="col-4">Payment method</th>
                         <td><?php echo htmlspecialchars($order_paymethod, ENT_QUOTES);  ?></td>
                     </tr>
                 </thead>

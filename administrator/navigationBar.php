@@ -65,8 +65,23 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a id="createOrder" class="dropdown-item word" href="order.php">Create Order</a></li>
-                                <li><a id="orderList" class="dropdown-item word" href="order_list.php">Order List</a></li>
-                                <li class="nav-item"><a id="customMadeOrder" class="nav-link word" aria-current="page" href="customMade.php">Custom Made Order</a></li>
+                                <li class="d-flex">
+                                    <?php 
+                                        $checkNewOrderQuery = "SELECT order_status FROM orders WHERE order_status=:order_status";
+                                        $checkNewOrderStmt = $con->prepare($checkNewOrderQuery);
+                                        $order_status = "new order";
+                                        $checkNewOrderStmt->bindParam(":order_status", $order_status);
+                                        $checkNewOrderStmt->execute();
+                                        $newOrder_count = $checkNewOrderStmt->rowCount();
+                                        if ($newOrder_count > 0 ){
+                                            echo "<a id='orderList' class='dropdown-item word' href='order_list.php'>Order List</a>";
+                                            echo "<span class='lblCartCount badge badge-warning rounded-pill m-2'> $newOrder_count </span></li>";
+                                        } else {
+                                            echo "<li><a id='orderList' class='dropdown-item word' href='order_list.php'>Order List</a>";
+                                        }
+                                    ?>
+                                </li>
+                                <li class="nav-item"><a id="customMadeOrder" class="nav-link word pt-0" aria-current="page" href="customMade_list.php">Custom Made</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -88,7 +103,7 @@
                                     Staff
                                     </a>";
                                     echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
-                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_addNewStaff.php'>Add new staff</a></li>";
+                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_addNewStaff.php'>Create staff</a></li>";
                                         echo "<li><a id='staffList' class='dropdown-item word' href='staff_list.php'>Staff List</a></li>";
                                     echo "</ul>";
                                 echo "</li>";

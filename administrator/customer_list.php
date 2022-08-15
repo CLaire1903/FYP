@@ -28,7 +28,7 @@ if (!isset($_SESSION["admin_email"])) {
                 include 'navigationBar.php';
             ?>
 
-        <div class="productList mx-5">
+        <div class="customerList mx-5">
             <h1 class="header p-2 text-center mt-5">Customer List</h1>
             <div class="customerItems d-flex flex-wrap justify-content-around mx-5 mt-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>

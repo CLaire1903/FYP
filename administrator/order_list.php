@@ -90,29 +90,6 @@ if (!isset($_SESSION["admin_email"])) {
         ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script type='text/javascript'>
-        function delete_order(orderID) {
-            if (confirm('Are you sure?')) {
-                window.location = 'order_delete.php?orderID=' + orderID;
-            }
-        }
-
-        function validation() {
-            var search = document.getElementById("search").value;
-            var flag = false;
-            var msg = "";
-            if (search == "") {
-                flag = true;
-                msg = msg + "Please input order ID or customer username to search!\r\n";
-            }
-            if (flag == true) {
-                alert(msg);
-                return false;
-            } else {
-                return true;
-            }
-        }
-    </script>
 </body>
 
 </html>

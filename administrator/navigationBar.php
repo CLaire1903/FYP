@@ -77,11 +77,24 @@
                                             echo "<a id='orderList' class='dropdown-item word' href='order_list.php'>Order List</a>";
                                             echo "<span class='lblCartCount badge badge-warning rounded-pill m-2'> $newOrder_count </span></li>";
                                         } else {
-                                            echo "<li><a id='orderList' class='dropdown-item word' href='order_list.php'>Order List</a>";
+                                            echo "<a id='orderList' class='dropdown-item word' href='order_list.php'>Order List</a>";
                                         }
                                     ?>
                                 </li>
-                                <li class="nav-item"><a id="customMadeOrder" class="nav-link word pt-0" aria-current="page" href="customMade_list.php">Custom Made</a></li>
+                                <li class="d-flex">
+                                    <?php 
+                                        $checkCustomizedQuery = "SELECT designer_email FROM customized WHERE designer_email IS NULL";
+                                        $checkCustomizedStmt = $con->prepare($checkCustomizedQuery);
+                                        $checkCustomizedStmt->execute();
+                                        $new_count = $checkCustomizedStmt->rowCount();
+                                        if ($new_count > 0 ){
+                                            echo "<a id='customMadeOrder' class='dropdown-item word' href='customMade_list.php'>Custom Made</a>";
+                                            echo "<span class='lblCartCount badge badge-warning rounded-pill m-2'> $new_count </span></li>";
+                                        } else {
+                                            echo "<a id='customMadeOrder' class='dropdown-item word' href='customMade_list.php'>Custom Made</a>";
+                                        }
+                                    ?>
+                                </li>
                             </ul>
                         </li>
                     </ul>

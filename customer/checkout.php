@@ -49,7 +49,6 @@ if (!isset($_SESSION["cus_email"])) {
                         $getCheckoutIdStmt->execute();
                         $getCheckoutIdRow = $getCheckoutIdStmt->fetch(PDO::FETCH_ASSOC);
                         $checkout_id = $getCheckoutIdRow['checkout_id'];
-                        echo $checkout_id;
 
                         $createOrderQuery = "INSERT INTO orders SET order_datentime=:order_datentime, cus_email=:cus_email, order_totalamount=:order_totalamount, order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod";
 

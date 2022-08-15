@@ -20,28 +20,54 @@ if (!isset($_SESSION["admin_email"])) {
     <div class="container-fluid p-0">
         <?php
             include 'C:\xampp\htdocs\fyp\config/dbase.php'; 
+            include 'C:\xampp\htdocs\fyp\alertIcon.php';
             include 'navigationBar.php';
 
             $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : die('ERROR: Order record not found.');
 
             try {
-                $order_query = "SELECT * FROM orders WHERE order_id = :order_id";
-                $order_stmt = $con->prepare($order_query);
-                $order_stmt->bindParam(":order_id", $order_id);
-                $order_stmt->execute();
-                $order_row = $order_stmt->fetch(PDO::FETCH_ASSOC);
-                $order_id = $order_row['order_id'];
-                $cus_email = $order_row['cus_email'];
-                $order_datentime = $order_row['order_datentime'];
-                $order_totalamount = sprintf('%.2f', $order_row['order_totalamount']);
-                $order_depositpaid = sprintf('%.2f', $order_row['order_depositpaid']);
-                $order_status = ucwords($order_row['order_status']);
+                $orderQuery = "SELECT * FROM orders WHERE order_id = :order_id";
+                $orderStmt = $con->prepare($orderQuery);
+                $orderStmt->bindParam(":order_id", $order_id);
+                $orderStmt->execute();
+                $orderRow = $orderStmt->fetch(PDO::FETCH_ASSOC);
+                $order_id = $orderRow['order_id'];
+                $order_datentime = $orderRow['order_datentime'];
+                $cus_email = $orderRow['cus_email'];
+                $order_totalamount = sprintf('%.2f', $orderRow['order_totalamount']);
+                $order_depositpaid = sprintf('%.2f', $orderRow['order_depositpaid']);
+                $shipping_name = $orderRow['shipping_name'];
+                $shipping_phnumber = $orderRow['shipping_phnumber'];
+                $shipping_address = $orderRow['shipping_address'];
+                $shipping_postcode = $orderRow['shipping_postcode'];
+                $order_status = $orderRow['order_status'];
+                $order_paymethod = $orderRow['order_paymethod'];
             } catch (PDOException $exception) {
                 die('ERROR: ' . $exception->getMessage());
             }
         ?>
         <div class="mx-5">
             <h1 class="text-center mt-5">Order Detail</h1>
+            <?php 
+            $action = isset($_GET['action']) ? $_GET['action'] : "";
+            if ($action == 'updateFail') {
+                echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        Order fail to update.
+                    </div>
+                    </div>";
+            }
+            if ($action == 'updated') {
+                echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                        <div>
+                            Order updated successfully.
+                        </div>
+                    </div>";
+            }
+
+            ?>
             <table class='table table-hover table-responsive table-bordered mt-5'>
                 <thead>
                     <tr>
@@ -59,14 +85,17 @@ if (!isset($_SESSION["admin_email"])) {
                 </thead>
             </table>
             <table class='table table-hover table-responsive table-bordered'>
+                <tr>
+                    <h2 class="mt-5">Your Orders</h2>
+                </tr>
                 <?php
-                    $orderDetail_query = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, od.product_totalamount
+                    $orderDetailQuery = "SELECT p.product_id, p.product_image, p.product_name, p.product_price, od.product_totalamount
                                 FROM order_detail od
                                 INNER JOIN product p ON od.product_id = p.product_id
                                 WHERE order_id = :order_id";
-                    $orderDetail_stmt = $con->prepare($orderDetail_query);
-                    $orderDetail_stmt->bindParam(":order_id", $order_id);
-                    $orderDetail_stmt->execute();
+                    $orderDetailStmt = $con->prepare($orderDetailQuery);
+                    $orderDetailStmt->bindParam(":order_id", $order_id);
+                    $orderDetailStmt->execute();
 
                     echo "<thead>";
                     echo "<th class='text-center'>Product</th>";
@@ -75,23 +104,23 @@ if (!isset($_SESSION["admin_email"])) {
                     echo "</thead>";
 
                     echo "<tbody>";
-                        while ($orderDetail_row = $orderDetail_stmt->fetch(PDO::FETCH_ASSOC)) {
+                        while ($orderDetailRow = $orderDetailStmt->fetch(PDO::FETCH_ASSOC)) {
                             echo "<tr>";
                             echo "<td>";
                             echo "<div class='d-flex'>";
                                 echo "<div>";
-                                    $product_image = $orderDetail_row['product_image'];
-                                    $product_id = $orderDetail_row['product_id'];
+                                    $product_image = $orderDetailRow['product_image'];
+                                    $product_id = $orderDetailRow['product_id'];
                                     echo "<a href='product_detail.php?product_id={$product_id}'><img src='$product_image' class='productImage d-flex justify-content-center'></a>";
                                 echo "</div>";
                                 echo "<div class='mx-3'>";
-                                    echo "<a href='#' class='word text-center text-decoration-none'>$orderDetail_row[product_name]</a>";
+                                    echo "<a href='#' class='word text-center text-decoration-none'>$orderDetailRow[product_name]</a>";
                                 echo "</div>";
                             echo "</div>";
                             echo "</td>";
-                            $productPrice = sprintf('%.2f', $orderDetail_row['product_price']);
+                            $productPrice = sprintf('%.2f', $orderDetailRow['product_price']);
                             echo "<td class='text-end'>RM $productPrice</td>";
-                            $productTotalAmount = sprintf('%.2f', $orderDetail_row['product_totalamount']);
+                            $productTotalAmount = sprintf('%.2f', $orderDetailRow['product_totalamount']);
                             echo "<td class='text-end'>RM $productTotalAmount</td>";
                             echo "</tr>";
                         }
@@ -113,11 +142,45 @@ if (!isset($_SESSION["admin_email"])) {
                     echo "</tfoot>";
                 ?>   
             </table>
+            <table class='table table-hover table-responsive table-bordered'>
+                <thead>
+                    <tr>
+                        <h2 class="mt-5">Billing Details</h2>
+                    </tr>
+                    <tr> 
+                        <th class="col-4">Name</th>
+                        <td><?php echo htmlspecialchars($shipping_name, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td><?php echo htmlspecialchars($shipping_phnumber, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td><?php echo htmlspecialchars($shipping_address, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th>Postcode</th>
+                        <td><?php echo htmlspecialchars($shipping_postcode, ENT_QUOTES);  ?></td>
+                    </tr>
+                </thead>
+            </table>
+            <table class='table table-hover table-responsive table-bordered'>
+                <tr>
+                    <h2 class="mt-5">Deposit and Payment Method:</h2>
+                </tr>
+                <thead>
+                    <tr>
+                        <th>Payment method</th>
+                        <td><?php echo htmlspecialchars($order_paymethod, ENT_QUOTES);  ?></td>
+                    </tr>
+                </thead>
+            </table>
         </div>
         <div class="d-flex justify-content-center">
             <?php 
             echo "<a href='order_update.php?order_id={$order_id}' class='actionBtn btn mx-2 mt-5'>Update</a>";
-            echo "<a href='customer_detail.php?cus_email={$cus_email}'  class='actionBtn btn mx-2 mt-3'>Back</a> "; 
+            echo "<a href='order_list.php?'  class='actionBtn btn mx-2 mt-5'>Back</a> "; 
             ?>
         </div>
         <?php

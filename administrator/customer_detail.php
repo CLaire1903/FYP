@@ -97,57 +97,6 @@ if (!isset($_SESSION["admin_email"])) {
                 </thead>
             </table>
         </div>
-
-        <div>
-            <h1 class="mx-5 mt-5">Customer Ordered History</h1>
-            <?php 
-                $checkOrderQuery = "SELECT * FROM orders WHERE cus_email = :cus_email";
-                $checkOrderStmt = $con->prepare($checkOrderQuery);
-                $checkOrderStmt->bindParam(":cus_email", $cus_email);
-                $checkOrderStmt->execute();
-                $checkOrderRow = $checkOrderStmt->fetch(PDO::FETCH_ASSOC);
-                if ($checkOrderRow == 0){
-                    echo "<h2 class='mx-5 mt-3'>No order has been made.</h2>";
-                }else {
-                    echo "<div class='mx-5'>";
-                        echo "<table class='table table-hover table-responsive table-bordered text-center'>";
-                            echo "<thead>";
-                                echo "<tr class='tableHeader'>";
-                                    echo "<th>Order ID</th>";
-                                    echo "<th>Order Date and Time</th>";
-                                    echo "<th>Total Amount</th>";
-                                    echo "<th>Paid Deposit</th>";
-                                    echo "<th>Order Status</th>";
-                                echo "</tr>";
-                            echo "</thead>";
-
-                        $orderHistoryQuery = "SELECT * FROM orders WHERE cus_email = :cus_email ORDER BY order_id DESC ";
-                        $orderHistoryStmt = $con->prepare($orderHistoryQuery);
-                        $orderHistoryStmt->bindParam(":cus_email", $cus_email);
-                        $orderHistoryStmt->execute();
-                        while ($orderHistoryRow = $orderHistoryStmt->fetch(PDO::FETCH_ASSOC)) {  
-                            extract($orderHistoryRow);  
-                            $order_id = $orderHistoryRow['order_id'];
-                            $order_datentime = $orderHistoryRow['order_datentime'];
-                            $cus_email = $orderHistoryRow['cus_email'];
-                            $order_totalamount = sprintf('%.2f', $orderHistoryRow['order_totalamount']);
-                            $order_depositpaid = sprintf('%.2f', $orderHistoryRow['order_depositpaid']);
-                            $order_status = ucwords($orderHistoryRow['order_status']);
-                            echo "<tbody>";
-                                echo "<tr>";
-                                    echo "<td><a href='order_detail.php?order_id={$order_id}' class='orderDetail text-center'>$order_id</a></td>";
-                                    echo "<td>{$order_datentime}</td>";
-                                    echo "<td>RM {$order_totalamount}</td>";
-                                    echo "<td>RM {$order_depositpaid}</td>";
-                                    echo "<td>{$order_status}</td>";
-                                echo "</tr>";
-                            echo "</tbody>";
-                        }
-                        echo "</table>";
-                    echo "</div>";
-                }
-            ?>
-        </div>
         
         <div class="d-flex justify-content-center">
             <?php

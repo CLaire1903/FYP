@@ -19,6 +19,9 @@ if (!isset($_SESSION["admin_email"])) {
             font-weight: bold;
             font-size: large;
         }
+        .newOrder {
+            color: red;
+        }
     </style>
 </head>
 
@@ -44,6 +47,7 @@ if (!isset($_SESSION["admin_email"])) {
                             <th class="col-3 col-lg-2">Order ID</th>
                             <th>Order Date and Time</th>
                             <th>Customer</th>
+                            <th>Order Status</th>
                             <th>Total Amount</th>
                             <th>Action</th>
                         </tr>
@@ -58,11 +62,18 @@ if (!isset($_SESSION["admin_email"])) {
                                 $order_id = $orderRow['order_id'];
                                 $order_datentime = $orderRow['order_datentime'];
                                 $cus_email = $orderRow['cus_email'];
+                                $order_status = $orderRow['order_status'];
                                 $order_totalamount = sprintf('%.2f', $orderRow['order_totalamount']);
                                 echo "<tr>";
                                     echo "<td>{$order_id}</td>";
                                     echo "<td>{$order_datentime}</td>";
                                     echo "<td>{$cus_email}</td>";
+                                    if ($order_status == "new order") {
+                                        echo "<td class='newOrder'>{$order_status}</td>";
+                                    } else {
+                                        echo "<td>{$order_status}</td>";
+                                    }
+                                    
                                     echo "<td>RM {$order_totalamount}</td>";
                                     echo "<td class='col-1'>";
                                         echo "<div class='d-lg-flex justify-content-center flex-column'>";

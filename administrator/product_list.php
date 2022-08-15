@@ -77,18 +77,18 @@ if (!isset($_SESSION["admin_email"])) {
                                 $product_name = ucwords($productRow['product_name']);
                                 $product_price = sprintf('%.2f', $productRow['product_price']);
                                     echo "<tr>";
-                                echo "<td><img src='$product_image' class='productImage d-flex justify-content-center rounded'></a></td>";
-                                echo "<td class='col-2'>{$product_id}</td>";
-                                echo "<td>{$product_name}</td>";
-                                echo "<td class='col-2'>RM {$product_price}</td>";
-                                echo "<td>";
-                                    echo "<div class='d-lg-flex justify-content-sm-center flex-column'>";
-                                    echo "<a href='product_detail.php?product_id={$product_id}' id='detail' class='listActionBtn btn m-1 m-lg-2'>Detail</a>";
-                                    echo "<a href='product_update.php?product_id={$product_id}' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
-                                    echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
-                                    echo "</div>";
-                                echo "</td>";
-                                echo "</tr>";
+                                        echo "<td><img src='$product_image' class='productImage d-flex justify-content-center rounded'></a></td>";
+                                        echo "<td class='col-2'>{$product_id}</td>";
+                                        echo "<td>{$product_name}</td>";
+                                        echo "<td class='col-2'>RM {$product_price}</td>";
+                                        echo "<td>";
+                                            echo "<div class='d-lg-flex justify-content-sm-center flex-column'>";
+                                            echo "<a href='product_detail.php?product_id={$product_id}' id='detail' class='listActionBtn btn m-1 m-lg-2'>Detail</a>";
+                                            echo "<a href='product_update.php?product_id={$product_id}' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
+                                            echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
+                                            echo "</div>";
+                                        echo "</td>";
+                                    echo "</tr>";
                             }
                         ?>
                     </tfoot>

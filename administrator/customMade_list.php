@@ -11,6 +11,7 @@ if (!isset($_SESSION["admin_email"])) {
     <title>Custom Made Order list</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link href="/fyp/css/shared.css" rel="stylesheet">
+    <link href="/fyp/css/product.css" rel="stylesheet">
     <link href="/fyp/css/list.css" rel="stylesheet">
 
     <style>
@@ -36,10 +37,11 @@ if (!isset($_SESSION["admin_email"])) {
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <thead>
                         <tr class="tableHeader">
-                            <th class="col-3 col-lg-2">Custom Made ID</th>
-                            <th>Customer</th>
-                            <th>Contact</th>
-                            <th>Collect Date</th>
+                            <th class="col-3 col-lg-2">Image</th>
+                            <th class="col-2">Custom Made ID</th>
+                            <th class="col-2">Customer</th>
+                            <th class="col-2">Contact</th>
+                            <th class="col-2">Collect Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -50,11 +52,13 @@ if (!isset($_SESSION["admin_email"])) {
                             $customMadeStmt->execute();
                             while ($customMadeRow = $customMadeStmt->fetch(PDO::FETCH_ASSOC)) {
                                 extract($customMadeRow);
+                                $customized_image = $customMadeRow['customized_image'];
                                 $customized_id = $customMadeRow['customized_id'];
                                 $cus_name = $customMadeRow['cus_name'];
                                 $cus_phnumber = $customMadeRow['cus_phnumber'];
                                 $customized_collectdate = $customMadeRow['customized_collectdate'];
                                 echo "<tr>";
+                                    echo "<td><img src='$customized_image' class='productImage d-flex justify-content-center rounded'></a></td>";
                                     echo "<td>{$customized_id}</td>";
                                     echo "<td>{$cus_name}</td>";
                                     echo "<td>{$cus_phnumber}</td>";
@@ -79,29 +83,6 @@ if (!isset($_SESSION["admin_email"])) {
         ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script type='text/javascript'>
-        function delete_order(orderID) {
-            if (confirm('Are you sure?')) {
-                window.location = 'order_delete.php?orderID=' + orderID;
-            }
-        }
-
-        function validation() {
-            var search = document.getElementById("search").value;
-            var flag = false;
-            var msg = "";
-            if (search == "") {
-                flag = true;
-                msg = msg + "Please input order ID or customer username to search!\r\n";
-            }
-            if (flag == true) {
-                alert(msg);
-                return false;
-            } else {
-                return true;
-            }
-        }
-    </script>
 </body>
 
 </html>

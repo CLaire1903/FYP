@@ -32,11 +32,6 @@ if (!isset($_SESSION["admin_email"])) {
             include 'C:\xampp\htdocs\fyp\alertIcon.php';
             include 'navigationBar.php';
         ?>
-        <?php
-        $action = isset($_GET['action']) ? $_GET['action'] : "";
-        if ($action == 'deleted') {
-            echo "<div class='alert alert-success'>Order was deleted.</div>";
-        }?>
 
         <div class="orderList mx-5">
             <h1 class="header p-2 text-center mt-5">Order List</h1>

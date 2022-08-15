@@ -39,7 +39,7 @@
                                 Product
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a id="addProduct" class="dropdown-item word" href="product_addNewProduct.php">Create Product</a></li>
+                                <li><a id="addProduct" class="dropdown-item word" href="product_create.php">Create Product</a></li>
                                 <li><a id="productList" class="dropdown-item word" href="product_list.php">Product List</a></li>
                             </ul>
                         </li>
@@ -116,8 +116,10 @@
                                     Staff
                                     </a>";
                                     echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
-                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_addNewStaff.php'>Create staff</a></li>";
+                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_create.php'>Create staff</a></li>";
                                         echo "<li><a id='staffList' class='dropdown-item word' href='staff_list.php'>Staff List</a></li>";
+                                        echo "<li><a id='addDesigner' class='dropdown-item word' href='designer_create.php'>Staff List</a></li>";
+                                        echo "<li><a id='designerList' class='dropdown-item word' href='designer_list.php'>Staff List</a></li>";
                                     echo "</ul>";
                                 echo "</li>";
                             echo "</ul>";

@@ -42,6 +42,7 @@ if (!isset($_SESSION["admin_email"])) {
                 $shipping_postcode = $orderRow['shipping_postcode'];
                 $order_status = $orderRow['order_status'];
                 $order_paymethod = $orderRow['order_paymethod'];
+                $payment_reference = $orderRow['payment_reference'];
             } catch (PDOException $exception) {
                 die('ERROR: ' . $exception->getMessage());
             }
@@ -173,6 +174,10 @@ if (!isset($_SESSION["admin_email"])) {
                     <tr>
                         <th class="col-4">Payment method</th>
                         <td><?php echo htmlspecialchars($order_paymethod, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <th class="col-4">Reference</th>
+                        <td><?php echo htmlspecialchars($payment_reference, ENT_QUOTES);  ?></td>
                     </tr>
                 </thead>
             </table>

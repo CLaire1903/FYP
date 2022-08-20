@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION["cus_email"])) {
-    header("Location: customer_login.php?error=restrictedAccess");
+if (!isset($_SESSION["admin_email"])) {
+    header("Location: index.php?error=restrictedAccess");
 }
 ?>
 <!DOCTYPE HTML>
@@ -44,9 +44,15 @@ if (!isset($_SESSION["cus_email"])) {
                             throw new Exception("Deposit must be at least 30% from the total amount!");
                         }
 
+                        if($_POST['order_status'] == "payment received" || $_POST['order_status'] == "processing" || $_POST['order_status'] == "shipping" || $_POST['order_status'] == "completed") {
+                            if (empty($_POST['payment_reference'])) {
+                                throw new Exception("Reference cannot be blank!");
+                            }
+                        }
+
                         $con->beginTransaction();
 
-                        $updateOrderQuery = "UPDATE orders SET order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod WHERE order_id=:order_id";
+                        $updateOrderQuery = "UPDATE orders SET order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod, payment_reference=:payment_reference WHERE order_id=:order_id";
                         $updateOrderStmt = $con->prepare($updateOrderQuery);
                         $order_depositpaid = htmlspecialchars(strip_tags($_POST['order_depositpaid']));
                         $shipping_name = htmlspecialchars(strip_tags($_POST['shipping_name']));
@@ -55,6 +61,7 @@ if (!isset($_SESSION["cus_email"])) {
                         $shipping_postcode = htmlspecialchars(strip_tags($_POST['shipping_postcode']));
                         $order_status = htmlspecialchars(strip_tags($_POST['order_status']));
                         $order_paymethod = htmlspecialchars(strip_tags($_POST['order_paymethod']));
+                        $payment_reference = htmlspecialchars(strip_tags($_POST['payment_reference']));
 
                         $updateOrderStmt->bindParam(':order_id', $order_id);
                         $updateOrderStmt->bindParam(':order_depositpaid', $order_depositpaid);
@@ -64,6 +71,7 @@ if (!isset($_SESSION["cus_email"])) {
                         $updateOrderStmt->bindParam(':shipping_postcode', $shipping_postcode);
                         $updateOrderStmt->bindParam(':order_status', $order_status);
                         $updateOrderStmt->bindParam(':order_paymethod', $order_paymethod);
+                        $updateOrderStmt->bindParam(':payment_reference', $payment_reference);
 
                         if ($updateOrderStmt->execute()) {
                             echo "<script>window.location.href='order_detail.php?order_id='+ '$order_id' + '&action=updated';</script>";
@@ -73,14 +81,14 @@ if (!isset($_SESSION["cus_email"])) {
                             }
                         $con->commit();
                     } catch (PDOException $exception) {
-                        echo "<div class='alert alert-danger d-flex align-items-center m-5' role='alert'>
+                        echo "<div class='alert alert-danger d-flex align-items-center my-5' role='alert'>
                             <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                             <div>
                             " . $exception->getMessage() . "
                             </div>
                         </div>";
                     } catch (Exception $exception) {
-                        echo "<div class='alert alert-danger d-flex align-items-center m-5' role='alert'>
+                        echo "<div class='alert alert-danger d-flex align-items-center my-5' role='alert'>
                             <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                             <div>
                             " . $exception->getMessage() . "
@@ -109,6 +117,7 @@ if (!isset($_SESSION["cus_email"])) {
             $shipping_postcode = $getOrderRow['shipping_postcode'];
             $order_status = $getOrderRow['order_status'];
             $order_paymethod = $getOrderRow['order_paymethod'];
+            $payment_reference = $getOrderRow['payment_reference'];
             ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?order_id={$order_id}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
@@ -233,21 +242,21 @@ if (!isset($_SESSION["cus_email"])) {
                     <tr>
                         <h2 class="mt-5">Billing Details</h2>
                     </tr>
-                    <tr class="border-start border-end border-top border-0"> 
+                    <tr class="border"> 
                         <th class="col-4 d-flex align-self-center border-0 px-3">Name</th>
-                        <td class="border-0"><input type='text' name='shipping_name' id="shipping_name" value="<?php echo htmlspecialchars($shipping_name, ENT_QUOTES); ?>" class='form-control'/></td>
+                        <td><input type='text' name='shipping_name' id="shipping_name" value="<?php echo htmlspecialchars($shipping_name, ENT_QUOTES); ?>" class='form-control'/></td>
                     </tr>
-                    <tr class="border-start border-end border-0">
+                    <tr class="border">
                         <th class="d-flex align-self-center border-0 px-3">Phone Number</th>
-                        <td class="border-0"><input type="tel" name="shipping_phnumber" id="shipping_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($shipping_phnumber, ENT_QUOTES); ?>" class='form-control' ></td>
+                        <td><input type="tel" name="shipping_phnumber" id="shipping_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($shipping_phnumber, ENT_QUOTES); ?>" class='form-control' ></td>
                     </tr>
-                    <tr class="border-start border-end border-0">
+                    <tr class="border">
                         <th class="d-flex align-self-center border-0 px-3">Address</th>
-                        <td class="border-0"><textarea type='text' name='shipping_address' id="shipping_address" class='form-control' rows="3"><?php echo htmlspecialchars($shipping_address, ENT_QUOTES); ?></textarea></td>
+                        <td><textarea type='text' name='shipping_address' id="shipping_address" class='form-control' rows="3"><?php echo htmlspecialchars($shipping_address, ENT_QUOTES); ?></textarea></td>
                     </tr>
-                    <tr class="border-start border-end border-bottom border-0">
+                    <tr class="border">
                         <th class="d-flex align-self-center border-0 px-3">Postcode</th>
-                        <td class="border-0"><input type="tel" name="shipping_postcode" id="shipping_postcode" placeholder="12345" pattern="[0-9]{5}" value="<?php echo htmlspecialchars($shipping_postcode, ENT_QUOTES); ?>" class='form-control' ></td>
+                        <td><input type="tel" name="shipping_postcode" id="shipping_postcode" placeholder="12345" pattern="[0-9]{5}" value="<?php echo htmlspecialchars($shipping_postcode, ENT_QUOTES); ?>" class='form-control' ></td>
                     </tr>
                 </thead>
             </table>
@@ -256,13 +265,13 @@ if (!isset($_SESSION["cus_email"])) {
                     <h2 class="mt-5">Deposit and Payment Method:</h2>
                 </tr>
                 <thead>
-                    <tr class="border-start border-end border-top border-0"> 
-                        <th class="d-flex align-self-center border-0 px-3">Deposit paid: RM</th>
-                        <td class="border-0"><input type='text' name='order_depositpaid' id="order_depositpaid" value="<?php echo htmlspecialchars($order_depositpaid, ENT_QUOTES); ?>" class='form-control'/></td>
+                    <tr class="border"> 
+                        <th class="d-flex align-self-center border-0">Deposit paid: RM</th>
+                        <td><input type='text' name='order_depositpaid' id="order_depositpaid" value="<?php echo htmlspecialchars($order_depositpaid, ENT_QUOTES); ?>" class='form-control'/></td>
                     </tr>
-                    <tr class="border-start border-end border-bottom border-0">
-                        <th class="d-flex align-self-center border-0 px-3">Payment method</th>
-                        <td class="border-0">
+                    <tr class="border">
+                        <th class="d-flex align-self-center border-0">Payment method</th>
+                        <td>
                             <div class="form-check">
                                 <label>
                                     <input type="radio" name="order_paymethod" class="order_paymethod" value="online" <?php echo htmlspecialchars($order_paymethod == 'online') ? 'checked' : '' ?>>
@@ -279,10 +288,15 @@ if (!isset($_SESSION["cus_email"])) {
                             </div>
                         </td>
                     </tr>
+                    <tr class="border"> 
+                        <th class="d-flex align-self-center border-0">Transaction Reference</th>
+                        <td><input type='text' name='payment_reference' id="payment_reference" value="<?php echo htmlspecialchars($payment_reference, ENT_QUOTES); ?>" class='form-control'/></td>
+                    </tr>
                 </thead>
             </table>
-            <div class='button d-grid m-3 d-flex justify-content-center'>
-                <button type='submit' class='actionBtn btn btn-lg mt-5'>Update</button>
+            <div class="d-flex justify-content-center">
+                <button type='submit' class='actionBtn btn mx-2 mt-5'>Update</button>
+                <?php echo "<a href='order_detail.php?order_id={$order_id}' class='actionBtn btn mx-2 mt-5'>Back</a>"; ?>
             </div>
         </form>
         </div>

@@ -118,8 +118,21 @@
                                     echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
                                         echo "<li><a id='addStaff' class='dropdown-item word' href='staff_create.php'>Create staff</a></li>";
                                         echo "<li><a id='staffList' class='dropdown-item word' href='staff_list.php'>Staff List</a></li>";
-                                        echo "<li><a id='addDesigner' class='dropdown-item word' href='designer_create.php'>Staff List</a></li>";
-                                        echo "<li><a id='designerList' class='dropdown-item word' href='designer_list.php'>Staff List</a></li>";
+                                        echo "<li><a id='addDesigner' class='dropdown-item word' href='designer_create.php'>Create Designer</a></li>";
+                                        echo "<li><a id='designerList' class='dropdown-item word' href='designer_list.php'>Designer List</a></li>";
+                                    echo "</ul>";
+                                echo "</li>";
+                            echo "</ul>";
+                        echo "</div>";
+                        echo "<div>";
+                            echo "<ul class='nav justify-content-center'>";
+                                echo "<li class='nav-item dropdown'>";
+                                    echo "<a id='designer' class='nav-link dropdown-toggle navbarDropdownMenuLink word' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                    Designer
+                                    </a>";
+                                    echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
+                                        echo "<li><a id='addDesigner' class='dropdown-item word' href='designer_create.php'>Create Designer</a></li>";
+                                        echo "<li><a id='designerList' class='dropdown-item word' href='designer_list.php'>Designer List</a></li>";
                                     echo "</ul>";
                                 echo "</li>";
                             echo "</ul>";
@@ -132,8 +145,23 @@
                                     Staff
                                     </a>";
                                     echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
-                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_addNewStaff.php'>Add new staff</a></li>";
+                                        echo "<li><a id='addStaff' class='dropdown-item word' href='staff_create.php'>Create staff</a></li>";
                                         echo "<li><a id='staffList' class='dropdown-item word' href='staff_list.php'>Staff List</a></li>";
+                                        echo "<li><a id='addDesigner' class='dropdown-item word' href='designer_create.php'>Create Designer</a></li>";
+                                        echo "<li><a id='designerList' class='dropdown-item word' href='designer_list.php'>Designer List</a></li>";
+                                    echo "</ul>";
+                                echo "</li>";
+                            echo "</ul>";
+                        echo "</div>";
+                        echo "<div class='d-none'>";
+                            echo "<ul class='nav justify-content-center'>";
+                                echo "<li class='nav-item dropdown'>";
+                                    echo "<a id='designer' class='nav-link dropdown-toggle navbarDropdownMenuLink word' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                    Designer
+                                    </a>";
+                                    echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
+                                        echo "<li><a id='addDesigner' class='dropdown-item word' href='designer_create.php'>Create Designer</a></li>";
+                                        echo "<li><a id='designerList' class='dropdown-item word' href='designer_list.php'>Designer List</a></li>";
                                     echo "</ul>";
                                 echo "</li>";
                             echo "</ul>";

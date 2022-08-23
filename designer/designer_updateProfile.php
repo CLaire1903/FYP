@@ -147,7 +147,6 @@ if (!isset($_SESSION["designer_email"])) {
                                     move_uploaded_file($temp, '../image/designer/' . $newfilename);
                                 }
                             }
-                            echo "successful";
                             echo "<script>window.location.href='designer_profile.php?designer_email='+ '$designer_email' + '&action=profileUpdated';</script>";
                         } else {
                             echo "<script>window.location.href='designer_profile.php?designer_email='+ '$designer_email' + '&action=profileUpdateFail';</script>";

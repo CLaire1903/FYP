@@ -83,7 +83,7 @@ if (!isset($_SESSION["admin_email"])) {
                     <td><?php echo htmlspecialchars($product_id, ENT_QUOTES);  ?></td>
                 </tr>
                 <tr>
-                    <td>Product Picture</td>
+                    <td>Product Image</td>
                     <td>
                         <?php
                         echo "<div class='img-block'> ";

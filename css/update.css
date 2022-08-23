@@ -6,6 +6,14 @@
     border: none;
 }
 
+#form-popup {
+    display: none;
+}
+
+#delImg_btn {
+    display: none;
+}
+
 /*for delete previous uploaded img button*/
 .deleteBtn{
     width: 30px;
@@ -21,3 +29,4 @@
 .cancelBtn{
     width: 100px;
 }
+

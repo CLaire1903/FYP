@@ -7,5 +7,5 @@
   // destroy the session 
   session_destroy();
 
-  header("Location: designer_login.php");
+  header("Location: index.php");
 ?>

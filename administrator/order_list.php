@@ -34,7 +34,42 @@ if (!isset($_SESSION["admin_email"])) {
 
         <div class="orderList mx-5">
             <h1 class="header p-2 text-center mt-5">Order List</h1>
-            <div class="orderItems d-flex flex-wrap justify-content-around mx-5 mt-5">
+            <?php $action = isset($_GET['action']) ? $_GET['action'] : "";
+            if ($action == 'updateFail') {
+                echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        Order fail to update.
+                    </div>
+                    </div>";
+            }
+            if ($action == 'updated') {
+                echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                        <div>
+                            Order updated successfully.
+                        </div>
+                    </div>";
+            }
+            $action = isset($_GET['action']) ? $_GET['action'] : "";
+            if ($action == 'noOrder') {
+                echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        Order fail to create.
+                    </div>
+                    </div>";
+            }
+            if ($action == 'ordered') {
+                echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                        <div>
+                            New Order created.
+                        </div>
+                    </div>";
+            }
+            ?>
+            <div class="orderItems d-flex flex-wrap justify-content-around mt-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <thead>
                         <tr class="tableHeader">

@@ -47,11 +47,11 @@ if (!isset($_SESSION["admin_email"])) {
         include 'C:\xampp\htdocs\fyp\config/dbase.php';
         include 'navigationBar.php';
         ?>
-        <div class="p-3 text-center my-5 mx-5">
+        <div class="text-center my-5 mx-5">
             <h1 class="header p-2 fw-bold rounded-pill">SUMMARY</h1>
         </div>
         <div class="d-flex justify-content-center">
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-4">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
                 <a href=customer_list.php><img class="image" src="/fyp/image/icon/customer.png"></a>
                 </div>
@@ -64,7 +64,7 @@ if (!isset($_SESSION["admin_email"])) {
                 echo "<a class='count' href=customer_list.php> <h6 class='p-2 text-dark'>$customerNum customers</h6> </a>";
                 ?>
             </div>
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-4">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
                 <a href=product_list.php><img class="image" src="/fyp/image/icon/product.png"></a>
                 </div>
@@ -77,7 +77,7 @@ if (!isset($_SESSION["admin_email"])) {
                 echo "<a class='count' href=product_list.php> <h6 class='p-2 text-dark'>$productNum products</h6> </a>";
                 ?>
             </div>
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-4">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
                 <a href=order_list.php><img class="image" src="/fyp/image/icon/order.png"></a>
                 </div>
@@ -88,6 +88,32 @@ if (!isset($_SESSION["admin_email"])) {
                 $orderNum = $orderStmt->rowCount();
                 //display total order made
                 echo "<a class='count' href=order_list.php> <h6 class='p-2 text-dark'>$orderNum orders</h6> </a>";
+                ?>
+            </div>
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
+                <div class="pic p-1">
+                <a href=staff_list.php><img class="image" src="/fyp/image/icon/staff.png"></a>
+                </div>
+                <?php
+                $adminQuery = "SELECT * FROM admin";
+                $adminStmt = $con->prepare($adminQuery);
+                $adminStmt->execute();
+                $adminNum = $adminStmt->rowCount();
+                //display total staff
+                echo "<a class='count' href=staff_list.php> <h6 class='p-2 text-dark'>$adminNum staffs</h6> </a>";
+                ?>
+            </div>
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
+                <div class="pic p-1">
+                <a href=designer_list.php><img class="image" src="/fyp/image/icon/designer.png"></a>
+                </div>
+                <?php
+                $designerQuery = "SELECT * FROM designer";
+                $designerStmt = $con->prepare($designerQuery);
+                $designerStmt->execute();
+                $designerNum = $designerStmt->rowCount();
+                //display total designer
+                echo "<a class='count' href=designer_list.php> <h6 class='p-2 text-dark'>$designerNum designers</h6> </a>";
                 ?>
             </div>
         </div>

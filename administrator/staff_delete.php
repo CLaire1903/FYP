@@ -26,7 +26,7 @@ try {
         $deleteStaffQuery = "DELETE FROM admin WHERE admin_email = ?";
         $deleteStaffStmt = $con->prepare($deleteStaffQuery);
         $deleteStaffStmt->bindParam(1, $admin_email);
-        if($deleteProductStmt->execute()){
+        if($deleteStaffStmt->execute()){
             //selected product is deleted
             header('Location: staff_list.php?action=deleted');
         }else{

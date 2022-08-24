@@ -56,7 +56,6 @@ if (!isset($_SESSION["admin_email"])) {
                 }
 
                 if ($_POST) {
-                    echo "posted";
                     $file = $_FILES["customized_image"]["name"];
                     $temp = $_FILES["customized_image"]["tmp_name"];
                     $folder = "../image/customized/" . $file;

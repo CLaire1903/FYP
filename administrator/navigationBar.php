@@ -131,6 +131,7 @@
                                     echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>";
                                         echo "<li><a id='addDesigner' class='dropdown-item word' href='designer_create.php'>Create Designer</a></li>";
                                         echo "<li><a id='designerList' class='dropdown-item word' href='designer_list.php'>Designer List</a></li>";
+                                        echo "<li><a id='award' class='dropdown-item word' href='award_create.php'>Create Award</a></li>";
                                     echo "</ul>";
                                 echo "</li>";
                             echo "</ul>";

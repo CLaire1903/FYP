@@ -152,7 +152,6 @@ if (!isset($_SESSION["admin_email"])) {
                                     <select class="form-select" name="cus_email" id="cus_email">
                                         <option value='' disabled selected>-- Select Customer --</option>
                                         <?php
-                                        include 'config/database.php';
                                         $selectUserQuery = "SELECT cus_email FROM customer";
                                         $selectUserStmt = $con->prepare($selectUserQuery);
                                         $selectUserStmt->execute();

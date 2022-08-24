@@ -120,14 +120,9 @@ if (!isset($_SESSION["admin_email"])) {
                                 }
                             }
                         }
-                        echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
-                            <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
-                            <div>
-                                Product $A_incrementID was created.
-                            </div>
-                        </div>";
+                        echo "<script>window.location.href='product_list.php?action=productCreated';</script>";
                     } else {
-                        throw new Exception("Product is not created.");
+                        echo "<script>window.location.href='product_list.php?action=productCreatedFail';</script>";
                     }
                 } catch (PDOException $exception) {
                     //for databae 'PDO'

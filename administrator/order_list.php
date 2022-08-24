@@ -15,9 +15,8 @@ if (!isset($_SESSION["admin_email"])) {
 
     <style>
         /*can be found at navigation page*/
-        #orderList {
+        #order, #orderList {
             font-weight: bold;
-            font-size: large;
         }
         .newOrder {
             color: red;

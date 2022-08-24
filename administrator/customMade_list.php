@@ -18,7 +18,6 @@ if (!isset($_SESSION["admin_email"])) {
         /*can be found at navigation page*/
         #customMadeOrder {
             font-weight: bold;
-            font-size: large;
         }
     </style>
 </head>

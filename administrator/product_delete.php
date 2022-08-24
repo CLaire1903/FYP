@@ -3,14 +3,12 @@ include 'C:\xampp\htdocs\fyp\config/dbase.php';
 try {     
     $product_id = isset($_GET['product_id']) ? $_GET['product_id'] :  die('ERROR: Record ID not found.');
 
-    //check whether the product involved in any order
     $checkQuery = "SELECT * FROM order_detail WHERE product_id = ?";
     $checkStmt = $con->prepare($checkQuery);
     $checkStmt->bindParam(1, $product_id);
     $checkStmt->execute();
     $num = $checkStmt->rowCount();
     if($num != 0){
-        //selected product cannot be deleted because involved in at least a order
         header('Location: product_list.php?action=productInStock');
     }else {
 
@@ -27,7 +25,6 @@ try {
     $deleteProductStmt->bindParam(1, $product_id);
     if (unlink($product_image)){
         if($deleteProductStmt->execute()){
-            //selected product is deleted
             header('Location: product_list.php?action=deleted');
         }else{
             die('Unable to delete record.');

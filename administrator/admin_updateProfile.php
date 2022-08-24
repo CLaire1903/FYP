@@ -55,7 +55,6 @@ if (!isset($_SESSION["admin_email"])) {
                             throw new Exception("Please make sure all fields are not empty!");
                         }
 
-                        //update the customer detail into the database
                         $updateAdminQuery = "UPDATE admin SET admin_fname=:admin_fname, admin_lname=:admin_lname, admin_address=:admin_address, admin_phnumber=:admin_phnumber , admin_gender=:admin_gender, admin_bday=:admin_bday WHERE admin_email = :admin_email";
                         $updateAdminStmt = $con->prepare($updateAdminQuery);
                         $admin_fname = htmlspecialchars(strip_tags(ucfirst($_POST['admin_fname'])));
@@ -89,7 +88,7 @@ if (!isset($_SESSION["admin_email"])) {
                     }
                 } ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?admin_email={$admin_email}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?admin_email={$admin_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='profileDetailTable table table-hover table-responsive table-bordered'>
                 <tr>
                     <td class="col-5">Email</td>

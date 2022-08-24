@@ -64,7 +64,7 @@
                                 Order
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a id="createOrder" class="dropdown-item word" href="order.php">Create Order</a></li>
+                                <li><a id="createOrder" class="dropdown-item word" href="order_create.php">Create Order</a></li>
                                 <li class="d-flex">
                                     <?php 
                                         $checkNewOrderQuery = "SELECT order_status FROM orders WHERE order_status=:order_status";

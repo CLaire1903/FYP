@@ -49,26 +49,6 @@ if (!isset($_SESSION["admin_email"])) {
         ?>
         <div class="mx-5">
             <h1 class="text-center mt-5">Order Detail</h1>
-            <?php 
-            $action = isset($_GET['action']) ? $_GET['action'] : "";
-            if ($action == 'updateFail') {
-                echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                    <div>
-                        Order fail to update.
-                    </div>
-                    </div>";
-            }
-            if ($action == 'updated') {
-                echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
-                        <div>
-                            Order updated successfully.
-                        </div>
-                    </div>";
-            }
-
-            ?>
             <table class='table table-hover table-responsive table-bordered mt-5'>
                 <thead>
                     <tr>

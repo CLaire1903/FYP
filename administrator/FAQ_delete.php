@@ -13,7 +13,6 @@ try {
         $deleteFAQStmt = $con->prepare($deleteFAQQuery);
         $deleteFAQStmt->bindParam(1, $admin_email);
         if($deleteFAQStmt->execute()){
-            //selected product is deleted
             header('Location: FAQ.php?action=deleted');
         }else{
             header('Location: FAQ.php?action=deletedFail');

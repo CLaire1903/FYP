@@ -151,7 +151,7 @@ if (!isset($_SESSION["cus_email"])) {
                     }
                 ?>
             </div>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <?php
                         $checkCartQuery = "SELECT * FROM cart WHERE cus_email = :cus_email";
                         $checkCartStmt = $con->prepare($checkCartQuery);

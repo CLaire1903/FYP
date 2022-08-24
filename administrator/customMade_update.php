@@ -78,26 +78,22 @@ if (!isset($_SESSION["admin_email"])) {
 
                             $imageFileType = strtolower(pathinfo($folder, PATHINFO_EXTENSION));
                             $check = getimagesize($temp);
-                            //make sure user uploaded image only
                             if ($check == 0) {
                                 $isUploadOK = 0;
                                 throw new Exception("Please upload image only! (JPG, JPEG, PNG & GIF)");
                             }
     
-                            //make sure the image is 1:1
                             list($width, $height, $type, $attr) = getimagesize($temp);
                             if ($width != $height) {
                                 $isUploadOK = 0;
                                 throw new Exception("Please make sure the ratio of the photo is 1:1!");
                             }
     
-                            //make sure the size is lower than 512KB
                             if ($_FILES["customized_image"]["size"] > 512000) {
                                 $isUploadOK = 0;
                                 throw new Exception("Sorry, your file is too large. Only 512KB is allowed!");
                             }
     
-                            //check image file type
                             if (
                                 $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                                 && $imageFileType != "gif"
@@ -123,7 +119,6 @@ if (!isset($_SESSION["admin_email"])) {
                             }
                         }
 
-                        //update the customer detail into the database
                         $updateCustomizedQuery = "UPDATE customized SET $customizedImg, cus_email=:cus_email, cus_name=:cus_name,cus_phnumber=:cus_phnumber, customized_detail=:customized_detail, customized_collectdate=:customized_collectdate, designer_email=:designer_email WHERE customized_id = :customized_id";
                         $updateCustomizedStmt = $con->prepare($updateCustomizedQuery);
                         $cus_email = htmlspecialchars(strip_tags(strtolower($_POST['cus_email']) ));
@@ -176,7 +171,7 @@ if (!isset($_SESSION["admin_email"])) {
                     }
                 } ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?customized_id={$customized_id}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?customized_id={$customized_id}"); ?>" method="post" enctype="multipart/form-data">
             <table class='detailTable table table-hover table-responsive table-bordered'>
                 <tr>
                     <td>Profile Image</td>

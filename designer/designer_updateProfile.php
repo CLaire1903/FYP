@@ -69,26 +69,22 @@ if (!isset($_SESSION["designer_email"])) {
 
                             $imageFileType = strtolower(pathinfo($folder, PATHINFO_EXTENSION));
                             $check = getimagesize($temp);
-                            //make sure user uploaded image only
                             if ($check == 0) {
                                 $isUploadOK = 0;
                                 throw new Exception("Please upload image only! (JPG, JPEG, PNG & GIF)");
                             }
     
-                            //make sure the image is 1:1
                             list($width, $height, $type, $attr) = getimagesize($temp);
                             if ($width != $height) {
                                 $isUploadOK = 0;
                                 throw new Exception("Please make sure the ratio of the photo is 1:1!");
                             }
     
-                            //make sure the size is lower than 512KB
                             if ($_FILES["designer_image"]["size"] > 512000) {
                                 $isUploadOK = 0;
                                 throw new Exception("Sorry, your file is too large. Only 512KB is allowed!");
                             }
     
-                            //check image file type
                             if (
                                 $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                                 && $imageFileType != "gif"
@@ -114,7 +110,6 @@ if (!isset($_SESSION["designer_email"])) {
                             }
                         }
 
-                        //update the customer detail into the database
                         $updateDesignerQuery = "UPDATE designer SET $designerImg, designer_fname=:designer_fname, designer_lname=:designer_lname,designer_phnumber=:designer_phnumber , designer_gender=:designer_gender WHERE designer_email = :designer_email";
                         $updateDesignerStmt = $con->prepare($updateDesignerQuery);
                         $designer_fname = htmlspecialchars(strip_tags(ucfirst($_POST['designer_fname'])));
@@ -163,7 +158,7 @@ if (!isset($_SESSION["designer_email"])) {
                     }
                 } ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?designer_email={$designer_email}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?designer_email={$designer_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='profileDetailTable table table-hover table-responsive table-bordered'>
                 <tr>
                     <td>Profile Image</td>

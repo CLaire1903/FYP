@@ -62,7 +62,7 @@ session_start();
             <h1 class="text-center mt-5">Add Award</h1>
             <div class="d-flex justify-content-center">
                 <div class="col-10">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="message mx-3">
                             <h5 class="mt-4 mb-0">Designer : </h5>
                             <td class="border-0">

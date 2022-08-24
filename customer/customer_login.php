@@ -64,7 +64,6 @@
                     $_SESSION['cus_email'] = $row['cus_email'];
                     header("Location: index.php");
                 } catch (PDOException $exception) {
-                    //for database 'PDO'
                     $errorMessage = $exception->getMessage();
                 } catch (Exception $exception) {
                     $errorMessage = $exception->getMessage();
@@ -75,7 +74,7 @@
                 <div id="logo" class="d-flex justify-content-center ">
                     <a href="index.php"><img src="/fyp/image/logo/logoB.png"></a>
                 </div>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <h2 class="instruction mt-3 text-center">Please sign in</h2>
                     <?php
                     if (isset($errorMessage)) { ?>
@@ -101,28 +100,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script>
-        /*function validation() {
-            var cus_username = document.getElementById("cus_username").value;
-            var password = document.getElementById("password").value;
-            var flag = false;
-            var msg = "";
-            if (cus_username == '') {
-                flag = true;
-                msg = msg + "Please enter your username!\r\n";
-            }
-            if (password == '') {
-                flag = true;
-                msg = msg + "Please enter your password!\r\n";
-            }
-            if (flag == true) {
-                alert(msg);
-                return false;
-            }else{
-                return true;
-            }
-        }*/
-    </script>
 </body>
 
 </html>

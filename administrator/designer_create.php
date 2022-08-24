@@ -54,26 +54,22 @@ if (!isset($_SESSION["admin_email"])) {
 
                         $imageFileType = strtolower(pathinfo($folder, PATHINFO_EXTENSION));
                         $check = getimagesize($tempname);
-                        //make sure user uploaded image only
                         if ($check == 0) {
                             $isUploadOK = 0;
                             throw new Exception("Please upload image ONLY! (JPG, JPEG, PNG & GIF)");
                         }
 
-                        //make sure the image is 1:1
                         list($width, $height, $type, $attr) = getimagesize($tempname);
                         if ($width != $height) {
                             $isUploadOK = 0;
                             throw new Exception("Please make sure the ratio of the photo is 1:1.");
                         }
 
-                        //make sure the size is lower than 512KB
                         if ($_FILES["product_image"]["size"] > 512000) {
                             $isUploadOK = 0;
                             throw new Exception("Sorry, your photo is too large. Only 512KB is allowed!");
                         }
 
-                        //check image file type
                         if (
                             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                             && $imageFileType != "gif"
@@ -118,7 +114,6 @@ if (!isset($_SESSION["admin_email"])) {
                         $newfilename = $designer_email . '_' . round(microtime(true)) . '.' . end($changePhotoName);
                         $latest_file = "../image/designer/" . $newfilename;
                         if ($folder != "") {
-                            //insert photo with latest name into database
                             $insertPicQuery = "UPDATE designer SET designer_image=:designer_image WHERE designer_email = :designer_email";
                             $insertPicStmt = $con->prepare($insertPicQuery);
                             $insertPicStmt->bindParam(':designer_email', $designer_email);
@@ -158,7 +153,7 @@ if (!isset($_SESSION["admin_email"])) {
                 }
             }
             ?>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>
                         <td>Designer Image</td>

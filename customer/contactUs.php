@@ -94,7 +94,7 @@ session_start();
                         }
                     }
                     ?>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="dropMessage">
                             <div class="message">
                                 <p>Email : </p>

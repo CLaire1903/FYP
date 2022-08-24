@@ -33,7 +33,6 @@ if (!isset($_SESSION["cus_email"])) {
         <div class="updateProfileDetail d-flex flex-column justify-content-center mx-5">
             <?php
         try {
-            //display the customer record from the database
             $checkCurrentPasswordQuery = "SELECT * FROM customer WHERE cus_email = :cus_email ";
             $checkCurrentPasswordStmt = $con->prepare($checkCurrentPasswordQuery);
             $checkCurrentPasswordStmt->bindParam(":cus_email", $cus_email);
@@ -59,7 +58,6 @@ if (!isset($_SESSION["cus_email"])) {
                     throw new Exception("Password should be 8 - 15 character, contain at least a number, a special character, a <strong>SMALL</strong> letter, a <strong>CAPITAL</strong> letter");
                 }
 
-                //update the customer detail into the database
                 $updatePasswordQuery = "UPDATE customer SET cus_pword=:cus_pword, cus_cpword=:cus_cpword WHERE cus_email = :cus_email";
                 $updatePasswordStmt = $con->prepare($updatePasswordQuery);
                 $cus_pword = $_POST['cus_newpword'];
@@ -86,7 +84,7 @@ if (!isset($_SESSION["cus_email"])) {
             }
         } ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?cus_email={$cus_email}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?cus_email={$cus_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='updatePasswordTable table table-hover table-responsive table-bordered'>
                 <tr>
                     <td>Current Password</td>

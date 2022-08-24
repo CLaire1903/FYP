@@ -139,7 +139,7 @@ if (!isset($_SESSION["admin_email"])) {
                     
                 }
             ?>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <table class='table table-hover table-responsive table-bordered'>
                     <thead>
                         <tr>

@@ -60,7 +60,6 @@ if (!isset($_SESSION["admin_email"])) {
                 $customerStmt = $con->prepare($customerQuery);
                 $customerStmt->execute();
                 $customerNum = $customerStmt->rowCount();
-                //display total customer who create an account
                 echo "<a class='count' href=customer_list.php> <h6 class='p-2 text-dark'>$customerNum customers</h6> </a>";
                 ?>
             </div>
@@ -73,7 +72,6 @@ if (!isset($_SESSION["admin_email"])) {
                 $productStmt = $con->prepare($productQuery);
                 $productStmt->execute();
                 $productNum = $productStmt->rowCount();
-                //display total product sells in the system
                 echo "<a class='count' href=product_list.php> <h6 class='p-2 text-dark'>$productNum products</h6> </a>";
                 ?>
             </div>
@@ -86,7 +84,6 @@ if (!isset($_SESSION["admin_email"])) {
                 $orderStmt = $con->prepare($orderQuery);
                 $orderStmt->execute();
                 $orderNum = $orderStmt->rowCount();
-                //display total order made
                 echo "<a class='count' href=order_list.php> <h6 class='p-2 text-dark'>$orderNum orders</h6> </a>";
                 ?>
             </div>
@@ -99,7 +96,6 @@ if (!isset($_SESSION["admin_email"])) {
                 $adminStmt = $con->prepare($adminQuery);
                 $adminStmt->execute();
                 $adminNum = $adminStmt->rowCount();
-                //display total staff
                 echo "<a class='count' href=staff_list.php> <h6 class='p-2 text-dark'>$adminNum staffs</h6> </a>";
                 ?>
             </div>
@@ -112,7 +108,6 @@ if (!isset($_SESSION["admin_email"])) {
                 $designerStmt = $con->prepare($designerQuery);
                 $designerStmt->execute();
                 $designerNum = $designerStmt->rowCount();
-                //display total designer
                 echo "<a class='count' href=designer_list.php> <h6 class='p-2 text-dark'>$designerNum designers</h6> </a>";
                 ?>
             </div>

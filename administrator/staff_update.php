@@ -111,7 +111,7 @@ if (!isset($_SESSION["admin_email"])) {
                     }
                 } ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?admin_email={$admin_email}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?admin_email={$admin_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='profileDetailTable table table-hover table-responsive table-bordered'>
                 <tr>
                     <td class="col-5">Email</td>

@@ -34,7 +34,6 @@ if (!isset($_SESSION["cus_email"])) {
         <div class="updateProfileDetail d-flex flex-column justify-content-center mx-5">
             <?php
         try {
-            //display the customer record from the database
             $getCustomerQuery = "SELECT * FROM customer WHERE cus_email = :cus_email ";
             $getCustomerStmt = $con->prepare($getCustomerQuery);
             $getCustomerStmt->bindParam(":cus_email", $cus_email);
@@ -57,7 +56,6 @@ if (!isset($_SESSION["cus_email"])) {
                     throw new Exception("Please make sure all fields are not empty!");
                 }
 
-                //update the customer detail into the database
                 $updateCustomerQuery = "UPDATE customer SET cus_fname=:cus_fname, cus_lname=:cus_lname, cus_address=:cus_address, cus_phnumber=:cus_phnumber , cus_gender=:cus_gender, cus_bday=:cus_bday WHERE cus_email = :cus_email";
                 $updateCustomerStmt = $con->prepare($updateCustomerQuery);
                 $cus_fname = htmlspecialchars(strip_tags(ucfirst($_POST['cus_fname'])));
@@ -91,7 +89,7 @@ if (!isset($_SESSION["cus_email"])) {
             }
         } ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?cus_email={$cus_email}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?cus_email={$cus_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='profileDetailTable table table-hover table-responsive table-bordered'>
                 <tr>
                     <td class="col-5">Email</td>

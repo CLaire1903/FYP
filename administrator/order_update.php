@@ -120,7 +120,7 @@ if (!isset($_SESSION["admin_email"])) {
             $payment_reference = $getOrderRow['payment_reference'];
             ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?order_id={$order_id}"); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?order_id={$order_id}"); ?>" method="post" enctype="multipart/form-data">
             <table class='table table-hover table-responsive table-bordered mt-5'>
                 <thead>
                     <tr>

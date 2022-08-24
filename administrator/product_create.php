@@ -52,26 +52,22 @@ if (!isset($_SESSION["admin_email"])) {
 
                         $imageFileType = strtolower(pathinfo($folder, PATHINFO_EXTENSION));
                         $check = getimagesize($tempname);
-                        //make sure user uploaded image only
                         if ($check == 0) {
                             $isUploadOK = 0;
                             throw new Exception("Please upload image ONLY! (JPG, JPEG, PNG & GIF)");
                         }
 
-                        //make sure the image is 1:1
                         list($width, $height, $type, $attr) = getimagesize($tempname);
                         if ($width != $height) {
                             $isUploadOK = 0;
                             throw new Exception("Please make sure the ratio of the photo is 1:1.");
                         }
 
-                        //make sure the size is lower than 512KB
                         if ($_FILES["product_image"]["size"] > 512000) {
                             $isUploadOK = 0;
                             throw new Exception("Sorry, your photo is too large. Only 512KB is allowed!");
                         }
 
-                        //check image file type
                         if (
                             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                             && $imageFileType != "gif"
@@ -81,7 +77,6 @@ if (!isset($_SESSION["admin_email"])) {
                         }
                     }
 
-                    //prepare to insert new product into database
                     $addProductQuery = "INSERT INTO product SET product_name=:product_name, product_price=:product_price, category_id=:category_id, designer_email=:designer_email, product_condition=:product_condition";
                     $addProductStmt = $con->prepare($addProductQuery);
                     $product_name = ucfirst($_POST['product_name']);
@@ -95,13 +90,11 @@ if (!isset($_SESSION["admin_email"])) {
                     $addProductStmt->bindParam(':designer_email', $designer_email);
                     $addProductStmt->bindParam(':product_condition', $product_condition);
                     if ($addProductStmt->execute()) {
-                        //get last inserted productID
                         $A_incrementID = $con->lastInsertId();
                         $changePhotoName = explode(".", $_FILES["product_image"]["name"]);
                         $newfilename = 'ID' . $A_incrementID . '_' . round(microtime(true)) . '.' . end($changePhotoName);
                         $latest_file = "../image/product/" . $newfilename;
                         if ($folder != "") {
-                            //insert photo with latest name into database
                             $insertPicQuery = "UPDATE product SET product_image=:product_image WHERE product_id = :product_id";
                             $insertPicStmt = $con->prepare($insertPicQuery);
                             $insertPicStmt->bindParam(':product_id', $A_incrementID);
@@ -125,7 +118,6 @@ if (!isset($_SESSION["admin_email"])) {
                         echo "<script>window.location.href='product_list.php?action=productCreatedFail';</script>";
                     }
                 } catch (PDOException $exception) {
-                    //for databae 'PDO'
                     echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
                         <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                         <div>
@@ -142,7 +134,7 @@ if (!isset($_SESSION["admin_email"])) {
                 }
             }
         ?>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>
                         <td>Product Image</td>
@@ -245,54 +237,6 @@ if (!isset($_SESSION["admin_email"])) {
         
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script>
-        function validation() {
-            var name = document.getElementById("name").value;
-            var name_malay = document.getElementById("name_malay").value;
-            var description = document.getElementById("description").value;
-            var price = document.getElementById("price").value;
-            var promotion_price = document.getElementById("promotion_price").value;
-            var priceValidation = /^[0-9]*[.-]?[0-9]*$/;
-            var manufacture_date = document.getElementById("manufacture_date").value;
-            var expired_date = document.getElementById("expired_date").value;
-            var flag = false;
-            var msg = "";
-            if (name == "" || name_malay == "" || description == "" || price == "" || promotion_price == "" || manufacture_date == "" || expired_date == "") {
-                flag = true;
-                msg = msg + "Please make sure all fields are not empty! (product picture is optional)\r\n";
-            }
-            if (price.match(priceValidation)) {} else {
-                flag = true;
-                msg = msg + "Please make sure the price is a number!\r\n";
-            }
-            if (promotion_price.match(priceValidation)) {} else {
-                flag = true;
-                msg = msg + "Please make sure the promotion price is a number!\r\n";
-            }
-            if (parseFloat(price) <= 0 || parseFloat(promotion_price) <= 0) {
-                flag = true;
-                msg = msg + "Please make sure the price and promotion price must not be a negative value or zero!\r\n";
-            }
-            if (parseFloat(price) > 1000 || parseFloat(promotion_price) > 1000) {
-                flag = true;
-                msg = msg + "Please make sure the price and promotion price is not bigger than RM 1000!\r\n";
-            }
-            if (parseFloat(promotion_price) > parseFloat(price)) {
-                flag = true;
-                msg = msg + "Promotion price cannot bigger than normal price!\r\n";
-            }
-            if (manufacture_date > expired_date) {
-                flag = true;
-                msg = msg + "Please make sure expired date is late than the manufacture date!\r\n";
-            }
-            if (flag == true) {
-                alert(msg);
-                return false;
-            } else {
-                return true;
-            }
-        }
-    </script>
 
 </body>
 

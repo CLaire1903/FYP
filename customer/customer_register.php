@@ -103,7 +103,7 @@
         }
         ?>
         <div class="contain p-3 rounded">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post" enctype="multipart/form-data">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>
                         <td>Email <span class="text-danger">*</span></td>
@@ -175,55 +175,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script>
-        /*function validation() {
-            var cus_username = document.getElementById("cus_username").value;
-            var password = document.getElementById("password").value;
-            var passwordValidation = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-            var confirmPassword = document.getElementById("confirmPassword").value;
-            var firstName = document.getElementById("firstName").value;
-            var lastName = document.getElementById("lastName").value;
-            var gender = document.querySelectorAll("input[type=radio][name=gender]:checked");
-            var dateOfBirth = document.getElementById("dateOfBirth").value;
-            var accountStatus = document.querySelectorAll("input[type=radio][name=accountStatus]:checked");
-            var flag = false;
-            var msg = "";
-            if (cus_username == "" || password == "" || confirmPassword == "" || firstName == "" || lastName == "" || gender.length == 0 || dateOfBirth == "" || accountStatus.length == 0) {
-                flag = true;
-                msg = msg + "Please make sure all fields are not empty! (profile picture is optional)\r\n";
-            }
-            if (cus_username.length < 6 || cus_username.length > 15 || cus_username.indexOf(' ') >= 0) {
-                flag = true;
-                msg = msg + "Username must be 6 - 15 characters and no space included!\r\n";
-            }
-            if (password != confirmPassword) {
-                flag = true;
-                msg = msg + "Password and confirm password are not the same!\r\n";
-            }
-            if (password.length < 8 || password.length > 15) {
-                flag = true;
-                msg = msg + "Password should be 8 - 15 character!\r\n";
-            }
-            if (password.match(passwordValidation)) {} else {
-                flag = true;
-                msg = msg + "Password should contain at least a number, a special character, a SMALL letter and a CAPITAL letter!\r\n";
-            }
-            var birthDate = new Date(dateOfBirth);
-            var difference = Date.now() - birthDate.getTime();
-            var ageDate = new Date(difference);
-            var calculatedAge = Math.abs(ageDate.getUTCFullYear() - 1970);
-            if (calculatedAge < 18) {
-                flag = true;
-                msg = msg + "User must be 18 years old and above!\r\n";
-            }
-            if (flag == true) {
-                alert(msg);
-                return false;
-            } else {
-                return true;
-            }
-        }*/
-    </script>
+    
 
 </body>
 </html>

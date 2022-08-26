@@ -5,12 +5,12 @@ session_start();
 <html>
 
 <head>
-    <title>About Us</title>
+    <title>Create Award</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/fyp/css/shared.css" rel="stylesheet">
 
     <style>
-        #FAQ {
+        #designer, #award {
             font-weight: bold;
         }
     </style>
@@ -21,6 +21,7 @@ session_start();
         <?php 
         include 'C:\xampp\htdocs\fyp\config\dbase.php';
         include 'navigationBar.php';
+        
         ?>
         <?php 
             if ($_POST){
@@ -29,7 +30,6 @@ session_start();
                         throw new Exception("Please make sure all fields are not empty!");
                     }
     
-                    //update the customer detail into the database
                     $awardQuery = "INSERT INTO award SET designer_email=:designer_email, award_name=:award_name, award_year=:award_year, award_country=:award_country";
                     $awardStmt = $con->prepare($awardQuery);
                     $designer_email = ucfirst($_POST['designer_email']);
@@ -67,17 +67,41 @@ session_start();
                             <h5 class="mt-4 mb-0">Designer : </h5>
                             <td class="border-0">
                                 <div>
-                                    <select class="form-select" name="designer_email" id="designer_email">
-                                        <option value='' disabled selected>-- Select Designer --</option>
-                                        <?php
-                                        $selectDesignerQuery = "SELECT designer_email FROM designer";
-                                        $selectDesignerStmt = $con->prepare($selectDesignerQuery);
-                                        $selectDesignerStmt->execute();
-                                        while ($designer_email = $selectDesignerStmt->fetch(PDO::FETCH_ASSOC)) {
-                                            echo "<option value = '$designer_email[designer_email]'> $designer_email[designer_email] </option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    <?php 
+                                        if (isset($_GET['designer_email'])) {
+                                            $get_email = isset($_GET['designer_email']) ? $_GET['designer_email'] : die('ERROR: Order record not found.');
+                                            $designerQuery = "SELECT designer_email FROM designer WHERE designer_email=:designer_email";
+                                            $designerStmt = $con->prepare($designerQuery);
+                                            $designerStmt->bindParam(":designer_email", $get_email);
+                                            $designerStmt->execute();
+                                            while ($designerRow = $designerStmt->fetch(PDO::FETCH_ASSOC)) {
+                                                $designer_email = $designerRow['designer_email'];
+                                                $designer_email = htmlspecialchars($designer_email, ENT_QUOTES);
+                                                echo "<select class='form-select' name='designer_email' id='designer_email'>";
+                                                echo "<option value='' disabled selected>-- Select Designer --</option>";
+                                                $selectDesignerQuery = 'SELECT designer_email FROM designer';
+                                                $selectDesignerStmt = $con->prepare($selectDesignerQuery);
+                                                $selectDesignerStmt->execute();
+                                                while ($get_designer = $selectDesignerStmt->fetch(PDO::FETCH_ASSOC)) {
+                                                    $result = $designer_email == $get_designer['designer_email'] ? 'selected' : '';
+                                                    echo "<option value = '$get_designer[designer_email]' $result> $get_designer[designer_email] </option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        <?php } 
+                                        } else { ?>
+                                            <select class="form-select" name="designer_email" id="designer_email">
+                                                <option value='' disabled selected>-- Select Designer --</option>
+                                                <?php
+                                                $selectDesignerQuery = "SELECT designer_email FROM designer";
+                                                $selectDesignerStmt = $con->prepare($selectDesignerQuery);
+                                                $selectDesignerStmt->execute();
+                                                while ($designer_email = $selectDesignerStmt->fetch(PDO::FETCH_ASSOC)) {
+                                                    echo "<option value = '$designer_email[designer_email]'> $designer_email[designer_email] </option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        <?php } ?>
                                 </div>
                             </td>
                         </div>

@@ -38,6 +38,22 @@ if (!isset($_SESSION["designer_email"])) {
                         </div>
                     </div>";
             }
+            if ($action == 'awardAddedFail') {
+                echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        New award could not added.
+                    </div>
+                </div>";
+            }   
+            if ($action == 'awardAdded') {
+                echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                    <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                    <div>
+                        New award added successfully.
+                    </div>
+                </div>";
+            }
 
         try {
             $designerQuery = "SELECT * FROM designer WHERE designer_email = :designer_email";
@@ -117,7 +133,7 @@ if (!isset($_SESSION["designer_email"])) {
                             echo "<thead>";
                                 echo "<tr class='tableHeader'>";
                                     echo "<th>Name</th>";
-                                    echo "<th>year</th>";
+                                    echo "<th>Year</th>";
                                     echo "<th>Country</th>";
                                 echo "</tr>";
                             echo "</thead>";
@@ -147,6 +163,7 @@ if (!isset($_SESSION["designer_email"])) {
         <div class="d-flex justify-content-center">
             <?php
                 echo "<a href='designer_updateProfile.php?designer_email={$designer_email}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
+                echo "<a href='award_create.php?designer_email={$designer_email}' class='actionBtn btn mx-2 mt-5'>Update Award</a>";
             ?>
         </div>
         <div class="footer bg-dark">

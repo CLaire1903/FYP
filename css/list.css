@@ -26,3 +26,11 @@
     width: 75%;
     border: none;
 }
+
+.search {
+    border:none;
+}
+
+#searchBtn {
+    background-color: #fb9696;
+}

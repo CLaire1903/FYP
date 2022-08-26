@@ -88,7 +88,42 @@ if (!isset($_SESSION["admin_email"])) {
                         </div>
                     </div>";
                 }
+                $where = "";
+                if ($_POST) {
+                    try {
+                        if (empty($_POST['search'])) {
+                            throw new Exception("Please insert staff email or staff name to search!");
+                        }
+        
+                        $search = "%" . $_POST['search'] . "%";
+                        $where = "WHERE staff_email LIKE :search OR staff_fname LIKE :search OR staff_lname LIKE :search";
+                    } catch (PDOException $exception) {
+                        echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                                <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                                " . $exception->getMessage() . "
+                            </div>
+                        </div>";
+                    } catch (Exception $exception) {
+                        echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                                <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                                " . $exception->getMessage() . "
+                            </div>
+                        </div>";
+                    }
+                }
             ?>
+            <div class="mx-5">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
+                    <table class='search table table-hover table-responsive'>
+                        <tr class='search'>
+                            <td class="search col-11"><input type='text' name='search' id="search" onkeyup="myFunction()" placeholder="Staff Email or Staff Name" class='form-control'></td>
+                            <td class="search"><input type='submit' value='Search' id="searchBtn" class='btn' /></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
             <div class="staff d-flex flex-wrap justify-content-around mx-5 mt-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <thead>
@@ -104,8 +139,11 @@ if (!isset($_SESSION["admin_email"])) {
                         <?php
                             $staffQuery = "SELECT * FROM admin ORDER BY admin_email ASC";
                             $staffStmt = $con->prepare($staffQuery);
+                            if ($_POST) $staffStmt->bindParam(':search', $search);
                             $staffStmt->execute();
-                            while ($staffRow = $staffStmt->fetch(PDO::FETCH_ASSOC)) {
+                            $num = $staffStmt->rowCount();
+                            if ($num > 0) { ?>
+                            <?php while ($staffRow = $staffStmt->fetch(PDO::FETCH_ASSOC)) {
                                 extract($staffRow);
                                 $admin_email = $staffRow['admin_email'];
                                 $admin_fname = $staffRow['admin_fname'];
@@ -126,6 +164,14 @@ if (!isset($_SESSION["admin_email"])) {
                                     echo "</td>";
                                 echo "</tr>";
                                 }
+                            } else {
+                                echo "<div class='alert alert-danger d-flex col-12' role='alert'>
+                                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                                    <div>
+                                        No staff found.
+                                    </div>
+                                </div>";
+                            }
                             ?>
                     </tfoot>
                 </table>
@@ -142,6 +188,21 @@ if (!isset($_SESSION["admin_email"])) {
     function delete_staff(admin_email) {
         if (confirm('Do you want to delete this staff?')) {
             window.location = 'staff_delete.php?admin_email=' + admin_email;
+        }
+    }
+    function validation() {
+        var search = document.getElementById("search").value;
+        var flag = false;
+        var msg = "";
+        if (search == "") {
+            flag = true;
+            msg = msg + "Please insert staff email or staff name to search!\r\n";
+        }
+        if (flag == true) {
+            alert(msg);
+            return false;
+        } else {
+            return true;
         }
     }
 </script>

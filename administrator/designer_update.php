@@ -245,7 +245,7 @@ if (!isset($_SESSION["designer_email"])) {
             </table>
             <div class="d-flex justify-content-center">
                 <input type='submit' value='Save Changes' class='actionBtn btn mb-3 mx-2' />
-                <a href='designer_detail.php?designer_email={$designer_email}' class='actionBtn btn mb-3 mx-2'>Back</a>
+                <?php echo"<a href='designer_detail.php?designer_email={$designer_email}' class='actionBtn btn mb-3 mx-2'>Back</a>"; ?>
             </div>
         </form>
     </div>

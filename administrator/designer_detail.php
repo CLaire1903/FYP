@@ -22,6 +22,8 @@ if (!isset($_SESSION["admin_email"])) {
         include 'C:\xampp\htdocs\fyp\alertIcon.php';
         include 'navigationBar.php';
 
+        $get_designer = isset($_GET['designer_email']) ? $_GET['designer_email'] : die('ERROR: designer record not found.');
+
         $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'profileUpdateFail') {
                 echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
@@ -75,7 +77,7 @@ if (!isset($_SESSION["admin_email"])) {
         try {
             $designerQuery = "SELECT * FROM designer WHERE designer_email = :designer_email";
             $designerStmt = $con->prepare($designerQuery);
-            $designerStmt->bindParam(":designer_email", $_SESSION['designer_email']);
+            $designerStmt->bindParam(":designer_email", $get_designer);
             $designerStmt->execute();
             $designerRow = $designerStmt->fetch(PDO::FETCH_ASSOC);
 
@@ -150,7 +152,7 @@ if (!isset($_SESSION["admin_email"])) {
                             echo "<thead>";
                                 echo "<tr class='tableHeader'>";
                                     echo "<th>Name</th>";
-                                    echo "<th>year</th>";
+                                    echo "<th>Year</th>";
                                     echo "<th>Country</th>";
                                     echo "<th class='col-1'>Action</th>";
                                 echo "</tr>";
@@ -179,7 +181,8 @@ if (!isset($_SESSION["admin_email"])) {
         </div>
         <div class="d-flex justify-content-center">
             <?php
-                echo "<a href='designer_update.php?designer_email={$designer_email}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
+                echo "<a href='designer_update.php?designer_email={$get_designer}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
+                echo "<a href='award_create.php?designer_email={$get_designer}' class='actionBtn btn mx-2 mt-5'>Update Award</a>";
             ?>
         </div>
         <div class="footer bg-dark">

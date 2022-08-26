@@ -39,6 +39,7 @@ if (!isset($_SESSION["admin_email"])) {
                     $getAdminStmt->execute();
                     $getAdminRow = $getAdminStmt->fetch(PDO::FETCH_ASSOC);
                     $admin_email = $getAdminRow['admin_email'];
+                    $admin_pword = $getAdminRow['admin_pword'];
                     $admin_fname = $getAdminRow['admin_fname'];
                     $admin_lname= $getAdminRow['admin_lname'];
                     $admin_address= $getAdminRow['admin_address'];
@@ -54,9 +55,20 @@ if (!isset($_SESSION["admin_email"])) {
                         if (empty($_POST['admin_fname']) || empty($_POST['admin_lname']) || empty($_POST['admin_address']) || empty($_POST['admin_phnumber']) || empty($_POST['admin_gender']) || empty($_POST['admin_bday'])) {
                             throw new Exception("Please make sure all fields are not empty!");
                         }
+                        if (15 < strlen($_POST['admin_pword']) || strlen($_POST['admin_pword']) < 8 || !preg_match("@[0-9]@", $_POST['admin_pword']) || !preg_match("@[a-z]@", $_POST['admin_pword']) || !preg_match("@[A-Z]@", $_POST['admin_pword']) || !preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['admin_pword'])) {
+                            throw new Exception("Password should be 8 - 15 character, contain at least a number, a special character, a <strong>SMALL</strong> letter, a<strong> CAPITAL </strong>letter");
+                        }
+    
+                        $today = strtotime(date("Y-m-d"));
+                        $admin_bday = strtotime($_POST['admin_bday']);
+                        $age = $today - $admin_bday;
+                        if ($age < 18) {
+                            throw new Exception("Staff must at least 18 years old!");
+                        }
 
-                        $updateAdminQuery = "UPDATE admin SET admin_fname=:admin_fname, admin_lname=:admin_lname, admin_address=:admin_address, admin_phnumber=:admin_phnumber , admin_gender=:admin_gender, admin_bday=:admin_bday WHERE admin_email = :admin_email";
+                        $updateAdminQuery = "UPDATE admin SET admin_pword=:admin_pword, admin_fname=:admin_fname, admin_lname=:admin_lname, admin_address=:admin_address, admin_phnumber=:admin_phnumber , admin_gender=:admin_gender, admin_bday=:admin_bday WHERE admin_email = :admin_email";
                         $updateAdminStmt = $con->prepare($updateAdminQuery);
+                        $admin_pword = htmlspecialchars(strip_tags(ucfirst($_POST['admin_pword'])));
                         $admin_fname = htmlspecialchars(strip_tags(ucfirst($_POST['admin_fname'])));
                         $admin_lname = htmlspecialchars(strip_tags(ucfirst($_POST['admin_lname'])));
                         $admin_address = htmlspecialchars(strip_tags($_POST['admin_address']));
@@ -65,6 +77,7 @@ if (!isset($_SESSION["admin_email"])) {
                         $admin_bday = htmlspecialchars(strip_tags($_POST['admin_bday']));
 
                         $updateAdminStmt->bindParam(':admin_email', $admin_email);
+                        $updateAdminStmt->bindParam(':admin_pword', $admin_pword);
                         $updateAdminStmt->bindParam(':admin_fname', $admin_fname);
                         $updateAdminStmt->bindParam(':admin_lname', $admin_lname);
                         $updateAdminStmt->bindParam(':admin_address', $admin_address);
@@ -94,6 +107,20 @@ if (!isset($_SESSION["admin_email"])) {
                     <td class="col-5">Email</td>
                     <td><?php echo htmlspecialchars($admin_email, ENT_QUOTES);  ?></td>
                 </tr>
+                <?php 
+                            $checkPositionQuery = "SELECT * FROM admin WHERE admin_email=:admin_email";
+                            $checkPositionStmt = $con->prepare($checkPositionQuery);
+                            $staff_email = $_SESSION['admin_email'];
+                            $checkPositionStmt->bindParam(":admin_email", $staff_email);
+                            $checkPositionStmt->execute();
+                            $checkPositionRow = $checkPositionStmt->fetch(PDO::FETCH_ASSOC);
+                            $staff_position = $checkPositionRow['admin_position'];
+                            if ($staff_position == "director") { ?>
+                                <tr>
+                                    <td>Password</td>
+                                    <td><input type='text' name='admin_pword' id="admin_pword" value="<?php echo htmlspecialchars($admin_pword, ENT_QUOTES); ?>" class='form-control' /></td>
+                                </tr>
+                        <?php } ?>
                 <tr>
                     <td>First Name</td>
                     <td><input type='text' name='admin_fname' id="admin_fname" value="<?php echo htmlspecialchars($admin_fname, ENT_QUOTES); ?>" class='form-control' /></td>

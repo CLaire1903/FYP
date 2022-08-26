@@ -33,7 +33,7 @@ session_start();
                     echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
                             <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                         <div>
-                            FAQ fail to added.
+                            FAQ fail to add.
                         </div>
                         </div>";
                 }
@@ -42,6 +42,22 @@ session_start();
                             <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
                             <div>
                                 FAQ added successfully.
+                            </div>
+                        </div>";
+                }
+                if ($action == 'updatedFail') {
+                    echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
+                            <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                        <div>
+                            FAQ fail to update.
+                        </div>
+                        </div>";
+                }
+                if ($action == 'updated') {
+                    echo "<div class='alert alert-success d-flex align-items-center mx-5 mt-5' role='alert'>
+                            <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                            <div>
+                                FAQ updated successfully.
                             </div>
                         </div>";
                 }
@@ -79,7 +95,7 @@ session_start();
                                     echo "<h6 class='text-center'>Question</h3>";
                                 echo "</div>";
                                 echo "<div class='detail'>";
-                                    echo "<h5 class='text-center'>$faq_question</h3>";
+                                    echo "<h5>$faq_question</h3>";
                                 echo "</div>";
                             echo "</div>";
                             echo "<div class='answer'>";
@@ -88,12 +104,13 @@ session_start();
                                         echo "<h6 class='text-center'>Answer</h3>";
                                     echo "</div>";
                                     echo "<div class='detail'>";
-                                        echo "<h6 class='text-center'>$faq_answer</h6>";
+                                        echo "<h6>$faq_answer</h6>";
                                     echo "</div>";
                                 echo "</div>";
                             echo "</div>";
                         echo "</div>";
                         echo "<div class='align-self-center'>";
+                            echo "<a href='FAQ_update.php?faq_id={$faq_id}' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
                             echo "<a href='#' onclick='delete_faq({$faq_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
                         echo "</div>";
                     echo "</div>";

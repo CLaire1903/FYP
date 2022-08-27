@@ -23,7 +23,7 @@
         <?php
         include 'C:\xampp\htdocs\fyp\alertIcon.php';
         ?>
-        <div class="page-header">
+        <div class="page-header mt-5">
             <div class="d-flex flex-column">
                 <div class="storeLogo d-flex justify-content-center ">
                     <a href="index.php"><img src="/fyp/image/logo/logoB.png"></a>
@@ -102,7 +102,7 @@
             }
         }
         ?>
-        <div class="contain p-3 rounded">
+        <div class="contain p-3 rounded mb-5">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>

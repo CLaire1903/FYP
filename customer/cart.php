@@ -68,69 +68,6 @@ if (!isset($_SESSION["cus_email"])) {
                     </div>";
             }
         ?>
-        <?php
-            if ($_POST) {
-                try {
-                    $con->beginTransaction();
-                    $checkoutQuery = "INSERT INTO checkout SET cus_email=:cus_email, checkout_totalamount=:checkout_totalamount";
-                    $checkoutStmt = $con->prepare($checkoutQuery);
-                    $cus_email = $_SESSION["cus_email"];
-                    $checkout_totalamount = 0;
-
-                    for ($i = 0; $i < count($_POST['product_id']); $i++) {
-                        $product_id = $_POST['product_id'][$i];
-                        $selectPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
-                        $selectPriceStmt = $con->prepare($selectPriceQuery);
-                        $selectPriceStmt->bindParam(':product_id', $product_id);
-                        $selectPriceStmt->execute();
-                        while ($selectPriceRow = $selectPriceStmt->fetch(PDO::FETCH_ASSOC)) {
-                            $product_price = $selectPriceRow['product_price'];
-                            $product_totalamount = $product_price;
-                            $checkout_totalamount += $product_totalamount;
-                        }
-                    }
-                    $checkoutStmt->bindParam(':cus_email', $cus_email);
-                    $checkoutStmt->bindParam(':checkout_totalamount', $checkout_totalamount);
-
-                    if ($checkoutStmt->execute()) {
-                        $lastID = $con->lastInsertId();
-                        for ($i = 0; $i < count($_POST['product_id']); $i++) {
-                            $product_id = $_POST['product_id'][$i];
-                            $getPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
-                            $getPriceStmt = $con->prepare($getPriceQuery);
-                            $getPriceStmt->bindParam(':product_id', $product_id);
-                            $getPriceStmt->execute();
-                            while ($getPriceRow = $getPriceStmt->fetch(PDO::FETCH_ASSOC)) {
-                                $product_price = $getPriceRow['product_price'];
-                                $product_totalamount = $product_price;
-                            }
-                            $checkOutQuery = "INSERT INTO checkout_detail SET checkout_id=:checkout_id, product_id=:product_id, product_totalamount=:product_totalamount";
-                            $checkOutStmt = $con->prepare($checkOutQuery);
-                            $product_id = htmlspecialchars(strip_tags($_POST['product_id'][$i]));
-                            $checkOutStmt->bindParam(':checkout_id', $lastID);
-                            $checkOutStmt->bindParam(':product_id', $product_id);
-                            $checkOutStmt->bindParam(':product_totalamount', $product_totalamount);
-                            if ($checkOutStmt->execute()) {
-                                $deleteCartQuery = "DELETE FROM cart WHERE cus_email = :cus_email";
-                                $deleteCartStmt = $con->prepare($deleteCartQuery);
-                                $cus_email = $_SESSION["cus_email"];
-                                $deleteCartStmt->bindParam(':cus_email', $cus_email);
-                                $deleteCartStmt->execute();
-                                echo "<script>window.location.href='checkout.php?cus_email='+ '$cus_email';</script>";
-                            }
-                        }
-                    }
-                    $con->commit();
-                } catch (PDOException $exception) {
-                    echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
-                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                        <div>
-                        " . $exception->getMessage() . "
-                        </div>
-                    </div>";
-                }
-            }
-        ?>
         <div class="mt-5 mx-5">
             <h1 class="text-center">Shopping Cart</h1>
             <div class="mt-5">
@@ -151,6 +88,79 @@ if (!isset($_SESSION["cus_email"])) {
                     }
                 ?>
             </div>
+        <?php
+            if ($_POST) {
+                if ($checkCheckoutRow == 0) {
+                    try {
+                        $con->beginTransaction();
+                        $checkoutQuery = "INSERT INTO checkout SET cus_email=:cus_email, checkout_totalamount=:checkout_totalamount";
+                        $checkoutStmt = $con->prepare($checkoutQuery);
+                        $cus_email = $_SESSION["cus_email"];
+                        $checkout_totalamount = 0;
+    
+                        for ($i = 0; $i < count($_POST['product_id']); $i++) {
+                            $product_id = $_POST['product_id'][$i];
+                            $selectPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
+                            $selectPriceStmt = $con->prepare($selectPriceQuery);
+                            $selectPriceStmt->bindParam(':product_id', $product_id);
+                            $selectPriceStmt->execute();
+                            while ($selectPriceRow = $selectPriceStmt->fetch(PDO::FETCH_ASSOC)) {
+                                $product_price = $selectPriceRow['product_price'];
+                                $product_totalamount = $product_price;
+                                $checkout_totalamount += $product_totalamount;
+                            }
+                        }
+                        $checkoutStmt->bindParam(':cus_email', $cus_email);
+                        $checkoutStmt->bindParam(':checkout_totalamount', $checkout_totalamount);
+    
+                        if ($checkoutStmt->execute()) {
+                            $lastID = $con->lastInsertId();
+                            for ($i = 0; $i < count($_POST['product_id']); $i++) {
+                                $product_id = $_POST['product_id'][$i];
+                                $getPriceQuery = "SELECT product_price FROM product WHERE product_id=:product_id";
+                                $getPriceStmt = $con->prepare($getPriceQuery);
+                                $getPriceStmt->bindParam(':product_id', $product_id);
+                                $getPriceStmt->execute();
+                                while ($getPriceRow = $getPriceStmt->fetch(PDO::FETCH_ASSOC)) {
+                                    $product_price = $getPriceRow['product_price'];
+                                    $product_totalamount = $product_price;
+                                }
+                                $checkOutQuery = "INSERT INTO checkout_detail SET checkout_id=:checkout_id, product_id=:product_id, product_totalamount=:product_totalamount";
+                                $checkOutStmt = $con->prepare($checkOutQuery);
+                                $product_id = htmlspecialchars(strip_tags($_POST['product_id'][$i]));
+                                $checkOutStmt->bindParam(':checkout_id', $lastID);
+                                $checkOutStmt->bindParam(':product_id', $product_id);
+                                $checkOutStmt->bindParam(':product_totalamount', $product_totalamount);
+                                if ($checkOutStmt->execute()) {
+                                    $deleteCartQuery = "DELETE FROM cart WHERE cus_email = :cus_email";
+                                    $deleteCartStmt = $con->prepare($deleteCartQuery);
+                                    $cus_email = $_SESSION["cus_email"];
+                                    $deleteCartStmt->bindParam(':cus_email', $cus_email);
+                                    $deleteCartStmt->execute();
+                                    echo "<script>window.location.href='checkout.php?cus_email='+ '$cus_email';</script>";
+                                }
+                            }
+                        }
+                        $con->commit();
+                    } catch (PDOException $exception) {
+                        echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                            <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                            " . $exception->getMessage() . "
+                            </div>
+                        </div>";
+                    }
+                } else {
+                    echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                        <div>
+                            Please proceed with the previous checkout first!
+                        </div>
+                    </div>";
+                }
+            }
+        ?>
+
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <?php
                         $checkCartQuery = "SELECT * FROM cart WHERE cus_email = :cus_email";

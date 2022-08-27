@@ -26,7 +26,7 @@ session_start();
         ?>
         
         <div class="faq d-flex flex-column justify-content-center">
-            <h1 class="text-center mt-5">Frequently Asked Question</h1>
+            <h1 class="text-center my-5">Frequently Asked Question</h1>
             <?php 
                 $action = isset($_GET['action']) ? $_GET['action'] : "";
                 if ($action == 'addedFail') {

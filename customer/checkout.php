@@ -17,6 +17,19 @@ if (!isset($_SESSION["cus_email"])) {
         .form-control[readonly]{
             background-color: white;
         }
+        .checkoutBtn {
+            background-color: rgb(252, 184, 192);
+            width: 100px;
+            height: 50px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkoutBtn:hover {
+            background-color: rgb(252, 184, 192);
+            font-weight: bold;
+        }
     </style>
     
 </head>
@@ -195,13 +208,16 @@ if (!isset($_SESSION["cus_email"])) {
                                 ?>
                                 <tr>
                                     <td>
-                                        <div class="d-flex">
+                                        <div class="d-flex flex-column flex-md-row">
                                             <div class="d-flex justify-content-center col-2">
                                                 <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> ><img src="<?php echo htmlspecialchars($product_image, ENT_QUOTES); ?>" class='productImage d-flex justify-content-center rounded'></a>
                                             </div>
-                                            <div class='mx-3'>
+                                            <div class='mx-3 col-lg-7'>
                                                 <a <?php echo"href='product_detail.php?product_id={$product_id}'";?> class='word text-center text-decoration-none'><?php echo htmlspecialchars($product_name, ENT_QUOTES); ?></a>
                                                 <input type='hidden' name='product_id[]' id='product_id' value="<?php echo htmlspecialchars($product_id, ENT_QUOTES);?>" class='cartProduct form-control text-center border border-0' readonly/>
+                                            </div>
+                                            <div class='d-lg-flex  flex-shrink-1 flex-column'>
+                                                <?php echo"<a href='#' onclick='delete_product(&#39;$product_id&#39;, &#39;$checkout_id&#39;, &#39;$cus_email&#39;);' id='delete' class='checkoutBtn btn m-1 m-lg-2'>Delete</a>"; ?>
                                             </div>
                                         </div>
                                     </td>
@@ -267,5 +283,12 @@ if (!isset($_SESSION["cus_email"])) {
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
+<script type='text/javascript'>
+    function delete_product(product_id, checkout_id, cus_email) {
+        if (confirm('Do you want to delete this product from yout checkout list?')) {
+            window.location = 'checkout_delete.php?product_id=' + product_id + "&checkout_id=" + checkout_id + "&cus_email=" + cus_email;
+        }
+    }
+</script>
 
 </html>

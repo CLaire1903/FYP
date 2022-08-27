@@ -30,6 +30,11 @@ nav, #footer {
     transition: 0.3s;
 }
 
+.header{
+    background-color:#ffe1e1;
+    color: black;
+}
+
 .footerDetail {
     color: black;
     border-bottom-style: solid;

@@ -17,10 +17,6 @@ if (!isset($_SESSION["designer_email"])) {
         #summary {
             font-weight: bold;
         }
-        .header{
-            background-color:#ffe1e1;
-            color: black;
-        }
         .image{
             width: 75%;
             border: none;

@@ -73,7 +73,6 @@ if (!isset($_SESSION["admin_email"])) {
                             throw new Exception("Staff must at least 18 years old!");
                         }
 
-                        //update the customer detail into the database
                         $updateStaffQuery = "UPDATE admin SET admin_pword=:admin_pword, admin_fname=:admin_fname, admin_lname=:admin_lname, admin_address=:admin_address, admin_phnumber=:admin_phnumber , admin_gender=:admin_gender, admin_bday=:admin_bday, admin_position=:admin_position WHERE admin_email = :admin_email";
                         $updateStaffStmt = $con->prepare($updateStaffQuery);
                         $admin_pword = htmlspecialchars(strip_tags($_POST['admin_pword']));

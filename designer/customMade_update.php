@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["admin_email"])) {
+if (!isset($_SESSION["designer_email"])) {
     header("Location: index.php?error=restrictedAccess");
 }
 ?>
@@ -70,10 +70,6 @@ if (!isset($_SESSION["admin_email"])) {
                             throw new Exception("Make sure all fields are not empty");
                         }
 
-                        if (empty($_POST['designer_email'])) {
-                            throw new Exception("Please assign designer!");
-                        }
-
                         if ($file != "") {
 
                             $imageFileType = strtolower(pathinfo($folder, PATHINFO_EXTENSION));
@@ -119,14 +115,13 @@ if (!isset($_SESSION["admin_email"])) {
                             }
                         }
 
-                        $updateCustomizedQuery = "UPDATE customized SET $customizedImg, cus_email=:cus_email, cus_name=:cus_name,cus_phnumber=:cus_phnumber, customized_detail=:customized_detail, customized_collectdate=:customized_collectdate, designer_email=:designer_email WHERE customized_id = :customized_id";
+                        $updateCustomizedQuery = "UPDATE customized SET $customizedImg, cus_email=:cus_email, cus_name=:cus_name,cus_phnumber=:cus_phnumber, customized_detail=:customized_detail, customized_collectdate=:customized_collectdate WHERE customized_id = :customized_id";
                         $updateCustomizedStmt = $con->prepare($updateCustomizedQuery);
                         $cus_email = htmlspecialchars(strip_tags(strtolower($_POST['cus_email']) ));
                         $cus_name = htmlspecialchars(strip_tags(ucfirst($_POST['cus_name'])));
                         $cus_phnumber = htmlspecialchars(strip_tags($_POST['cus_phnumber']));
                         $customized_detail = htmlspecialchars(strip_tags(ucfirst($_POST['customized_detail'])));
                         $customized_collectdate = htmlspecialchars(strip_tags($_POST['customized_collectdate']));
-                        $designer_email = htmlspecialchars(strip_tags($_POST['designer_email']));
 
                         $updateCustomizedStmt->bindParam(':customized_id', $customized_id);
                         if ($file != "") {
@@ -141,7 +136,6 @@ if (!isset($_SESSION["admin_email"])) {
                         $updateCustomizedStmt->bindParam(':cus_phnumber', $cus_phnumber);
                         $updateCustomizedStmt->bindParam(':customized_detail', $customized_detail);
                         $updateCustomizedStmt->bindParam(':customized_collectdate', $customized_collectdate);
-                        $updateCustomizedStmt->bindParam(':designer_email', $designer_email);
                         if ($updateCustomizedStmt->execute()) {
                             if ($folder != "") {
                                 if ($isUploadOK == 0) {
@@ -219,23 +213,6 @@ if (!isset($_SESSION["admin_email"])) {
                 <tr>
                     <td>Collect Date</td>
                     <td><input type='date' name='customized_collectdate' id="customized_collectdate" value="<?php echo htmlspecialchars($customized_collectdate, ENT_QUOTES);  ?>" class='form-control' /></td>
-                </tr>
-                <tr>
-                    <td>Designer Email</td>
-                    <td>
-                        <select class='form-select' name='designer_email'> 
-                            <option value='' disabled selected>-- Designer Email --</option> 
-                            <?php
-                            $designerEmailQuery = "SELECT designer_email FROM designer";
-                            $designerEmailStmt = $con->prepare($designerEmailQuery);
-                            $designerEmailStmt->execute();
-                            while ($get_designer = $designerEmailStmt->fetch(PDO::FETCH_ASSOC)) {
-                                $result = $designer_email == $get_designer['designer_email'] ? 'selected' : '';
-                                echo "<option value = '$get_designer[designer_email]' $result> $get_designer[designer_email] </option>";
-                            }
-                            ?>
-                        </select>
-                    </td>
                 </tr>
             </table>
             <div class="d-flex justify-content-center">

@@ -55,7 +55,7 @@
                     if (empty($_POST['cus_email']) || empty($_POST['cus_pword'])) {
                         throw new Exception("Make sure all fields are not empty");
                     }
-                    if ($row['cus_email'] != $cus_email) {
+                    if ($row == 0) {
                         throw new Exception("Email does not exist!");
                     }
                     if ($row['cus_pword'] != $cus_pword) {

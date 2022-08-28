@@ -141,7 +141,7 @@ if (!isset($_SESSION["admin_email"])) {
             <?php 
                 $checkAwardQuery = "SELECT * FROM award WHERE designer_email = :designer_email";
                 $checkAwardStmt = $con->prepare($checkAwardQuery);
-                $checkAwardStmt->bindParam(":designer_email", $_SESSION['designer_email']);
+                $checkAwardStmt->bindParam(":designer_email", $get_designer);
                 $checkAwardStmt->execute();
                 $checkAwardRow = $checkAwardStmt->fetch(PDO::FETCH_ASSOC);
                 if ($checkAwardRow == 0){
@@ -160,7 +160,7 @@ if (!isset($_SESSION["admin_email"])) {
 
                         $awardQuery = "SELECT * FROM award WHERE designer_email = :designer_email ORDER BY award_year DESC ";
                         $awardStmt = $con->prepare($awardQuery);
-                        $awardStmt->bindParam(":designer_email", $_SESSION['designer_email']);
+                        $awardStmt->bindParam(":designer_email", $get_designer);
                         $awardStmt->execute();
                         while ($awardRow = $awardStmt->fetch(PDO::FETCH_ASSOC)) {  
                             extract($awardRow);  
@@ -171,7 +171,7 @@ if (!isset($_SESSION["admin_email"])) {
                                 echo "<td>{$award_name}</td>";
                                 echo "<td>{$award_year}</td>";
                                 echo "<td>{$award_country}</td>";
-                                echo "<td><a href='#' onclick='delete_award(&#39;$designer_email&#39;, &#39;$award_name&#39;);' id='delete' class='listActionBtn btn m-1'>Delete</a></td>";
+                                echo "<td><a href='#' onclick='delete_award(&#39;$designer_email&#39;, &#39;$award_name&#39;, &#39;$award_year&#39;);' id='delete' class='listActionBtn btn m-1'>Delete</a></td>";
                             echo "</tr>";
                         }
                         echo "</table>";
@@ -183,6 +183,7 @@ if (!isset($_SESSION["admin_email"])) {
             <?php
                 echo "<a href='designer_update.php?designer_email={$get_designer}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
                 echo "<a href='award_create.php?designer_email={$get_designer}' class='actionBtn btn mx-2 mt-5'>Update Award</a>";
+                echo "<a href='designer_list.php' class='actionBtn btn mx-2 mt-5'>Back</a>";
             ?>
         </div>
         <div class="footer bg-dark">
@@ -194,9 +195,9 @@ if (!isset($_SESSION["admin_email"])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script type='text/javascript'>
-    function delete_award(designer_email, award_name) {
+    function delete_award(designer_email, award_name, award_year) {
         if (confirm('Do you want to delete this award?')) {
-            window.location = 'award_delete.php?designer_email=' + designer_email + "&award_name=" + award_name;
+            window.location = 'award_delete.php?designer_email=' + designer_email + "&award_name=" + award_name + "&award_year=" + award_year;
         }
     }
     </script>

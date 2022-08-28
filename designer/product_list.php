@@ -34,7 +34,7 @@ if (!isset($_SESSION["designer_email"])) {
             ?>
 
         <div class="productList mx-5">
-            <h1 class="header p-2 text-center mt-5">Product List</h1>
+            <h1 class="header p-2 text-center my-5 rounded-pill">Product List</h1>
             <?php 
                 $action = isset($_GET['action']) ? $_GET['action'] : "";
                 if ($action == 'productInStock') {
@@ -111,7 +111,7 @@ if (!isset($_SESSION["designer_email"])) {
             <div class="productItems d-flex flex-wrap justify-content-around mx-5 mt-5">
                 
                     <?php
-                        $productQuery = "SELECT product_id, product_image, product_name, product_price FROM product $where ORDER BY product_id DESC";
+                        $productQuery = "SELECT product_id, product_image, product_name, product_price, designer_email FROM product $where ORDER BY product_id DESC";
                         $productStmt = $con->prepare($productQuery);
                         if ($_POST) $productStmt->bindParam(':search', $search);
                         $productStmt->execute();
@@ -135,29 +135,34 @@ if (!isset($_SESSION["designer_email"])) {
                                 $product_image = $productRow['product_image'];
                                 $product_name = ucwords($productRow['product_name']);
                                 $product_price = sprintf('%.2f', $productRow['product_price']);
-                                            echo "<tr>";
-                                                echo "<td><img src='$product_image' class='productImage d-flex justify-content-center rounded'></a></td>";
-                                                echo "<td class='col-2'>{$product_id}</td>";
-                                                echo "<td>{$product_name}</td>";
-                                                echo "<td class='col-2'>RM {$product_price}</td>";
-                                                echo "<td>";
-                                                    echo "<div class='d-lg-flex justify-content-sm-center flex-column'>";
-                                                    echo "<a href='product_detail.php?product_id={$product_id}' id='detail' class='listActionBtn btn m-1 m-lg-2'>Detail</a>";
-                                                    echo "<a href='product_update.php?product_id={$product_id}' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
-                                                    echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
-                                                    echo "</div>";
-                                                echo "</td>";
-                                            echo "</tr>";
-                                }
-                            } else {
-                                echo "<div class='alert alert-danger d-flex col-12' role='alert'>
-                                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                                    <div>
-                                        No Product found.
-                                    </div>
-                                </div>";
+                                $designer_email = $productRow['designer_email'];
+                                echo "<tr>";
+                                    echo "<td><img src='$product_image' class='productImage d-flex justify-content-center rounded'></a></td>";
+                                    echo "<td class='col-2'>{$product_id}</td>";
+                                    echo "<td>{$product_name}</td>";
+                                    echo "<td class='col-2'>RM {$product_price}</td>";
+                                    echo "<td>";
+                                        echo "<div class='d-lg-flex justify-content-sm-center flex-column'>";
+                                        echo "<a href='product_detail.php?product_id={$product_id}' id='detail' class='listActionBtn btn m-1 m-lg-2'>Detail</a>";
+                                        if ($designer_email != $_SESSION["designer_email"]) {
+                                            echo "<a href='product_update.php?product_id=$product_id' id='update' class='d-none listActionBtn btn m-1 m-lg-2'>Update</a>";
+                                        } else {
+                                            echo "<a href='product_update.php?product_id=$product_id' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
+                                        }
+                                        echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
+                                        echo "</div>";
+                                    echo "</td>";
+                                echo "</tr>";
                             }
-                            ?>
+                        } else {
+                            echo "<div class='alert alert-danger d-flex col-12' role='alert'>
+                                    <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                                <div>
+                                    No Product found.
+                                </div>
+                            </div>";
+                        }
+                        ?>
                     </tfoot>
                 </table>
                 </div>

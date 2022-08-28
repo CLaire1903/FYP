@@ -99,14 +99,16 @@ if (!isset($_SESSION["designer_email"])) {
                                 $designer_img = $default;
                             }
                         }
+
+                        if ($file != "") {
+                            unlink($designer_img);
+                        }
         
                         if ($folder != "") {
                             if($designer_img == $default){
                                 $designerImg = "designer_image=:designer_image";
                             } else {
-                                if(unlink($designer_img)){
-                                    $designerImg = "designer_image=:designer_image";
-                                }
+                                $designerImg = "designer_image=:designer_image";
                             }
                         }
 

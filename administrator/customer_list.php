@@ -55,7 +55,7 @@ if (!isset($_SESSION["admin_email"])) {
             ?>
 
         <div class="customerList mx-5">
-            <h1 class="header p-2 text-center mt-5">Customer List</h1>
+            <h1 class="header p-2 text-center my-5 rounded-pill">Customer List</h1>
             <div class="mx-5">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()" method="post">
                     <table class='search table table-hover table-responsive'>

@@ -8,7 +8,7 @@ if (!isset($_SESSION["admin_email"])) {
 <html>
 
 <head>
-    <title>Crete Order</Details></title>
+    <title>Crete Order</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/fyp/css/shared.css" rel="stylesheet">
     <link href="/fyp/css/order.css" rel="stylesheet">
@@ -253,9 +253,9 @@ if (!isset($_SESSION["admin_email"])) {
                     </thead>
                 </table>
                 <div class='button d-grid m-3 d-flex justify-content-center'>
-                    <button type="button" id="add_one" class="actionBtn btn btn-lg mt-5 mx-5">Add More Product</button>
-                    <button type="button" id="delete_one" class="actionBtn btn btn-lg mt-5 mx-5">Delete Product</button>
-                    <button type='submit' class='actionBtn btn btn-lg mt-5 mx-5'>Checkout</button>
+                    <button type="button" id="add_one" class="actionBtn btn mt-5 mx-5">Add More Product</button>
+                    <button type="button" id="delete_one" class="actionBtn btn mt-5 mx-5">Delete Product</button>
+                    <button type='submit' class='actionBtn btn mt-5 mx-5'>Checkout</button>
                 </div>
         </form>
         </div>

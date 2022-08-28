@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["designer_email"])) {
+if (!isset($_SESSION["admin_email"])) {
     header("Location: index.php?error=restrictedAccess");
 }
 ?>
@@ -27,7 +27,7 @@ if (!isset($_SESSION["designer_email"])) {
         $designer_email = isset($_GET['designer_email']) ? $_GET['designer_email'] : die('ERROR: designer record not found.');
         ?>
         <div class="page-header mx-5 mt-5">
-            <h1>Update Profile</h1>
+            <h1>Update Designer Detail</h1>
             <h6 class="text-danger"> NOTE! Please refresh if you do not see any changes. </h6>
         </div>
 
@@ -105,13 +105,15 @@ if (!isset($_SESSION["designer_email"])) {
                             }
                         }
         
+                        if ($file != "") {
+                            unlink($designer_img);
+                        }
+        
                         if ($folder != "") {
                             if($designer_img == $default){
                                 $designerImg = "designer_image=:designer_image";
                             } else {
-                                if(unlink($designer_img)){
-                                    $designerImg = "designer_image=:designer_image";
-                                }
+                                $designerImg = "designer_image=:designer_image";
                             }
                         }
 

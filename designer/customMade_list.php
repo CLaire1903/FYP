@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["admin_email"])) {
+if (!isset($_SESSION["designer_email"])) {
     header("Location: index.php?error=restrictedAccess");
 }
 ?>
@@ -69,8 +69,9 @@ if (!isset($_SESSION["admin_email"])) {
             <div class="customMadeItems d-flex flex-wrap justify-content-around mx-5 mt-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <?php
-                        $customMadeQuery = "SELECT * FROM customized $where ORDER BY customized_id DESC";
+                        $customMadeQuery = "SELECT * FROM customized WHERE designer_email=:designer_email ORDER BY customized_id DESC";
                         $customMadeStmt = $con->prepare($customMadeQuery);
+                        $customMadeStmt->bindParam(':designer_email', $_SESSION["designer_email"]);
                         if ($_POST) $customMadeStmt->bindParam(':search', $search);
                         $customMadeStmt->execute();
                         $num = $customMadeStmt->rowCount();
@@ -111,7 +112,7 @@ if (!isset($_SESSION["admin_email"])) {
                             echo "<div class='alert alert-danger d-flex col-12' role='alert'>
                                     <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                                 <div>
-                                    No Custom Made Order found.
+                                    No Custom Made Order is Assigned.
                                 </div>
                             </div>";
                         }

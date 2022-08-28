@@ -29,7 +29,7 @@ if (!isset($_SESSION["admin_email"])) {
             ?>
 
         <div class="feedbackList mx-5">
-            <h1 class="header p-2 text-center mt-5">Feedback Review</h1>
+            <h1 class="header p-2 text-center my-5 rounded-pill">Feedback Review</h1>
             <div class="feedbackItems d-flex flex-wrap justify-content-around mx-5 mt-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <thead>

@@ -8,7 +8,7 @@ if (!isset($_SESSION["cus_email"])) {
 <html>
 
 <head>
-    <title>Order Detail</Details></title>
+    <title>Order Detail</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/fyp/css/shared.css" rel="stylesheet">
     <link href="/fyp/css/order.css" rel="stylesheet">
@@ -146,7 +146,7 @@ if (!isset($_SESSION["cus_email"])) {
             </table>
             <table class='table table-hover table-responsive table-bordered'>
                 <tr>
-                    <h2 class="mt-5">Deposit and Payment Method:</h2>
+                    <h2 class="mt-5">Payment Method:</h2>
                 </tr>
                 <thead>
                     <tr>

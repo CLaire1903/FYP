@@ -29,7 +29,7 @@ if (!isset($_SESSION["admin_email"])) {
             ?>
 
         <div class="designerList mx-5">
-            <h1 class="header p-2 text-center mt-5">Designer List</h1>
+            <h1 class="header p-2 text-center my-5 rounded-pill">Designer List</h1>
             
             <?php 
                 $action = isset($_GET['action']) ? $_GET['action'] : "";

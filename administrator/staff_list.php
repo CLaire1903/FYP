@@ -29,7 +29,7 @@ if (!isset($_SESSION["admin_email"])) {
             ?>
 
         <div class="staffList mx-5">
-            <h1 class="header p-2 text-center mt-5">Staff List</h1>
+            <h1 class="header p-2 text-center my-5 rounded-pill">Staff List</h1>
             <?php 
                 $action = isset($_GET['action']) ? $_GET['action'] : "";
                 if ($action == 'updateOwn') {
@@ -96,7 +96,7 @@ if (!isset($_SESSION["admin_email"])) {
                         }
         
                         $search = "%" . $_POST['search'] . "%";
-                        $where = "WHERE staff_email LIKE :search OR staff_fname LIKE :search OR staff_lname LIKE :search";
+                        $where = "WHERE admin_email LIKE :search OR admin_fname LIKE :search OR admin_lname LIKE :search";
                     } catch (PDOException $exception) {
                         echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
                                 <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
@@ -137,7 +137,7 @@ if (!isset($_SESSION["admin_email"])) {
                     </thead>
                     <tfoot>
                         <?php
-                            $staffQuery = "SELECT * FROM admin ORDER BY admin_email ASC";
+                            $staffQuery = "SELECT * FROM admin $where ORDER BY admin_email ASC";
                             $staffStmt = $con->prepare($staffQuery);
                             if ($_POST) $staffStmt->bindParam(':search', $search);
                             $staffStmt->execute();

@@ -8,7 +8,7 @@ session_start();
     <title>Designer Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/product.css" rel="stylesheet">
+    <link href="/fyp/css/designer.css" rel="stylesheet">
 
     <style>
     </style>
@@ -41,16 +41,16 @@ session_start();
 
         ?>
         <div class="DesignerDetail d-flex flex-column justify-content-center mx-5">
-            <h2 class="text-center mx-5 mt-5">About Designer</h2>
-            <div class='img-block d-flex justify-content-center'> 
+            <h2 class="text-center m-5">About Designer</h2>
+            <div class='img-block d-flex justify-content-center mb-5'> 
                 <?php $designer_image = $designerRow['designer_image'];
                 if ($designer_image != "") {
-                    echo "<img src= $designer_image alt='' class='image-responsive' style='width:250px; height:250px'/> ";
+                    echo "<img src= $designer_image alt='' class='designerImage image-responsive rounded-circle'/> ";
                 } else {
                     echo "No picture uploaded.";
                 }
-                ?>
-            </div>
+            ?>
+        </div>
             <div class="mx-5">
                 <h3>About Designer: </h3>
                 <table class='table table-hover table-responsive table-bordered'>

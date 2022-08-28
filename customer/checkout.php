@@ -50,8 +50,9 @@ if (!isset($_SESSION["cus_email"])) {
                             throw new Exception("Please make sure all fields are not empty !");
                         }
 
-                        if ($_POST['order_depositpaid'] < 1000){
-                            throw new Exception("Deposit must be at least RM 1000!");
+                        $depositPercent = ($_POST['order_depositpaid'] * 100) / $_POST['checkout_totalamount'];
+                        if ($depositPercent < 30){
+                            throw new Exception("Deposit must be at least 30% from the total amount!");
                         }
 
                         $con->beginTransaction();

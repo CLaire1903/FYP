@@ -50,13 +50,15 @@ session_start();
                                     throw new Exception("Custom made gown time range must be more than 6 month.");
                                 }
 
-                                $customizedQuery = "INSERT INTO customized SET cus_email=:cus_email, cus_name=:cus_name,cus_phnumber=:cus_phnumber, customized_detail=:customized_detail, customized_collectdate=:customized_collectdate";
+                                $customizedQuery = "INSERT INTO customized SET customized_image=:customized_image, cus_email=:cus_email, cus_name=:cus_name,cus_phnumber=:cus_phnumber, customized_detail=:customized_detail, customized_collectdate=:customized_collectdate";
                                 $customizedStmt = $con->prepare($customizedQuery);
+                                $customized_image = "../image/product/default.jpg";
                                 $cus_email = strtolower($_POST['cus_email']);
                                 $cus_name = $_POST['cus_name'];
                                 $cus_phnumber = $_POST['cus_phnumber'];
                                 $customized_detail = $_POST['customized_detail'];
                                 $customized_collectdate = $_POST['customized_collectdate'];
+                                $customizedStmt->bindParam(':customized_image', $customized_image);
                                 $customizedStmt->bindParam(':cus_email', $cus_email);
                                 $customizedStmt->bindParam(':cus_name', $cus_name);
                                 $customizedStmt->bindParam(':cus_phnumber', $cus_phnumber);

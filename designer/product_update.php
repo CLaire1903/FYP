@@ -68,7 +68,7 @@ if (!isset($_SESSION["designer_email"])) {
                 }
 
                 try {
-                    if (empty($_POST['product_name']) || empty($_POST['product_price']) || empty($_POST['category_id']) || empty($_POST['designer_email']) || empty($_POST['product_condition'])) {
+                    if (empty($_POST['product_name']) || empty($_POST['product_price']) || empty($_POST['category_id']) || empty($_POST['product_condition'])) {
                         throw new Exception("Please make sure all fields are not empty!");
                     }
                     if (!is_numeric($_POST['product_price'])) {
@@ -107,12 +107,11 @@ if (!isset($_SESSION["designer_email"])) {
                         }
                     }
 
-                    $updateProductQuery = "UPDATE product SET product_image=:product_image, product_name=:product_name, product_price=:product_price, category_id=:category_id, designer_email=:designer_email, product_condition=:product_condition WHERE product_id = :product_id";
+                    $updateProductQuery = "UPDATE product SET product_image=:product_image, product_name=:product_name, product_price=:product_price, category_id=:category_id, product_condition=:product_condition WHERE product_id = :product_id";
                     $updateProductStmt = $con->prepare($updateProductQuery);
                     $product_name = htmlspecialchars(strip_tags(ucfirst($_POST['product_name'])));
                     $product_price = htmlspecialchars(strip_tags(ucfirst($_POST['product_price'])));
                     $category_id = htmlspecialchars(strip_tags(ucfirst($_POST['category_id'])));
-                    $designer_email = htmlspecialchars(strip_tags($_POST['designer_email']));
                     $product_condition = htmlspecialchars(strip_tags($_POST['product_condition']));
 
                     $updateProductStmt->bindParam(':product_id', $product_id);
@@ -126,7 +125,6 @@ if (!isset($_SESSION["designer_email"])) {
                     $updateProductStmt->bindParam(':product_name', $product_name);
                     $updateProductStmt->bindParam(':product_price', $product_price);
                     $updateProductStmt->bindParam(':category_id', $category_id);
-                    $updateProductStmt->bindParam(':designer_email', $designer_email);
                     $updateProductStmt->bindParam(':product_condition', $product_condition);
                     if ($updateProductStmt->execute()) {
                         if ($folder != "") {
@@ -206,23 +204,6 @@ if (!isset($_SESSION["designer_email"])) {
                                 while ($get_category = $categoryIdStmt->fetch(PDO::FETCH_ASSOC)) {
                                     $result = $category_id == $get_category['category_id'] ? 'selected' : '';
                                     echo "<option value = '$get_category[category_id]' $result> $get_category[category_name] </option>";
-                                }
-                                ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Product's Designer <span class="text-danger">*</span></td>
-                        <td>
-                            <select class='form-select' name='designer_email'> 
-                                <option value='' disabled selected>-- Designer Email --</option> 
-                                <?php
-                                $designerEmailQuery = "SELECT designer_email FROM designer";
-                                $designerEmailStmt = $con->prepare($designerEmailQuery);
-                                $designerEmailStmt->execute();
-                                while ($get_designer = $designerEmailStmt->fetch(PDO::FETCH_ASSOC)) {
-                                    $result = $designer_email == $get_designer['designer_email'] ? 'selected' : '';
-                                    echo "<option value = '$get_designer[designer_email]' $result> $get_designer[designer_email] </option>";
                                 }
                                 ?>
                             </select>

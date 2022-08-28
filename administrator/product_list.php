@@ -34,7 +34,7 @@ if (!isset($_SESSION["admin_email"])) {
             ?>
 
         <div class="productList mx-5">
-            <h1 class="header p-2 text-center mt-5">Product List</h1>
+            <h1 class="header p-2 text-center my-5 rounded-pill">Product List</h1>
             <?php 
                 $action = isset($_GET['action']) ? $_GET['action'] : "";
                 if ($action == 'productCreatedFail') {
@@ -57,7 +57,7 @@ if (!isset($_SESSION["admin_email"])) {
                     echo "<div class='alert alert-danger d-flex align-items-center mx-5 mt-5' role='alert'>
                         <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                         <div>
-                            Product could not be deleted as it involved in order.
+                            Product could not be deleted as it is added into order / checkout / cart.
                         </div>
                     </div>";
                 }
@@ -108,7 +108,7 @@ if (!isset($_SESSION["admin_email"])) {
             <div class="productItems d-flex flex-wrap justify-content-around mx-5 mt-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <?php
-                        $productQuery = "SELECT product_id, product_image, product_name, product_price FROM product ORDER BY product_id DESC";
+                        $productQuery = "SELECT product_id, product_image, product_name, product_price FROM product $where ORDER BY product_id DESC";
                         $productStmt = $con->prepare($productQuery);
                         if ($_POST) $productStmt->bindParam(':search', $search);
                         $productStmt->execute();

@@ -61,7 +61,7 @@ if (!isset($_SESSION["admin_email"])) {
         ?>
 
         <div class="page-header mx-5 mt-5">
-            <h1>Customer Profile</h1>
+            <h1>Customer Detail</h1>
         </div>
         <div class="mx-5">
             <table class='table table-hover table-responsive table-bordered'>

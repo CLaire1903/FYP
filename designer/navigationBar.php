@@ -46,6 +46,13 @@
                         </li>
                     </ul>
                 </div>
+                <div>
+                    <ul class="nav justify-content-center">
+                        <li>
+                            <a id="customMadeList" class="nav-link word" aria-current="page" href="customMade_list.php">Custom Made List</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div>

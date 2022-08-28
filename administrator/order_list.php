@@ -33,7 +33,7 @@ if (!isset($_SESSION["admin_email"])) {
         ?>
 
         <div class="orderList mx-5">
-            <h1 class="header p-2 text-center mt-5">Order List</h1>
+            <h1 class="header p-2 text-center my-5 rounded-pill">Order List</h1>
             <?php $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'updateFail') {
                 echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
@@ -107,7 +107,7 @@ if (!isset($_SESSION["admin_email"])) {
             <div class="orderItems d-flex flex-wrap justify-content-around mt-5 mx-5">
                 <table class='table table-hover table-responsive table-bordered text-center'>
                     <?php
-                        $orderQuery = "SELECT * FROM orders ORDER BY order_id DESC";
+                        $orderQuery = "SELECT * FROM orders $where ORDER BY order_id DESC";
                         $orderStmt = $con->prepare($orderQuery);
                         if ($_POST) $orderStmt->bindParam(':search', $search);
                         $orderStmt->execute();

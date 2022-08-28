@@ -78,14 +78,14 @@ if (!isset($_SESSION["designer_email"])) {
             <h1>My Profile</h1>
         </div>
         <div class='img-block d-flex justify-content-center mb-5'> 
-                <?php $designer_image = $designerRow['designer_image'];
-                if ($designer_image != "") {
-                    echo "<img src= $designer_image alt='' class='designerImage image-responsive rounded-circle'/> ";
-                } else {
-                    echo "No picture uploaded.";
-                }
-                ?>
-            </div>
+            <?php $designer_image = $designerRow['designer_image'];
+            if ($designer_image != "") {
+                echo "<img src= $designer_image alt='' class='designerImage image-responsive rounded-circle'/> ";
+            } else {
+                echo "No picture uploaded.";
+            }
+            ?>
+        </div>
         <div class="mx-5">
             <table class='table table-hover table-responsive table-bordered'>
                 <thead>
@@ -163,7 +163,6 @@ if (!isset($_SESSION["designer_email"])) {
         <div class="d-flex justify-content-center">
             <?php
                 echo "<a href='designer_updateProfile.php?designer_email={$designer_email}' class='actionBtn btn mx-2 mt-5'>Update Profile</a>";
-                echo "<a href='award_create.php?designer_email={$designer_email}' class='actionBtn btn mx-2 mt-5'>Update Award</a>";
             ?>
         </div>
         <div class="footer bg-dark">

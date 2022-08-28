@@ -25,7 +25,7 @@ if (!isset($_SESSION["admin_email"])) {
         include 'C:\xampp\htdocs\fyp\alertIcon.php';
         ?>
         <div class="page-header mx-5 mt-5">
-            <h1>Update Customer Profile</h1>
+            <h1>Update Customer Detail</h1>
             <h6 class="text-danger"> NOTE! Please refresh if you do not see any changes. </h6>
         </div>
         <?php
@@ -56,7 +56,6 @@ if (!isset($_SESSION["admin_email"])) {
                     throw new Exception("Please make sure all fields are not empty!");
                 }
 
-                //update the customer detail into the database
                 $updateCustomerQuery = "UPDATE customer SET cus_fname=:cus_fname, cus_lname=:cus_lname, cus_address=:cus_address, cus_phnumber=:cus_phnumber , cus_gender=:cus_gender, cus_bday=:cus_bday WHERE cus_email = :cus_email";
                 $updateCustomerStmt = $con->prepare($updateCustomerQuery);
                 $cus_fname = htmlspecialchars(strip_tags(ucfirst($_POST['cus_fname'])));

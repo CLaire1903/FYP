@@ -5,7 +5,7 @@ if (!isset($_SESSION["admin_email"])) {
 }
 ?>
 <?php
-include 'C:\xampp\htdocs\fyp\config/dbase.php';
+include '../config/dbase.php';
 try {     
     $admin_email = isset($_GET['admin_email']) ? $_GET['admin_email'] :  die('ERROR: Record ID not found.');
 

@@ -10,8 +10,8 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Update Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href='/fyp/css/shared.css' rel="stylesheet">
-    <link href='/fyp/css/update.css' rel="stylesheet">
+    <link href='../css/shared.css' rel="stylesheet">
+    <link href='../css/update.css' rel="stylesheet">
 
     <style>
         .product_image {
@@ -24,8 +24,8 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
         ?>
 
@@ -165,7 +165,7 @@ if (!isset($_SESSION["admin_email"])) {
                         <td><?php echo htmlspecialchars($product_id, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>
-                        <td>Product Image</td>
+                        <td>Product Image <span class="text-danger">*</span></td>
                         <td>
                             <div>
                                 <div class='img-block m-2 d-flex'> 
@@ -229,7 +229,7 @@ if (!isset($_SESSION["admin_email"])) {
                         </td>
                     </tr>
                     <tr>
-                        <td>Product Condition</td>
+                        <td>Product Condition <span class="text-danger">*</span></td>
                         <td>
                             <div class="form-check">
                                 <label>

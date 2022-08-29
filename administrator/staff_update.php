@@ -11,8 +11,8 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Update Staff Detail</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/profile.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href="../css/profile.css" rel="stylesheet">
 
     <style>
     </style>
@@ -21,9 +21,9 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
 
         $admin_email = isset($_GET['admin_email']) ? $_GET['admin_email'] : die('ERROR: Admin record not found.');
         if($admin_email == $_SESSION["admin_email"]){
@@ -117,27 +117,27 @@ if (!isset($_SESSION["admin_email"])) {
                     <td><?php echo htmlspecialchars($admin_email, ENT_QUOTES);  ?></td>
                 </tr>
                 <tr>
-                    <td>Password</td>
+                    <td>Password <span class="text-danger">*</span></td>
                     <td><input type='text' name='admin_pword' id="admin_pword" value="<?php echo htmlspecialchars($admin_pword, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>First Name</td>
+                    <td>First Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='admin_fname' id="admin_fname" value="<?php echo htmlspecialchars($admin_fname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Last Name</td>
+                    <td>Last Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='admin_lname' id="admin_lname" value="<?php echo htmlspecialchars($admin_lname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Address</td>
+                    <td>Address <span class="text-danger">*</span></td>
                     <td><input type='text' name='admin_address' id="admin_address" value="<?php echo htmlspecialchars($admin_address, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Phone Number</td>
+                    <td>Phone Number <span class="text-danger">*</span></td>
                     <td><input type="tel" name="admin_phnumber" id="admin_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($admin_phnumber, ENT_QUOTES);  ?>" class='form-control' ></td>
                 </tr>
                 <tr>
-                    <td>Gender</td>
+                    <td>Gender <span class="text-danger">*</span></td>
                     <td>
                         <div class="form-check">
                             <label>
@@ -156,11 +156,11 @@ if (!isset($_SESSION["admin_email"])) {
                     </td>
                 </tr>
                 <tr>
-                    <td>Date Of Birth</td>
+                    <td>Date Of Birth <span class="text-danger">*</span></td>
                     <td><input type='date' name='admin_bday' id="admin_bday" value="<?php echo htmlspecialchars($admin_bday, ENT_QUOTES);  ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Position</td>
+                    <td>Position <span class="text-danger">*</span></td>
                     <td>
                         <?php 
                             $checkPositionQuery = "SELECT * FROM admin WHERE admin_email=:admin_email";

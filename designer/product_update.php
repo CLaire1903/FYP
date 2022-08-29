@@ -163,7 +163,7 @@ if (!isset($_SESSION["designer_email"])) {
                         <td><?php echo htmlspecialchars($product_id, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>
-                        <td>Product Image</td>
+                        <td>Product Image <span class="text-danger">*</span></td>
                         <td>
                             <div>
                                 <div class='img-block m-2 d-flex'> 
@@ -210,7 +210,7 @@ if (!isset($_SESSION["designer_email"])) {
                         </td>
                     </tr>
                     <tr>
-                        <td>Product Condition</td>
+                        <td>Product Condition <span class="text-danger">*</span></td>
                         <td>
                             <div class="form-check">
                                 <label>

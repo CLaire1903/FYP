@@ -137,7 +137,7 @@ if (!isset($_SESSION["designer_email"])) {
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>
-                        <td>Product Image</td>
+                        <td>Product Image <span class="text-danger">*</span></td>
                         <td><input type='file' name='product_image' id="product_image" value="<?php echo (isset($_FILES["product"]["name"])) ? $_FILES["product"]["name"] : ''; ?>" class='form-control' /></td>
                     </tr>
                     <tr>

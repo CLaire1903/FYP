@@ -10,8 +10,8 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Order Detail</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/order.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href="../css/order.css" rel="stylesheet">
 
     
 </head>
@@ -19,8 +19,8 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php
-            include 'C:\xampp\htdocs\fyp\config/dbase.php'; 
-            include 'C:\xampp\htdocs\fyp\alertIcon.php';
+            include '../config/dbase.php';
+            include '../alertIcon.php';
             include 'navigationBar.php';
 
             $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : die('ERROR: Order record not found.');
@@ -49,6 +49,24 @@ if (!isset($_SESSION["admin_email"])) {
         ?>
         <div class="mx-5">
             <h1 class="text-center mt-5">Order Detail</h1>
+            <?php 
+            $action = isset($_GET['action']) ? $_GET['action'] : "";
+            if ($action == 'updateFail') {
+                echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                    <div>
+                        Order fail to update.
+                    </div>
+                    </div>";
+            }
+            if ($action == 'updated') {
+                echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
+                        <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                        <div>
+                            Order updated successfully.
+                        </div>
+                    </div>";
+            }?>
             <table class='table table-hover table-responsive table-bordered mt-5'>
                 <thead>
                     <tr>

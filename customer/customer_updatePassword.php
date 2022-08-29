@@ -87,15 +87,15 @@ if (!isset($_SESSION["cus_email"])) {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?cus_email={$cus_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='updatePasswordTable table table-hover table-responsive table-bordered'>
                 <tr>
-                    <td>Current Password</td>
+                    <td>Current Password <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_currentpword' id="cus_currrentpword" value="<?php echo (isset($_POST['cus_currentpword'])) ? $_POST['cus_currentpword'] : ''; ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>New Password</td>
+                    <td>New Password <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_newpword' id="cus_newpword" value="<?php echo (isset($_POST['cus_newpword'])) ? $_POST['cus_newpword'] : ''; ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Confirm Password</td>
+                    <td>Confirm Password <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_newcpword' id="cus_newcpword" value="<?php echo (isset($_POST['cus_newcpword'])) ? $_POST['cus_newcpword'] : ''; ?>" class='form-control' /></td>
                 </tr>
             </table>

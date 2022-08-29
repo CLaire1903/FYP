@@ -52,7 +52,7 @@ session_start();
 
                                 $customizedQuery = "INSERT INTO customized SET customized_image=:customized_image, cus_email=:cus_email, cus_name=:cus_name,cus_phnumber=:cus_phnumber, customized_detail=:customized_detail, customized_collectdate=:customized_collectdate";
                                 $customizedStmt = $con->prepare($customizedQuery);
-                                $customized_image = "../image/product/default.jpg";
+                                $customized_image = "../image/customized/default.jpg";
                                 $cus_email = strtolower($_POST['cus_email']);
                                 $cus_name = $_POST['cus_name'];
                                 $cus_phnumber = $_POST['cus_phnumber'];
@@ -93,23 +93,23 @@ session_start();
                         ?>
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div class="message">
-                                <h5 class="mt-4 mb-0">Email : </h5>
+                                <h5 class="mt-4 mb-0">Email :  <span class="text-danger">*</span></h5>
                                 <td><input type='text' name='cus_email' id="cus_email" value="<?php echo (isset($_POST['cus_email'])) ? $_POST['cus_email'] : ''; ?>" class='form-control' /></td>
                             </div>
                             <div class="message">
-                                <h5 class="mt-4 mb-0">Name : </h5>
+                                <h5 class="mt-4 mb-0">Name :  <span class="text-danger">*</span></h5>
                                 <td><input type='text' name='cus_name' id="cus_name" value="<?php echo (isset($_POST['cus_name'])) ? $_POST['cus_name'] : ''; ?>" class='form-control'></td>
                             </div>
                             <div class="message">
-                                <h5 class="mt-4 mb-0">Phone Number : </h5>
+                                <h5 class="mt-4 mb-0">Phone Number :  <span class="text-danger">*</span></h5>
                                 <td><input type="tel" name="cus_phnumber" id="cus_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo (isset($_POST['cus_phnumber'])) ? $_POST['cus_phnumber'] : ''; ?>" class='form-control' ></td>
                             </div>
                             <div class="message">
-                                <h5 class="mt-4 mb-0">Customized Details : </h5>
+                                <h5 class="mt-4 mb-0">Customized Details :  <span class="text-danger">*</span></h5>
                                 <td><textarea type='text' name='customized_detail' id="customized_detail" class='form-control' rows="5"><?php echo (isset($_POST['customized_detail'])) ? $_POST['customized_detail'] : ''; ?></textarea></td>
                             </div>
                             <div class="message">
-                                <h5 class="mt-4 mb-0">Date To Collect : </h5>
+                                <h5 class="mt-4 mb-0">Date To Collect :  <span class="text-danger">*</span></h5>
                                 <td><input type='date' name='customized_collectdate' id="customized_collectdate"  value="<?php echo (isset($_POST['customized_collectdate'])) ? $_POST['customized_collectdate'] : ''; ?>" class='form-control' /></td>
                             </div>
                             <div class="button d-grid m-3 d-flex justify-content-center">

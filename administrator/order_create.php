@@ -10,8 +10,8 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Crete Order</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/order.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href="../css/order.css" rel="stylesheet">
 
     <style>
         .actionBtn {
@@ -24,8 +24,8 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php
-            include 'C:\xampp\htdocs\fyp\config/dbase.php'; 
-            include 'C:\xampp\htdocs\fyp\alertIcon.php';
+            include '../config/dbase.php';
+            include '../alertIcon.php';
             include 'navigationBar.php';
         ?>
         <div class="mx-5 mt-5">
@@ -56,7 +56,7 @@ if (!isset($_SESSION["admin_email"])) {
                         }
 
                         $con->beginTransaction();
-                        $createOrderQuery = "INSERT INTO orders SET order_datentime=:order_datentime, cus_email=:cus_email, order_totalamount=:order_totalamount, order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod";
+                        $createOrderQuery = "INSERT INTO orders SET order_datentime=:order_datentime, cus_email=:cus_email, order_totalamount=:order_totalamount, order_depositpaid=:order_depositpaid, shipping_name=:shipping_name, shipping_phnumber=:shipping_phnumber, shipping_address=:shipping_address, shipping_postcode=:shipping_postcode, order_status=:order_status, order_paymethod=:order_paymethod, payment_reference=:payment_reference";
 
                         $createOrderStmt = $con->prepare($createOrderQuery);
 
@@ -68,8 +68,9 @@ if (!isset($_SESSION["admin_email"])) {
                         $shipping_phnumber = $_POST['shipping_phnumber'];
                         $shipping_address = $_POST['shipping_address'];
                         $shipping_postcode = $_POST['shipping_postcode'];
-                        $order_status = "new order";
+                        $order_status = "payment received";
                         $order_paymethod = $_POST['order_paymethod'];
+                        $payment_reference = $_POST['payment_reference'];
 
                         $createOrderStmt->bindParam(':order_datentime', $order_datentime);
                         $createOrderStmt->bindParam(':cus_email', $cus_email);
@@ -81,6 +82,7 @@ if (!isset($_SESSION["admin_email"])) {
                         $createOrderStmt->bindParam(':shipping_postcode', $shipping_postcode);
                         $createOrderStmt->bindParam(':order_status', $order_status);
                         $createOrderStmt->bindParam(':order_paymethod', $order_paymethod);
+                        $createOrderStmt->bindParam(':payment_reference', $payment_reference);
 
                         if ($createOrderStmt->execute()) {
                             $lastID = $con->lastInsertId();
@@ -146,7 +148,7 @@ if (!isset($_SESSION["admin_email"])) {
                             <h2>Customer Details</h2>
                         </tr>
                         <tr class="border-start border-end border-top border-0"> 
-                            <th class="d-flex align-self-center border-0 px-3">Customer Email</th>
+                            <th class="d-flex align-self-center border-0 px-3">Customer Email <span class="text-danger">*</span></th>
                             <td class="border-0">
                                 <div>
                                     <select class="form-select" name="cus_email" id="cus_email">
@@ -164,19 +166,19 @@ if (!isset($_SESSION["admin_email"])) {
                             </td>
                         </tr>
                         <tr class="border-start border-end border-0">
-                            <th class="col-4 d-flex align-self-center border-0 px-3">Name</th>
+                            <th class="col-4 d-flex align-self-center border-0 px-3">Name <span class="text-danger">*</span></th>
                             <td class="border-0"><input type='text' name='shipping_name' id="shipping_name" value="<?php echo (isset($_POST['shipping_name'])) ? $_POST['shipping_name'] : ''; ?>" class='form-control'/></td>
                         </tr>
                         <tr class="border-start border-end border-0">
-                            <th class="d-flex align-self-center border-0 px-3">Phone Number</th>
+                            <th class="d-flex align-self-center border-0 px-3">Phone Number <span class="text-danger">*</span></th>
                             <td class="border-0"><input type="tel" name="shipping_phnumber" id="shipping_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo (isset($_POST['shipping_phnumber'])) ? $_POST['shipping_phnumber'] : ''; ?>" class='form-control' ></td>
                         </tr>
                         <tr class="border-start border-end border-0">
-                            <th class="d-flex align-self-center border-0 px-3">Address</th>
+                            <th class="d-flex align-self-center border-0 px-3">Address <span class="text-danger">*</span></th>
                             <td class="border-0"><textarea type='text' name='shipping_address' id="shipping_address" class='form-control' rows="3"><?php echo (isset($_POST['shipping_address'])) ? $_POST['shipping_address'] : ''; ?></textarea></td>
                         </tr>
                         <tr class="border-start border-end border-bottom border-0">
-                            <th class="d-flex align-self-center border-0 px-3">Postcode</th>
+                            <th class="d-flex align-self-center border-0 px-3">Postcode <span class="text-danger">*</span></th>
                             <td class="border-0"><input type="tel" name="shipping_postcode" id="shipping_postcode" placeholder="12345" pattern="[0-9]{5}" value="<?php echo (isset($_POST['shipping_postcode'])) ? $_POST['shipping_postcode'] : ''; ?>" class='form-control' ></td>
                         </tr>
                     </thead>
@@ -187,7 +189,7 @@ if (!isset($_SESSION["admin_email"])) {
                     </tr>
                     <thead>
                         <tr class='tableHeader'>
-                            <th class='text-center'>Product</th>
+                            <th class='text-center'>Product <span class="text-danger">*</span></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -218,11 +220,11 @@ if (!isset($_SESSION["admin_email"])) {
                     </tr>
                     <thead>
                         <tr class="border-start border-end border-top border-0"> 
-                            <th class="d-flex align-self-center border-0 px-3">Deposit you pay now: RM</th>
+                            <th class="d-flex align-self-center border-0 px-3">Deposit you pay now: RM <span class="text-danger">*</span></th>
                             <td class="border-0"><input type='text' name='order_depositpaid' id="order_depositpaid" value="<?php echo (isset($_POST['order_depositpaid'])) ? $_POST['order_depositpaid'] : ''; ?>" class='form-control'/></td>
                         </tr>
                         <tr class="border-start border-end border-bottom border-0">
-                            <th class="d-flex align-self-center border-0 px-3">Payment method</th>
+                            <th class="d-flex align-self-center border-0 px-3">Payment method <span class="text-danger">*</span></th>
                             <td class="border-0">
                                 <div class="form-check">
                                     <label>
@@ -249,6 +251,10 @@ if (!isset($_SESSION["admin_email"])) {
                                     </label>
                                 </div>
                             </td>
+                        </tr>
+                        <tr class="border-0"> 
+                            <th class="d-flex align-self-center border-0">Transaction Reference <span class="text-danger">*</span></th>
+                            <td class="border-0"><input type='text' name='payment_reference' id="payment_reference" value="<?php echo (isset($_POST['payment_reference'])) ? $_POST['payment_reference'] : ''; ?>" class='form-control'/></td>
                         </tr>
                     </thead>
                 </table>

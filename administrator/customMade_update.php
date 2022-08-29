@@ -10,8 +10,8 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Update Custom Made</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href='/fyp/css/update.css' rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href='../css/update.css' rel="stylesheet">
 
     <style>
         .customizedImage {
@@ -24,9 +24,9 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
         $customized_id = isset($_GET['customized_id']) ? $_GET['customized_id'] : die('ERROR: Custom Made record not found.');
         ?>
         <div class="page-header mx-5 mt-5">
@@ -108,14 +108,16 @@ if (!isset($_SESSION["admin_email"])) {
                                 $customized_img = $default;
                             }
                         }
+
+                        if ($file != "") {
+                            unlink($customized_img);
+                        }
         
                         if ($folder != "") {
                             if($customized_img == $default){
                                 $customizedImg = "customized_image=:customized_image";
                             } else {
-                                if(unlink($customized_img)){
-                                    $customizedImg = "customized_image=:customized_image";
-                                }
+                                $customizedImg = "customized_image=:customized_image";
                             }
                         }
 
@@ -201,27 +203,27 @@ if (!isset($_SESSION["admin_email"])) {
                     </td>
                 </tr>
                 <tr>
-                    <td>Customer Email</td>
+                    <td>Customer Email <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_email' id="cus_email" value="<?php echo htmlspecialchars($cus_email, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Customer Name</td>
+                    <td>Customer Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_name' id="cus_name" value="<?php echo htmlspecialchars($cus_name, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Phone Number</td>
+                    <td>Phone Number <span class="text-danger">*</span></td>
                     <td><input type="tel" name="cus_phnumber" id="cus_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($cus_phnumber, ENT_QUOTES);  ?>" class='form-control' ></td>
                 </tr>
                 <tr>
-                    <td>Customer Requirement</td>
+                    <td>Customer Requirement <span class="text-danger">*</span></td>
                     <td><textarea type='text' name='customized_detail' id="customized_detail"  rows="5" class='form-control'><?php echo htmlspecialchars($customized_detail, ENT_QUOTES); ?></textarea></td>
                 </tr>
                 <tr>
-                    <td>Collect Date</td>
+                    <td>Collect Date <span class="text-danger">*</span></td>
                     <td><input type='date' name='customized_collectdate' id="customized_collectdate" value="<?php echo htmlspecialchars($customized_collectdate, ENT_QUOTES);  ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Designer Email</td>
+                    <td>Designer Email <span class="text-danger">*</span></td>
                     <td>
                         <select class='form-select' name='designer_email'> 
                             <option value='' disabled selected>-- Designer Email --</option> 

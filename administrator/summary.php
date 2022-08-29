@@ -10,8 +10,8 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Summary</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/product.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href="../css/product.css" rel="stylesheet">
 
     <style>
         #summary {
@@ -44,7 +44,7 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include '../config/dbase.php';
         include 'navigationBar.php';
         ?>
         <div class="text-center my-5 mx-5">
@@ -53,7 +53,7 @@ if (!isset($_SESSION["admin_email"])) {
         <div class="d-flex justify-content-center">
             <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
-                <a href=customer_list.php><img class="image" src="/fyp/image/icon/customer.png"></a>
+                <a href=customer_list.php><img class="image" src="../image/icon/customer.png"></a>
                 </div>
                 <?php
                 $customerQuery = "SELECT * FROM customer";
@@ -65,7 +65,7 @@ if (!isset($_SESSION["admin_email"])) {
             </div>
             <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
-                <a href=product_list.php><img class="image" src="/fyp/image/icon/product.png"></a>
+                <a href=product_list.php><img class="image" src="../image/icon/product.png"></a>
                 </div>
                 <?php
                 $productQuery = "SELECT * FROM product";
@@ -77,7 +77,7 @@ if (!isset($_SESSION["admin_email"])) {
             </div>
             <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
-                <a href=order_list.php><img class="image" src="/fyp/image/icon/order.png"></a>
+                <a href=order_list.php><img class="image" src="../image/icon/order.png"></a>
                 </div>
                 <?php
                 $orderQuery = "SELECT * FROM orders";
@@ -89,7 +89,7 @@ if (!isset($_SESSION["admin_email"])) {
             </div>
             <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
-                <a href=staff_list.php><img class="image" src="/fyp/image/icon/staff.png"></a>
+                <a href=staff_list.php><img class="image" src="../image/icon/staff.png"></a>
                 </div>
                 <?php
                 $adminQuery = "SELECT * FROM admin";
@@ -101,7 +101,7 @@ if (!isset($_SESSION["admin_email"])) {
             </div>
             <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
                 <div class="pic p-1">
-                <a href=designer_list.php><img class="image" src="/fyp/image/icon/designer.png"></a>
+                <a href=designer_list.php><img class="image" src="../image/icon/designer.png"></a>
                 </div>
                 <?php
                 $designerQuery = "SELECT * FROM designer";
@@ -120,7 +120,7 @@ if (!isset($_SESSION["admin_email"])) {
                         <tr class="tableHeader">
                             <th class="col-3 col-lg-2">Product Image</th>
                             <th>Product ID</th>
-                            <th>Product Name</th>
+                            <th class="col-7">Product Name</th>
                             <th>Product Price</th>
                         </tr>
                     </thead>
@@ -156,7 +156,7 @@ if (!isset($_SESSION["admin_email"])) {
                         <tr class="tableHeader">
                             <th class="col-3 col-lg-2 ">Product Image</th>
                             <th>Product ID</th>
-                            <th>Product Name</th>
+                            <th class="col-7">Product Name</th>
                             <th>Product Price</th>
                         </tr>
                     </thead>

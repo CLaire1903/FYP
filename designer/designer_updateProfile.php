@@ -163,7 +163,7 @@ if (!isset($_SESSION["designer_email"])) {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?designer_email={$designer_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='profileDetailTable table table-hover table-responsive table-bordered'>
                 <tr>
-                    <td>Profile Image</td>
+                    <td>Profile Image <span class="text-danger">*</span></td>
                     <td>
                         <div>
                             <div class='img-block m-2 d-flex'> 
@@ -190,23 +190,23 @@ if (!isset($_SESSION["designer_email"])) {
                     </td>
                 </tr>
                 <tr>
-                    <td class="col-5">Email</td>
+                    <td class="col-5">Email <span class="text-danger">*</span></td>
                     <td><?php echo htmlspecialchars($designer_email, ENT_QUOTES);  ?></td>
                 </tr>
                 <tr>
-                    <td>First Name</td>
+                    <td>First Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='designer_fname' id="designer_fname" value="<?php echo htmlspecialchars($designer_fname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Last Name</td>
+                    <td>Last Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='designer_lname' id="designer_lname" value="<?php echo htmlspecialchars($designer_lname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Phone Number</td>
+                    <td>Phone Number <span class="text-danger">*</span></td>
                     <td><input type="tel" name="designer_phnumber" id="designer_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($designer_phnumber, ENT_QUOTES);  ?>" class='form-control' ></td>
                 </tr>
                 <tr>
-                    <td>Gender</td>
+                    <td>Gender <span class="text-danger">*</span></td>
                     <td>
                         <div class="form-check">
                             <label>

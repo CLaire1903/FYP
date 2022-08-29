@@ -33,12 +33,21 @@
 
                             ?>
                         </div>
-                        <div class="navIcon mx-2">
-                            <a href="customer_profile.php?cus_email={$cus_email}"><img src="../image/icon/profile.png" alt="profile"></a>
-                        </div>
-                        <div class="navIcon mx-2">
-                            <a href="customer_logout.php"><img src="../image/icon/logout.png" alt="Logout"></a>
-                        </div>
+                        <?php 
+                            if (isset($_SESSION['cus_email'])){
+                                echo "<div class='navIcon mx-2'>
+                                    <a href='customer_profile.php?cus_email={$cus_email}'><img src='../image/icon/profile.png' alt='profile'></a>
+                                </div> ";
+                        
+                                echo "<div class='navIcon mx-2'>
+                                    <a href='customer_logout.php'><img src='../image/icon/logout.png' alt='Logout'></a>
+                                </div>";
+                            } else{
+                                echo "<div class='navIcon mx-2'>
+                                    <a href='customer_login.php'><img src='../image/icon/login.png' alt='Login'></a>
+                                </div>";
+                            }
+                        ?>
                     </div>
                 </li>
             </ul>
@@ -99,12 +108,21 @@
 
                             ?>
                         </div>
-                        <div class="navIcon mx-2">
-                            <a href="customer_profile.php?cus_email={$cus_email}"><img src="../image/icon/profile.png" alt="profile"></a>
-                        </div> 
-                        <div class="navIcon mx-2">
-                            <a href="customer_logout.php"><img src="../image/icon/logout.png" alt="Logout"></a>
-                        </div>
+                        <?php 
+                            if (isset($_SESSION['cus_email'])){
+                                echo "<div class='navIcon mx-2'>
+                                    <a href='customer_profile.php?cus_email={$cus_email}'><img src='../image/icon/profile.png' alt='profile'></a>
+                                </div> ";
+                        
+                                echo "<div class='navIcon mx-2'>
+                                    <a href='customer_logout.php'><img src='../image/icon/logout.png' alt='Logout'></a>
+                                </div>";
+                            } else{
+                                echo "<div class='navIcon mx-2'>
+                                    <a href='customer_login.php'><img src='../image/icon/login.png' alt='Login'></a>
+                                </div>";
+                            }
+                        ?>
                     </div>
                 </li>
             </ul>

@@ -10,9 +10,9 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Update Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/designer.css" rel="stylesheet">
-    <link href='/fyp/css/update.css' rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href="../css/designer.css" rel="stylesheet">
+    <link href='../css/update.css' rel="stylesheet">
 
     <style>
     </style>
@@ -21,9 +21,9 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
         $designer_email = isset($_GET['designer_email']) ? $_GET['designer_email'] : die('ERROR: designer record not found.');
         ?>
         <div class="page-header mx-5 mt-5">
@@ -175,7 +175,7 @@ if (!isset($_SESSION["admin_email"])) {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?designer_email={$designer_email}"); ?>" method="post" enctype="multipart/form-data">
             <table class='profileDetailTable table table-hover table-responsive table-bordered'>
                 <tr>
-                    <td>Profile Image</td>
+                    <td>Designer Profile Image <span class="text-danger">*</span></td>
                     <td>
                         <div>
                             <div class='img-block m-2 d-flex'> 
@@ -202,27 +202,27 @@ if (!isset($_SESSION["admin_email"])) {
                     </td>
                 </tr>
                 <tr>
-                    <td class="col-5">Email</td>
+                    <td class="col-5">Email <span class="text-danger">*</span></td>
                     <td><?php echo htmlspecialchars($designer_email, ENT_QUOTES);  ?></td>
                 </tr>
                 <tr>
-                    <td>Password</td>
+                    <td>Password <span class="text-danger">*</span></td>
                     <td><input type='text' name='designer_pword' id="designer_pword" value="<?php echo htmlspecialchars($designer_pword, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>First Name</td>
+                    <td>First Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='designer_fname' id="designer_fname" value="<?php echo htmlspecialchars($designer_fname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Last Name</td>
+                    <td>Last Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='designer_lname' id="designer_lname" value="<?php echo htmlspecialchars($designer_lname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Phone Number</td>
+                    <td>Phone Number <span class="text-danger">*</span></td>
                     <td><input type="tel" name="designer_phnumber" id="designer_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($designer_phnumber, ENT_QUOTES);  ?>" class='form-control' ></td>
                 </tr>
                 <tr>
-                    <td>Gender</td>
+                    <td>Gender <span class="text-danger">*</span></td>
                     <td>
                         <div class="form-check">
                             <label>
@@ -241,7 +241,7 @@ if (!isset($_SESSION["admin_email"])) {
                     </td>
                 </tr>
                 <tr>
-                    <td>Qualification</td>
+                    <td>Qualification <span class="text-danger">*</span></td>
                     <td><input type='text' name='designer_qualification' id="designer_qualification" value="<?php echo htmlspecialchars($designer_qualification, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
             </table>

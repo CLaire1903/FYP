@@ -146,10 +146,11 @@ if (!isset($_SESSION["designer_email"])) {
                                         echo "<a href='product_detail.php?product_id={$product_id}' id='detail' class='listActionBtn btn m-1 m-lg-2'>Detail</a>";
                                         if ($designer_email != $_SESSION["designer_email"]) {
                                             echo "<a href='product_update.php?product_id=$product_id' id='update' class='d-none listActionBtn btn m-1 m-lg-2'>Update</a>";
+                                            echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='d-none listActionBtn btn m-1 m-lg-2'>Delete</a>";
                                         } else {
                                             echo "<a href='product_update.php?product_id=$product_id' id='update' class='listActionBtn btn m-1 m-lg-2'>Update</a>";
+                                            echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
                                         }
-                                        echo "<a href='#' onclick='delete_product({$product_id});' id='delete' class='listActionBtn btn m-1 m-lg-2'>Delete</a>";
                                         echo "</div>";
                                     echo "</td>";
                                 echo "</tr>";

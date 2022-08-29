@@ -5,7 +5,7 @@ if (!isset($_SESSION["admin_email"])) {
 }
 ?>
 <?php
-include 'C:\xampp\htdocs\fyp\config/dbase.php';
+include '../config/dbase.php';
 try {     
     $designer_email = isset($_GET['designer_email']) ? $_GET['designer_email'] :  die('ERROR: Designer not found.');
     $award_name = isset($_GET['award_name']) ? $_GET['award_name'] :  die('ERROR: Designer not found.');

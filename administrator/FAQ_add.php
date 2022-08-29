@@ -8,7 +8,7 @@ session_start();
     <title>Create FAQ
     </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
 
     <style>
         #FAQ {
@@ -20,8 +20,8 @@ session_start();
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config\dbase.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
         ?>
         <div class="faq d-flex flex-column justify-content-center">
@@ -72,11 +72,11 @@ session_start();
                 <div class="col-10">
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="message mx-3">
-                            <h5 class="mt-4 mb-0">Question : </h5>
+                            <h5 class="mt-4 mb-0">Question :  <span class="text-danger">*</span></h5>
                             <td><input type='text' name='faq_question' id="faq_question" value="<?php echo (isset($_POST['faq_question'])) ? $_POST['faq_question'] : ''; ?>" class='form-control' /></td>
                         </div>
                         <div class="message mx-3">
-                            <h5 class="mt-4 mb-0">Answer : </h5>
+                            <h5 class="mt-4 mb-0">Answer :  <span class="text-danger">*</span></h5>
                             <td><textarea type='text' name='faq_answer' id="faq_answer" class='form-control' rows="5"><?php echo (isset($_POST['faq_answer'])) ? $_POST['faq_answer'] : ''; ?></textarea></td>
                         </div>
                         <div class="button d-grid m-3 d-flex justify-content-center">

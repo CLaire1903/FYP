@@ -96,23 +96,23 @@ if (!isset($_SESSION["cus_email"])) {
                     <td><?php echo htmlspecialchars($cus_email, ENT_QUOTES);  ?></td>
                 </tr>
                 <tr>
-                    <td>First Name</td>
+                    <td>First Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_fname' id="cus_fname" value="<?php echo htmlspecialchars($cus_fname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Last Name</td>
+                    <td>Last Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_lname' id="cus_lname" value="<?php echo htmlspecialchars($cus_lname, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Address</td>
+                    <td>Address <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_address' id="cus_address" value="<?php echo htmlspecialchars($cus_address, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Phone Number</td>
+                    <td>Phone Number <span class="text-danger">*</span></td>
                     <td><input type="tel" name="cus_phnumber" id="cus_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($cus_phnumber, ENT_QUOTES);  ?>" class='form-control' ></td>
                 </tr>
                 <tr>
-                    <td>Gender</td>
+                    <td>Gender <span class="text-danger">*</span></td>
                     <td>
                         <div class="form-check">
                             <label>
@@ -131,7 +131,7 @@ if (!isset($_SESSION["cus_email"])) {
                     </td>
                 </tr>
                 <tr>
-                    <td>Date Of Birth</td>
+                    <td>Date Of Birth <span class="text-danger">*</span></td>
                     <td><input type='date' name='cus_bday' id="cus_bday" value="<?php echo htmlspecialchars($cus_bday, ENT_QUOTES);  ?>" class='form-control' /></td>
                 </tr>
             </table>

@@ -97,13 +97,13 @@ session_start();
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="dropMessage">
                             <div class="message">
-                                <p>Email : </p>
+                                <p>Email :  <span class="text-danger">*</span></p>
                                 <td><input type='text' name='cus_email' id="cus_email" value="<?php echo (isset($_POST['cus_email'])) ? $_POST['cus_email'] : ''; ?>" class='form-control' /></td>
                             </div>
                         </div>
                         <div class="dropMessage">
                             <div class="message">
-                                <p class="mt-3">Feedback Message : </p>
+                                <p class="mt-3">Feedback Message :  <span class="text-danger">*</span></p>
                                 <td><textarea type='text' name='feedback_detail' id="feedback_detail" class='form-control' rows="10"><?php echo (isset($_POST['feedback_detail'])) ? $_POST['feedback_detail'] : ''; ?></textarea></td>
                             </div>
                         </div>

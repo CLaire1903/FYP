@@ -10,11 +10,10 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Order list</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/list.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href="../css/list.css" rel="stylesheet">
 
     <style>
-        /*can be found at navigation page*/
         #order, #orderList {
             font-weight: bold;
         }
@@ -27,8 +26,8 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php
-            include 'C:\xampp\htdocs\fyp\config/dbase.php';
-            include 'C:\xampp\htdocs\fyp\alertIcon.php';
+            include '../config/dbase.php';
+            include '../alertIcon.php';
             include 'navigationBar.php';
         ?>
 
@@ -36,7 +35,7 @@ if (!isset($_SESSION["admin_email"])) {
             <h1 class="header p-2 text-center my-5 rounded-pill">Order List</h1>
             <?php $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'updateFail') {
-                echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                echo "<div class='alert alert-danger d-flex align-items-center mt-5 mx-5' role='alert'>
                         <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                     <div>
                         Order fail to update.
@@ -44,7 +43,7 @@ if (!isset($_SESSION["admin_email"])) {
                     </div>";
             }
             if ($action == 'updated') {
-                echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
+                echo "<div class='alert alert-success d-flex align-items-center mt-5 mx-5' role='alert'>
                         <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
                         <div>
                             Order updated successfully.
@@ -53,7 +52,7 @@ if (!isset($_SESSION["admin_email"])) {
             }
             $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'noOrder') {
-                echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                echo "<div class='alert alert-danger d-flex align-items-center mt-5 mx-5' role='alert'>
                         <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                     <div>
                         Order fail to create.
@@ -61,7 +60,7 @@ if (!isset($_SESSION["admin_email"])) {
                     </div>";
             }
             if ($action == 'ordered') {
-                echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
+                echo "<div class='alert alert-success d-flex align-items-center mt-5 mx-5' role='alert'>
                         <svg class='alerticon me-2' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
                         <div>
                             New Order created.
@@ -78,14 +77,14 @@ if (!isset($_SESSION["admin_email"])) {
                     $search = "%" . $_POST['search'] . "%";
                     $where = "WHERE order_id LIKE :search OR cus_email LIKE :search";
                 } catch (PDOException $exception) {
-                    echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                    echo "<div class='alert alert-danger d-flex align-items-center mt-5 mx-5' role='alert'>
                             <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                         <div>
                             " . $exception->getMessage() . "
                         </div>
                     </div>";
                 } catch (Exception $exception) {
-                    echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+                    echo "<div class='alert alert-danger d-flex align-items-center mt-5 mx-5' role='alert'>
                             <svg class='alerticon me-2' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
                         <div>
                             " . $exception->getMessage() . "

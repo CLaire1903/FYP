@@ -10,8 +10,8 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Update Order</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href="/fyp/css/order.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href="../css/order.css" rel="stylesheet">
 
     <style>
         .form-control[readonly]{
@@ -24,14 +24,15 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php
-            include 'C:\xampp\htdocs\fyp\config/dbase.php'; 
-            include 'C:\xampp\htdocs\fyp\alertIcon.php';
+            include '../config/dbase.php';
+            include '../alertIcon.php';
             include 'navigationBar.php';
             $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : die('ERROR: 
             Order record not found.');
         ?>
         <div class="mx-5 mt-5">
             <h1 class="text-center mt-5">Update Order</h1>
+            
             <?php
                 if($_POST){
                     try {
@@ -132,7 +133,7 @@ if (!isset($_SESSION["admin_email"])) {
                         <td><?php echo htmlspecialchars($order_datentime, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr class="border-start">
-                        <th class="d-flex border-0">Order Status</td>
+                        <th class="d-flex border-0">Order Status <span class="text-danger">*</span></td>
                         <td>
                             <div class="form-check">
                                 <label>
@@ -243,19 +244,19 @@ if (!isset($_SESSION["admin_email"])) {
                         <h2 class="mt-5">Billing Details</h2>
                     </tr>
                     <tr class="border"> 
-                        <th class="col-4 d-flex align-self-center border-0 px-3">Name</th>
+                        <th class="col-4 d-flex align-self-center border-0 px-3">Name <span class="text-danger">*</span></th>
                         <td><input type='text' name='shipping_name' id="shipping_name" value="<?php echo htmlspecialchars($shipping_name, ENT_QUOTES); ?>" class='form-control'/></td>
                     </tr>
                     <tr class="border">
-                        <th class="d-flex align-self-center border-0 px-3">Phone Number</th>
+                        <th class="d-flex align-self-center border-0 px-3">Phone Number <span class="text-danger">*</span></th>
                         <td><input type="tel" name="shipping_phnumber" id="shipping_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($shipping_phnumber, ENT_QUOTES); ?>" class='form-control' ></td>
                     </tr>
                     <tr class="border">
-                        <th class="d-flex align-self-center border-0 px-3">Address</th>
+                        <th class="d-flex align-self-center border-0 px-3">Address <span class="text-danger">*</span></th>
                         <td><textarea type='text' name='shipping_address' id="shipping_address" class='form-control' rows="3"><?php echo htmlspecialchars($shipping_address, ENT_QUOTES); ?></textarea></td>
                     </tr>
                     <tr class="border">
-                        <th class="d-flex align-self-center border-0 px-3">Postcode</th>
+                        <th class="d-flex align-self-center border-0 px-3">Postcode <span class="text-danger">*</span></th>
                         <td><input type="tel" name="shipping_postcode" id="shipping_postcode" placeholder="12345" pattern="[0-9]{5}" value="<?php echo htmlspecialchars($shipping_postcode, ENT_QUOTES); ?>" class='form-control' ></td>
                     </tr>
                 </thead>
@@ -270,7 +271,7 @@ if (!isset($_SESSION["admin_email"])) {
                         <td><input type='text' name='order_depositpaid' id="order_depositpaid" value="<?php echo htmlspecialchars($order_depositpaid, ENT_QUOTES); ?>" class='form-control'/></td>
                     </tr>
                     <tr class="border">
-                        <th class="d-flex align-self-center border-0">Payment method</th>
+                        <th class="d-flex align-self-center border-0">Payment method <span class="text-danger">*</span></th>
                         <td>
                             <div class="form-check">
                                 <label>

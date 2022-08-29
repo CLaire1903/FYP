@@ -104,14 +104,16 @@ if (!isset($_SESSION["designer_email"])) {
                                 $customized_img = $default;
                             }
                         }
+
+                        if ($file != "") {
+                            unlink($customized_img);
+                        }
         
                         if ($folder != "") {
                             if($customized_img == $default){
                                 $customizedImg = "customized_image=:customized_image";
                             } else {
-                                if(unlink($customized_img)){
-                                    $customizedImg = "customized_image=:customized_image";
-                                }
+                                $customizedImg = "customized_image=:customized_image";
                             }
                         }
 
@@ -195,23 +197,23 @@ if (!isset($_SESSION["designer_email"])) {
                     </td>
                 </tr>
                 <tr>
-                    <td>Customer Email</td>
+                    <td>Customer Email <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_email' id="cus_email" value="<?php echo htmlspecialchars($cus_email, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Customer Name</td>
+                    <td>Customer Name <span class="text-danger">*</span></td>
                     <td><input type='text' name='cus_name' id="cus_name" value="<?php echo htmlspecialchars($cus_name, ENT_QUOTES); ?>" class='form-control' /></td>
                 </tr>
                 <tr>
-                    <td>Phone Number</td>
+                    <td>Phone Number <span class="text-danger">*</span></td>
                     <td><input type="tel" name="cus_phnumber" id="cus_phnumber" placeholder="012-3456789 or 011-23456789" pattern="[0-9]{3}-[0-9]{7,8}" value="<?php echo htmlspecialchars($cus_phnumber, ENT_QUOTES);  ?>" class='form-control' ></td>
                 </tr>
                 <tr>
-                    <td>Customer Requirement</td>
+                    <td>Customer Requirement <span class="text-danger">*</span></td>
                     <td><textarea type='text' name='customized_detail' id="customized_detail"  rows="5" class='form-control'><?php echo htmlspecialchars($customized_detail, ENT_QUOTES); ?></textarea></td>
                 </tr>
                 <tr>
-                    <td>Collect Date</td>
+                    <td>Collect Date <span class="text-danger">*</span></td>
                     <td><input type='date' name='customized_collectdate' id="customized_collectdate" value="<?php echo htmlspecialchars($customized_collectdate, ENT_QUOTES);  ?>" class='form-control' /></td>
                 </tr>
             </table>

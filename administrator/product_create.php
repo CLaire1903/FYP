@@ -10,7 +10,7 @@ if (!isset($_SESSION["admin_email"])) {
 <head>
     <title>Add New Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
 
     <style>
         #product, #addProduct {
@@ -23,8 +23,8 @@ if (!isset($_SESSION["admin_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
         ?>
         <div class="page-header mx-5">
@@ -137,7 +137,7 @@ if (!isset($_SESSION["admin_email"])) {
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-responsive table-bordered'>
                     <tr>
-                        <td>Product Image</td>
+                        <td>Product Image <span class="text-danger">*</span></td>
                         <td><input type='file' name='product_image' id="product_image" value="<?php echo (isset($_FILES["product"]["name"])) ? $_FILES["product"]["name"] : ''; ?>" class='form-control' /></td>
                     </tr>
                     <tr>

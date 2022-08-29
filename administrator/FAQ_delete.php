@@ -5,7 +5,7 @@ if (!isset($_SESSION["admin_email"])) {
 }
 ?>
 <?php
-include 'C:\xampp\htdocs\fyp\config/dbase.php';
+include '../config/dbase.php';
 try {     
     $faq_id = isset($_GET['faq_id']) ? $_GET['faq_id'] :  die('ERROR: FAQ ID not found.');
 

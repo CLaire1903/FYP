@@ -10,7 +10,7 @@ if (!isset($_SESSION["designer_email"])) {
 <head>
     <title>Add New Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
 
     <style>
         #product, #addProduct {
@@ -23,8 +23,8 @@ if (!isset($_SESSION["designer_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
         ?>
         <div class="page-header mx-5">

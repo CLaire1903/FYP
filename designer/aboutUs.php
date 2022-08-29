@@ -7,7 +7,7 @@ session_start();
 <head>
     <title>About Us</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
 
     <style>
         #aboutUs {
@@ -19,7 +19,7 @@ session_start();
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config\dbase.php';
+        include '../config/dbase.php';
         include 'navigationBar.php';
         ?>
         <div class="aboutUs d-flex flex-column justify-content-center">

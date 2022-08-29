@@ -10,8 +10,8 @@ if (!isset($_SESSION["designer_email"])) {
 <head>
     <title>Update Custom Made</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
-    <link href='/fyp/css/update.css' rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
+    <link href='../css/update.css' rel="stylesheet">
 
     <style>
         .customizedImage {
@@ -24,9 +24,9 @@ if (!isset($_SESSION["designer_email"])) {
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include '../config/dbase.php';
+        include '../alertIcon.php';
         include 'navigationBar.php';
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
         $customized_id = isset($_GET['customized_id']) ? $_GET['customized_id'] : die('ERROR: Custom Made record not found.');
         ?>
         <div class="page-header mx-5 mt-5">

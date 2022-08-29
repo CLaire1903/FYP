@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\fyp\config/dbase.php';
+include '../config/dbase.php';
 try {     
     $product_id = isset($_GET['product_id']) ? $_GET['product_id'] :  die('ERROR: Record ID not found.');
 

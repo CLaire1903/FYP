@@ -19,7 +19,7 @@ session_start();
 <body>
     <div class="container-fluid p-0">
         <?php 
-        include 'C:\xampp\htdocs\fyp\config/dbase.php';
+        include '../config/dbase.php';
         include 'navigationBar.php';
         ?>
         

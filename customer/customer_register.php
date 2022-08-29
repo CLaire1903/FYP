@@ -4,7 +4,7 @@
 <head>
     <title>Customer - Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href="/fyp/css/shared.css" rel="stylesheet">
+    <link href="../css/shared.css" rel="stylesheet">
 </head>
 
 <style>
@@ -21,7 +21,8 @@
 <body class="register container-flex">
     <div class="container">
         <?php
-        include 'C:\xampp\htdocs\fyp\alertIcon.php';
+            include '../config/dbase.php';
+            include '../alertIcon.php';
         ?>
         <div class="page-header mt-5">
             <div class="d-flex flex-column">
@@ -36,7 +37,6 @@
         </div>
         <?php
         if ($_POST) {
-            include 'C:\xampp\htdocs\fyp\config/dbase.php';
             try {
                 if (empty($_POST['cus_email']) || empty($_POST['cus_pword']) || empty($_POST['cus_cpword']) || empty($_POST['cus_fname']) || empty($_POST['cus_lname']) || empty($_POST['cus_address']) || empty($_POST['cus_phnumber']) || empty($_POST['cus_gender']) || empty($_POST['cus_bday'])) {
                     throw new Exception("Make sure all fields are not empty");

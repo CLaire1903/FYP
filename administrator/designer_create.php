@@ -65,7 +65,7 @@ if (!isset($_SESSION["admin_email"])) {
                             throw new Exception("Please make sure the ratio of the photo is 1:1.");
                         }
 
-                        if ($_FILES["product_image"]["size"] > 512000) {
+                        if ($_FILES["designer_image"]["size"] > 512000) {
                             $isUploadOK = 0;
                             throw new Exception("Sorry, your photo is too large. Only 512KB is allowed!");
                         }

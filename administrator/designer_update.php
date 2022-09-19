@@ -105,8 +105,10 @@ if (!isset($_SESSION["admin_email"])) {
                             }
                         }
         
-                        if ($file != "") {
-                            unlink($designer_img);
+                        if ($file != ""){
+                            if ($getDesignerRow['designer_image'] != $default){
+                                unlink($designer_img);
+                            }
                         }
         
                         if ($folder != "") {

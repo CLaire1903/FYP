@@ -27,7 +27,7 @@
         <div class="page-header mt-5">
             <div class="d-flex flex-column">
                 <div class="storeLogo d-flex justify-content-center ">
-                    <a href="index.php"><img src="/fyp/image/logo/logoB.png"></a>
+                    <a href="index.php"><img src="../image/logo/mm-logoB.png"></a>
                 </div>
                 <div class="d-flex justify-content-center">
                     <h2 class="p-1">Register new account.</h2>

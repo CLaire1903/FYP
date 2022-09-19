@@ -72,7 +72,7 @@
             ?>
             <div class="loginDetail p-2 mx-auto col-lg-7">
                 <div id="logo" class="d-flex justify-content-center ">
-                    <img src="/fyp/image/logo/logoB.png"></a>
+                    <img src="../image/logo/mm-logoB.png"></a>
                 </div>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <h2 class="instruction mt-3 text-center">Designer Login</h2>

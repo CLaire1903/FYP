@@ -50,8 +50,8 @@ if (!isset($_SESSION["admin_email"])) {
         <div class="text-center my-5 mx-5">
             <h1 class="header p-2 fw-bold rounded-pill">SUMMARY</h1>
         </div>
-        <div class="d-flex justify-content-center">
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
+        <div class="d-flex flex-row flex-wrap justify-content-center">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2 mb-2">
                 <div class="pic p-1">
                 <a href=customer_list.php><img class="image" src="../image/icon/customer.png"></a>
                 </div>
@@ -63,7 +63,7 @@ if (!isset($_SESSION["admin_email"])) {
                 echo "<a class='count' href=customer_list.php> <h6 class='p-2 text-dark'>$customerNum customers</h6> </a>";
                 ?>
             </div>
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2 mb-2">
                 <div class="pic p-1">
                 <a href=product_list.php><img class="image" src="../image/icon/product.png"></a>
                 </div>
@@ -75,7 +75,7 @@ if (!isset($_SESSION["admin_email"])) {
                 echo "<a class='count' href=product_list.php> <h6 class='p-2 text-dark'>$productNum products</h6> </a>";
                 ?>
             </div>
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2 mb-2">
                 <div class="pic p-1">
                 <a href=order_list.php><img class="image" src="../image/icon/order.png"></a>
                 </div>
@@ -87,7 +87,7 @@ if (!isset($_SESSION["admin_email"])) {
                 echo "<a class='count' href=order_list.php> <h6 class='p-2 text-dark'>$orderNum orders</h6> </a>";
                 ?>
             </div>
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2 mb-2">
                 <div class="pic p-1">
                 <a href=staff_list.php><img class="image" src="../image/icon/staff.png"></a>
                 </div>
@@ -99,7 +99,7 @@ if (!isset($_SESSION["admin_email"])) {
                 echo "<a class='count' href=staff_list.php> <h6 class='p-2 text-dark'>$adminNum staffs</h6> </a>";
                 ?>
             </div>
-            <div class="quickInfo card text-center col-3 col-lg-2 mx-2">
+            <div class="quickInfo card text-center col-3 col-lg-2 mx-2 mb-2">
                 <div class="pic p-1">
                 <a href=designer_list.php><img class="image" src="../image/icon/designer.png"></a>
                 </div>

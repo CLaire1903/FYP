@@ -9,7 +9,7 @@ try {
     $checkStmt->execute();
     $num = $checkStmt->rowCount();
 
-    $checkCustomizedQuery = "SELECT * FROM custoized WHERE designer_email = ?";
+    $checkCustomizedQuery = "SELECT * FROM customized WHERE designer_email = ?";
     $checkCustomizedStmt = $con->prepare($checkCustomizedQuery);
     $checkCustomizedStmt->bindParam(1, $designer_email);
     $checkCustomizedStmt->execute();

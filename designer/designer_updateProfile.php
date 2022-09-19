@@ -65,6 +65,10 @@ if (!isset($_SESSION["designer_email"])) {
                             throw new Exception("Please make sure all fields are not empty!");
                         }
 
+                        if ($file == "") {
+                            throw new Exception("Please upload an image");
+                        }
+
                         if ($file != "") {
 
                             $imageFileType = strtolower(pathinfo($folder, PATHINFO_EXTENSION));
@@ -100,8 +104,10 @@ if (!isset($_SESSION["designer_email"])) {
                             }
                         }
 
-                        if ($file != "") {
-                            unlink($designer_img);
+                        if ($file != ""){
+                            if ($getDesignerRow['designer_image'] != $default){
+                                unlink($designer_img);
+                            }
                         }
         
                         if ($folder != "") {

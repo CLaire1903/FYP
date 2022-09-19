@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid d-flex justify-content-lg-between">
         <div class="storeLogo d-none d-lg-block">
-            <a href="index.php"><img src="../image/logo/logoB.png"></a>
+            <a href="index.php"><img src="../image/logo/mm-logoB.png"></a>
         </div>
         <button class="navbar-toggler ml-auto custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="storeLogo d-lg-none ">
-            <a href="index.php"><img src="../image/logo/logoB.png"></a>
+            <a href="index.php"><img src="../image/logo/mm-logoB.png"></a>
         </div>
         <div class="d-lg-none">
             <ul class="nav justify-content-center">
